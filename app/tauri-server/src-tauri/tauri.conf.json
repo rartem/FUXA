@@ -1,0 +1,24 @@
+{
+  "productName": "FUXA Server",
+  "version": "1.0.0",
+  "identifier": "com.fuxa.server",
+  "build": {
+    "frontendDist": "../src"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "security": {
+      "csp": "default-src 'self' 'unsafe-inline' 'unsafe-eval' http: https: ws: wss: tauri:; connect-src * ws: wss: http: https: tauri:; img-src * data: blob:; font-src 'self' data:"
+    },
+    "windows": [
+      {
+        "title": "FUXA Server",
+        "width": 900,
+        "height": 700,
+        "minWidth": 700,
+        "minHeight": 500,
+        "center": true
+      }
+    ]
+  }
+}
