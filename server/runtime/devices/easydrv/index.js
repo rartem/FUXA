@@ -240,8 +240,10 @@ class LuaEngine {
 // ---------------------------------------------------------------------------
 function makeLuaSetCmd(tagAddress, value) {
     if (!tagAddress) return '';
+    // Strip 't.' prefix (Lua global table used for browse/read, not for set_cmd)
+    var addr = tagAddress.startsWith('t.') ? tagAddress.substring(2) : tagAddress;
     // Parse address: "DEVICE.property[n]" or "DEVICE.property"
-    const match = tagAddress.match(/^(.+)\.([A-Za-z_]\w*)\[?(\d*)\]?$/);
+    const match = addr.match(/^(.+)\.([A-Za-z_]\w*)\[?(\d*)\]?$/);
     if (!match) return '';
     const objName = match[1];
     const prop = match[2];
@@ -532,14 +534,25 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
     };
 
     // ── Execute device command (set tag) — CMD 102 ──
-    // Payload: [102, ...lua_command_string]
-    var _execCommand = async function (cmdStr) {
+    // Fire-and-forget: sends frame directly without using _sendFrame to avoid
+    // incrementing the shared packetIndex and desynchronizing polling responses.
+    var _execCommand = function (cmdStr) {
+        if (!socket || socket.destroyed) {
+            throw new Error('socket not connected');
+        }
         var cmdBytes = Buffer.from(cmdStr, 'utf8');
-        var cmdBuf = Buffer.alloc(1 + cmdBytes.length);
-        cmdBuf[0] = CMD.EXEC_CMD;
-        cmdBytes.copy(cmdBuf, 1);
-        recvBuffer = Buffer.alloc(0);
-        await _sendFrame(cmdBuf);
+        var dataLen = 1 + cmdBytes.length + 1; // CMD byte + lua string + null terminator
+        var frame = Buffer.alloc(HEADER_SIZE + dataLen);
+        frame[0] = FRAME_MARKER;
+        frame[1] = SERVICE_ID;
+        frame[2] = FRAME_SINGLE;
+        frame[3] = 0; // fixed index — not tracked by polling
+        frame[4] = (dataLen >> 8) & 0xFF;
+        frame[5] = dataLen & 0xFF;
+        frame[HEADER_SIZE] = CMD.EXEC_CMD;
+        cmdBytes.copy(frame, HEADER_SIZE + 1);
+        frame[HEADER_SIZE + 1 + cmdBytes.length] = 0; // null terminator for C++ side
+        socket.write(frame);
     };
 
     // ── Resolve tag value from Lua state (dotted path) ──
@@ -896,15 +909,16 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
             if (!tag) return false;
 
             var raw = await deviceUtils.tagRawCalculator(value, tag, runtime);
-            var addr = tag.address || tag.name || '';
-            var luaCmd = makeLuaSetCmd(addr, raw);
+            var fullAddr = tag.address || tag.name || '';
+            var addr = fullAddr.startsWith('t.') ? fullAddr.substring(2) : fullAddr;
+            var luaCmd = makeLuaSetCmd(fullAddr, raw);
             if (luaCmd) {
-                await _execCommand(luaCmd);
+                _execCommand(luaCmd);
                 logger.info(`'${data.name}' setValue(${tag.name}, ${raw})`, true, true);
                 return true;
             } else {
                 var cmdStr = `${addr} = ${typeof raw === 'string' ? '"' + raw + '"' : raw}`;
-                await _execCommand(cmdStr);
+                _execCommand(cmdStr);
                 return true;
             }
         } catch (err) {

@@ -38,6 +38,10 @@
             </div>
         </ng-container>
         <ng-template #addTag>
+            <div class="my-form-field item-block" style="margin: 8px 10px 4px 10px;">
+                <span>{{'device.tag-prefix' | translate}}</span>
+                <input type="text" [(ngModel)]="prefix" placeholder="{{'device.tag-prefix-placeholder' | translate}}">
+            </div>
             <div style="overflow: auto; margin: 0px 10px">
                 <ngx-treetable #treetable [config]="config" (expand)="queryNext($event)"></ngx-treetable>
             </div>

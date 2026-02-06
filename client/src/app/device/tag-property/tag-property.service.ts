@@ -573,9 +573,11 @@ export class TagPropertyService {
 
         return dialogRef.componentInstance.result.pipe(
             map((result: TagPropertyEasyDrvData) => {
+                const prefix = result?.prefix?.trim();
                 result?.nodes.forEach((n: Node) => {
                     let tag = new Tag(Utils.getGUID(TAG_PREFIX));
-                    tag.name = n.text;
+                    const nameFromId = n.id.startsWith('t.') ? n.id.substring(2) : n.id;
+                    tag.name = prefix ? (prefix + '.' + n.text) : nameFromId;
                     tag.label = n.text;
                     tag.type = n.type;
                     tag.address = n.id;

@@ -18,6 +18,7 @@ export class TagPropertyEditEasyDrvComponent implements OnInit, OnDestroy {
     private destroy$ = new Subject<void>();
     @ViewChild(TreetableComponent, {static: false}) treetable: TreetableComponent;
     tagType = EasyDrvTagType;
+    prefix = '';
 
     config = {
         height: '640px',
@@ -110,6 +111,7 @@ export class TagPropertyEditEasyDrvComponent implements OnInit, OnDestroy {
             this.result.emit(this.formGroup.getRawValue());
         } else {
             this.data.nodes = [];
+            this.data.prefix = this.prefix;
             Object.keys(this.treetable.nodes).forEach((key) => {
                 let n: Node = this.treetable.nodes[key];
                 if (n.checked && n.enabled && (n.type || !n.childs || n.childs.length == 0)) {
@@ -125,4 +127,5 @@ export interface TagPropertyEasyDrvData {
     device: Device;
     nodes?: Node[];
     tag?: Tag;
+    prefix?: string;
 }

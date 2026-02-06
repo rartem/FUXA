@@ -1127,6 +1127,8 @@
     "device.browsetag-property-title": "Browse Tags in Server",
     "device.tag-property-device": "Device",
     "device.tag-property-name": "Tagname",
+    "device.tag-prefix": "Name prefix",
+    "device.tag-prefix-placeholder": "e.g. prefix1",
     "device.tag-property-register": "Register",
     "device.tag-property-type": "Type",
     "device.tag-property-address": "Address (ex. db5.dbb3 db4.dbx2.0 MB7)",
