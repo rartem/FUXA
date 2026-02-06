@@ -22,6 +22,7 @@ import { TagPropertyEditWebcamComponent, TagPropertyWebcamData } from './tag-pro
 import { TagPropertyEditMelsecComponent } from './tag-property-edit-melsec/tag-property-edit-melsec.component';
 import { TagPropertyEditRedisComponent, TagPropertyRedisData } from './tag-property-edit-redis/tag-property-edit-redis.component';
 import { TagPropertyRedisScanComponent, TagPropertyRedisScanData } from './tag-property-edit-redis/tag-property-redis-scan/tag-property-redis-scan.component';
+import { TagPropertyEditEasyDrvComponent, TagPropertyEasyDrvData } from './tag-property-edit-easydrv/tag-property-edit-easydrv.component';
 
 @Injectable({
     providedIn: 'root'
@@ -522,6 +523,68 @@ export class TagPropertyService {
                     }
                     this.projectService.setDeviceTags(device);
                 }
+                dialogRef.close();
+                return result;
+            })
+        );
+    }
+
+    public editTagPropertyEasyDrv(device: Device, tag: Tag, checkToAdd: boolean): Observable<any> {
+        let oldTagId = tag.id;
+        let tagToEdit: Tag = Utils.clone(tag);
+        let dialogRef = this.dialog.open(TagPropertyEditEasyDrvComponent, {
+            disableClose: true,
+            data: <TagPropertyEasyDrvData>{
+                device: device,
+                tag: tagToEdit
+            },
+            position: { top: '60px' }
+        });
+
+        return dialogRef.componentInstance.result.pipe(
+            map(result => {
+                if (result) {
+                    tag.name = result.tagName;
+                    tag.address = result.tagAddress;
+                    tag.type = result.tagType;
+                    tag.description = result.tagDescription;
+                    if (checkToAdd) {
+                        this.checkToAdd(tag, device);
+                    } else if (tag.id !== oldTagId) {
+                        delete device.tags[oldTagId];
+                        this.checkToAdd(tag, device);
+                    }
+                    this.projectService.setDeviceTags(device);
+                }
+                dialogRef.close();
+                return result;
+            })
+        );
+    }
+
+    public browseTagsEasyDrv(device: Device, tagsMap?: any): Observable<any> {
+        let dialogRef = this.dialog.open(TagPropertyEditEasyDrvComponent, {
+            disableClose: true,
+            position: { top: '60px' },
+            data: <TagPropertyEasyDrvData>{
+                device: device,
+            },
+        });
+
+        return dialogRef.componentInstance.result.pipe(
+            map((result: TagPropertyEasyDrvData) => {
+                result?.nodes.forEach((n: Node) => {
+                    let tag = new Tag(Utils.getGUID(TAG_PREFIX));
+                    tag.name = n.text;
+                    tag.label = n.text;
+                    tag.type = n.type;
+                    tag.address = n.id;
+                    this.checkToAdd(tag, result.device);
+                    if (tagsMap) {
+                        tagsMap[tag.id] = tag;
+                    }
+                });
+                this.projectService.setDeviceTags(device);
                 dialogRef.close();
                 return result;
             })

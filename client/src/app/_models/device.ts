@@ -249,7 +249,8 @@ export enum DeviceType {
     GPIO = 'GPIO',
     WebCam = 'WebCam',
     MELSEC = 'MELSEC',
-    REDIS = 'REDIS'
+    REDIS = 'REDIS',
+    EasyDrv = 'EasyDrv'
     // Template: 'template'
 }
 
@@ -353,6 +354,12 @@ export class RedisOptions {
             args: []
           }
     };
+}
+
+export enum EasyDrvTagType {
+    Number = 'number',
+    Boolean = 'boolean',
+    String = 'string'
 }
 
 export enum ModbusOptionType {

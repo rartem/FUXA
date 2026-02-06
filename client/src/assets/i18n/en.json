@@ -1086,6 +1086,10 @@
     "device.property-redis-scan-select": "Select all (filtered)",
     "device.property-redis-scan-scanning": "Scanning…",
     "device.property-redis-scan-found": "Found",
+    "device.property-easydrv-address": "PAC IP Address",
+    "device.property-easydrv-port": "Port",
+    "device.property-easydrv-timeout": "Timeout (ms)",
+    "device.property-easydrv-pacname": "PAC Name",
 
     "device.browsetopics-property-title": "Broker Topics to subscribe and publish",
     "device.browsetopics-property-sub": "Subscribe",

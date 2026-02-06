@@ -203,7 +203,7 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
     }
 
     onAddTag() {
-        if (this.deviceSelected.type === DeviceType.OPCUA || this.deviceSelected.type === DeviceType.BACnet || this.deviceSelected.type === DeviceType.WebAPI) {
+        if (this.deviceSelected.type === DeviceType.OPCUA || this.deviceSelected.type === DeviceType.BACnet || this.deviceSelected.type === DeviceType.WebAPI || this.deviceSelected.type === DeviceType.EasyDrv) {
             this.addOpcTags();
         } else if (this.deviceSelected.type === DeviceType.MQTTclient) {
             this.editTopics();
@@ -228,6 +228,12 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
         }
         if (this.deviceSelected.type === DeviceType.WebAPI) {
             this.tagPropertyService.editTagPropertyWebapi(this.deviceSelected, this.tagsMap).subscribe(result => {
+                this.bindToTable(this.deviceSelected.tags);
+            });
+            return;
+        }
+        if (this.deviceSelected.type === DeviceType.EasyDrv) {
+            this.tagPropertyService.browseTagsEasyDrv(this.deviceSelected, this.tagsMap).subscribe(result => {
                 this.bindToTable(this.deviceSelected.tags);
             });
             return;
@@ -276,7 +282,8 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
         if (type === DeviceType.SiemensS7 || type === DeviceType.ModbusTCP || type === DeviceType.ModbusRTU ||
             type === DeviceType.internal || type === DeviceType.EthernetIP || type === DeviceType.FuxaServer ||
             type === DeviceType.OPCUA || type === DeviceType.GPIO || type === DeviceType.ADSclient ||
-            type === DeviceType.WebCam || type === DeviceType.MELSEC || type === DeviceType.REDIS) {
+            type === DeviceType.WebCam || type === DeviceType.MELSEC || type === DeviceType.REDIS ||
+            type === DeviceType.EasyDrv) {
             return true;
         } else if (type === DeviceType.MQTTclient) {
             if (tag && tag.options && (tag.options.pubs || tag.options.subs)) {
@@ -359,6 +366,13 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
         }
         if (this.deviceSelected.type === DeviceType.REDIS) {
             this.tagPropertyService.editTagPropertyRedis(this.deviceSelected, tag, checkToAdd).subscribe(result => {
+                this.tagsMap[tag.id] = tag;
+                this.bindToTable(this.deviceSelected.tags);
+            });
+            return;
+        }
+        if (this.deviceSelected.type === DeviceType.EasyDrv) {
+            this.tagPropertyService.editTagPropertyEasyDrv(this.deviceSelected, tag, checkToAdd).subscribe(result => {
                 this.tagsMap[tag.id] = tag;
                 this.bindToTable(this.deviceSelected.tags);
             });

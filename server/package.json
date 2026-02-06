@@ -49,6 +49,7 @@
     "socket.io": "4.8.1",
     "sqlite3": "5.1.5",
     "swagger-ui-express": "^5.0.1",
+    "wasmoon": "^1.16.0",
     "winston": "3.7.2",
     "ws": "8.18.0",
     "yamljs": "^0.3.0"
