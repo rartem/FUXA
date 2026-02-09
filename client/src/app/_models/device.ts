@@ -250,7 +250,8 @@ export enum DeviceType {
     WebCam = 'WebCam',
     MELSEC = 'MELSEC',
     REDIS = 'REDIS',
-    EasyDrv = 'EasyDrv'
+    EasyDrv = 'EasyDrv',
+    MPS = 'MPS'
     // Template: 'template'
 }
 
@@ -357,6 +358,12 @@ export class RedisOptions {
 }
 
 export enum EasyDrvTagType {
+    Number = 'number',
+    Boolean = 'boolean',
+    String = 'string'
+}
+
+export enum MpsTagType {
     Number = 'number',
     Boolean = 'boolean',
     String = 'string'

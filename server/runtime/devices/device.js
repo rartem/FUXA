@@ -19,6 +19,7 @@ var WebCamClient = require('./webcam');
 var MELSECclient = require('./melsec');
 var REDISclient = require('./redis');
 var EASYDRVclient = require('./easydrv');
+var MPSclient = require('./mps');
 
 const path = require('path');
 const utils = require('../utils');
@@ -125,6 +126,11 @@ function Device(data, runtime) {
             return null;
         }
         comm = EASYDRVclient.create(data, logger, events, manager, runtime);
+    } else if (data.type === DeviceEnum.MPS) {
+        if (!MPSclient) {
+            return null;
+        }
+        comm = MPSclient.create(data, logger, events, manager, runtime);
     }
     // else if (data.type === DeviceEnum.Template) {
     //     if (!TEMPLATEclient) {
@@ -321,6 +327,12 @@ function Device(data, runtime) {
                     reject(err);
                 });
             } else if (data.type === DeviceEnum.EasyDrv) {
+                comm.browse(path, callback).then(function (result) {
+                    resolve(result);
+                }).catch(function (err) {
+                    reject(err);
+                });
+            } else if (data.type === DeviceEnum.MPS) {
                 comm.browse(path, callback).then(function (result) {
                     resolve(result);
                 }).catch(function (err) {
@@ -599,6 +611,7 @@ var DeviceEnum = {
     MELSEC: 'MELSEC',
     REDIS: 'REDIS',
     EasyDrv: 'EasyDrv',
+    MPS: 'MPS',
     // Template: 'template'
 }
 

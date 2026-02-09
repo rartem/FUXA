@@ -1090,6 +1090,9 @@
     "device.property-easydrv-port": "Port",
     "device.property-easydrv-timeout": "Timeout (ms)",
     "device.property-easydrv-pacname": "PAC Name",
+    "device.property-mps-address": "MPS IP Address",
+    "device.property-mps-port": "Port",
+    "device.property-mps-timeout": "Timeout (ms)",
 
     "device.browsetopics-property-title": "Broker Topics to subscribe and publish",
     "device.browsetopics-property-sub": "Subscribe",
