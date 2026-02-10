@@ -3,7 +3,7 @@
  * Based on the C++ EasyDriver implementation (PAC_cmmctr).
  * Communicates via TCP/IP with binary framing; responses are Lua strings
  * that set global variables and the tags table.
- * Uses wasmoon (Lua 5.4 WASM VM) for reliable Lua response parsing.
+ * Uses fengari (Lua 5.3 in pure JavaScript) for reliable Lua response parsing.
  */
 
 'use strict';
@@ -12,7 +12,10 @@ const net = require('net');
 const zlib = require('zlib');
 const utils = require('../../utils');
 const deviceUtils = require('../device-utils');
-const { LuaFactory } = require('wasmoon');
+const fengari = require('fengari');
+const lua = fengari.lua;
+const lauxlib = fengari.lauxlib;
+const lualib = fengari.lualib;
 
 // ---------------------------------------------------------------------------
 // Protocol constants (matching C++ device_communicator enum)
@@ -65,27 +68,19 @@ const LUA_BUILTINS = new Set([
 ]);
 
 // ---------------------------------------------------------------------------
-// Shared LuaFactory singleton
-// ---------------------------------------------------------------------------
-var _luaFactory = null;
-async function getLuaFactory() {
-    if (!_luaFactory) {
-        _luaFactory = new LuaFactory();
-    }
-    return _luaFactory;
-}
-
-// ---------------------------------------------------------------------------
-// LuaEngine — wraps wasmoon for executing PAC Lua responses
+// LuaEngine — wraps fengari (pure JS Lua 5.3) for executing PAC Lua responses
 // ---------------------------------------------------------------------------
 class LuaEngine {
     constructor() {
-        this.engine = null;
+        this.L = null;
     }
 
-    async init() {
-        var factory = await getLuaFactory();
-        this.engine = await factory.createEngine();
+    /**
+     * Initialize Lua state — synchronous, no WASM involved.
+     */
+    init() {
+        this.L = lauxlib.luaL_newstate();
+        lualib.luaL_openlibs(this.L);
     }
 
     /**
@@ -93,8 +88,8 @@ class LuaEngine {
      * undefined globals (device metatables, etc.) — wrap in pcall
      * to avoid hard errors.
      */
-    async execute(luaStr) {
-        if (!this.engine || !luaStr) return;
+    execute(luaStr) {
+        if (!this.L || !luaStr) return;
         // Provide stub __newindex / object constructors so PAC code
         // that calls methods on undefined globals does not crash.
         var safePrefix =
@@ -111,124 +106,83 @@ class LuaEngine {
             '  end })\n' +
             'end\n';
         try {
-            await this.engine.doString(safePrefix + luaStr);
+            lauxlib.luaL_dostring(this.L, fengari.to_luastring(safePrefix + luaStr));
         } catch (e) {
             // Ignore non-critical Lua errors; state may still be partially usable
         }
     }
 
     /**
-     * Read a single global value from the Lua state
+     * Read a single global value from the Lua state.
+     * Tables are recursively converted to plain JS objects.
      */
     get(name) {
-        if (!this.engine) return undefined;
+        if (!this.L) return undefined;
         try {
-            return this.engine.global.get(name);
+            lua.lua_getglobal(this.L, fengari.to_luastring(name));
+            var result = this._readStackValue(-1, 0);
+            lua.lua_pop(this.L, 1);
+            return result;
         } catch (e) {
             return undefined;
         }
     }
 
     /**
-     * Enumerate all user-defined globals as a plain JS object tree.
-     * Tables are recursively converted; functions are skipped.
+     * Read a value from the Lua stack at the given index.
+     * Depth-limited to prevent infinite recursion on cyclic tables.
      */
-    async getGlobals() {
-        if (!this.engine) return {};
-        var result = {};
-        // Collect only serializable global names in Lua to avoid
-        // wasmoon warnings for userdata/function/thread types
-        try {
-            await this.engine.doString(
-                '__global_keys = {}\n' +
-                'for k, v in pairs(_G) do\n' +
-                '  local t = type(v)\n' +
-                '  if t == "number" or t == "string" or t == "boolean" or t == "table" then\n' +
-                '    __global_keys[#__global_keys + 1] = k\n' +
-                '  end\n' +
-                'end\n'
-            );
-            var keys = this.engine.global.get('__global_keys');
-            if (keys) {
-                var keyList = this._luaTableToArray(keys);
-                for (var i = 0; i < keyList.length; i++) {
-                    var k = keyList[i];
-                    if (typeof k !== 'string') continue;
-                    if (LUA_BUILTINS.has(k)) continue;
-                    if (k.startsWith('__')) continue;
-                    var val = this.engine.global.get(k);
-                    result[k] = this._convertValue(val, 0);
-                }
-            }
-        } catch (e) {
-            // ignore
+    _readStackValue(index, depth) {
+        if (depth > 10) return undefined;
+        var t = lua.lua_type(this.L, index);
+        switch (t) {
+            case lua.LUA_TNIL:
+                return null;
+            case lua.LUA_TBOOLEAN:
+                return lua.lua_toboolean(this.L, index) ? true : false;
+            case lua.LUA_TNUMBER:
+                return lua.lua_tonumber(this.L, index);
+            case lua.LUA_TSTRING:
+                return fengari.to_jsstring(lua.lua_tostring(this.L, index));
+            case lua.LUA_TTABLE:
+                return this._readTable(index, depth + 1);
+            default:
+                return undefined;
         }
-        return result;
     }
 
     /**
-     * Convert a Lua value to a plain JS value.
-     * Tables become objects; depth-limited to prevent infinite recursion.
+     * Convert a Lua table on the stack to a plain JS object.
      */
-    _convertValue(val, depth) {
+    _readTable(index, depth) {
         if (depth > 10) return undefined;
-        if (val === null || val === undefined) return null;
-        var t = typeof val;
-        if (t === 'number' || t === 'string' || t === 'boolean') return val;
-        if (t === 'function') return undefined;
-        // Try to treat as table (object/map)
-        if (t === 'object') {
-            return this._luaTableToObject(val, depth + 1);
-        }
-        return undefined;
-    }
-
-    _luaTableToObject(tbl, depth) {
-        if (!tbl || typeof tbl !== 'object') return null;
         var result = {};
-        var isArray = true;
-        var maxIdx = 0;
-        try {
-            var keys = Object.keys(tbl);
-            for (var i = 0; i < keys.length; i++) {
-                var k = keys[i];
-                if (k === '__extended') continue;
-                var idx = Number(k);
-                if (!Number.isInteger(idx) || idx < 1) {
-                    isArray = false;
-                }
-                if (Number.isInteger(idx) && idx > maxIdx) {
-                    maxIdx = idx;
-                }
-                var v = tbl[k];
-                var converted = this._convertValue(v, depth);
-                if (converted !== undefined) {
-                    result[k] = converted;
-                }
+        var absIdx = lua.lua_absindex(this.L, index);
+        lua.lua_pushnil(this.L);
+        while (lua.lua_next(this.L, absIdx) !== 0) {
+            var key;
+            var keyType = lua.lua_type(this.L, -2);
+            if (keyType === lua.LUA_TSTRING) {
+                key = fengari.to_jsstring(lua.lua_tostring(this.L, -2));
+            } else if (keyType === lua.LUA_TNUMBER) {
+                key = lua.lua_tonumber(this.L, -2);
+            } else {
+                lua.lua_pop(this.L, 1);
+                continue;
             }
-        } catch (e) {
-            return null;
+            var value = this._readStackValue(-1, depth);
+            if (value !== undefined) {
+                result[key] = value;
+            }
+            lua.lua_pop(this.L, 1);
         }
         return result;
     }
 
-    _luaTableToArray(tbl) {
-        if (!tbl || typeof tbl !== 'object') return [];
-        var arr = [];
-        try {
-            var keys = Object.keys(tbl);
-            for (var i = 0; i < keys.length; i++) {
-                if (keys[i] === '__extended') continue;
-                arr.push(tbl[keys[i]]);
-            }
-        } catch (e) {}
-        return arr;
-    }
-
     close() {
-        if (this.engine) {
-            try { this.engine.global.close(); } catch (e) {}
-            this.engine = null;
+        if (this.L) {
+            try { lua.lua_close(this.L); } catch (e) {}
+            this.L = null;
         }
     }
 }
@@ -284,7 +238,7 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
 
     // Tags cache
     var varsValue = {};
-    // Lua state as JS object tree (populated by wasmoon)
+    // Lua state as JS object tree (populated by fengari)
     var luaState = {};
     // LuaEngine instance for parsing
     var luaEngine = null;
@@ -301,31 +255,30 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
         return { address, port, timeout, pacName };
     };
 
-    // ── Initialize wasmoon LuaEngine ──
-    var _initLuaEngine = async function () {
+    // ── Initialize fengari LuaEngine ──
+    var _initLuaEngine = function () {
         if (luaEngine) {
             luaEngine.close();
         }
         luaEngine = new LuaEngine();
-        await luaEngine.init();
+        luaEngine.init();
     };
 
     // ── Execute Lua string in engine ──
-    var _executeLua = async function (luaStr) {
+    var _executeLua = function (luaStr) {
         if (!luaEngine) {
-            await _initLuaEngine();
+            _initLuaEngine();
         }
-        await luaEngine.execute(luaStr);
+        luaEngine.execute(luaStr);
     };
 
     // ── Extract 't' table from Lua state into JS object ──
-    // Only reads the 't' global — avoids iterating all _G globals
-    // which would trigger wasmoon 'userdata' warnings.
+    // Only reads the 't' global. fengari get() returns plain JS objects.
     var _extractLuaState = function () {
         if (!luaEngine) return;
-        var tProxy = luaEngine.get('t');
-        if (tProxy && typeof tProxy === 'object') {
-            luaState = { t: luaEngine._convertValue(tProxy, 0) };
+        var t = luaEngine.get('t');
+        if (t && typeof t === 'object') {
+            luaState = { t: t };
         }
     };
 
@@ -483,12 +436,12 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
         return response.data;
     };
 
-    // ── Get PAC info (protocol version, name) — uses wasmoon ──
+    // ── Get PAC info (protocol version, name) — uses fengari ──
     var _getPACInfo = async function () {
         var answer = await _sendCommand(CMD.GET_INFO);
         var luaStr = _extractLuaString(answer);
         if (luaStr) {
-            await _executeLua(luaStr);
+            _executeLua(luaStr);
         }
         // Read individual scalar globals directly (no table iteration)
         pacInfo.version = luaEngine.get('protocol_version') || PROTO_UNKNOWN;
@@ -525,7 +478,7 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
             lastStatesLua = luaStr;
             // Execute Lua on existing engine (t= creates fresh table each time)
             // Engine is initialized once in connect()
-            await _executeLua(lastStatesLua);
+            _executeLua(lastStatesLua);
             // Extract only the 't' table — no full globals iteration
             _extractLuaState();
             return luaState;
@@ -654,8 +607,8 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
                 var params = _getConnParams();
                 logger.info(`'${data.name}' try to connect ${params.address}:${params.port}`, true);
 
-                // Initialize wasmoon Lua engine
-                await _initLuaEngine();
+                // Initialize fengari Lua engine (synchronous, pure JS)
+                _initLuaEngine();
 
                 // TCP connect
                 socket = new net.Socket();
@@ -778,7 +731,7 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
     };
 
     /**
-     * Polling: read all tag values from PAC (uses wasmoon)
+     * Polling: read all tag values from PAC (uses fengari)
      */
     this.polling = async function () {
         if (!_checkWorking(true)) return;
