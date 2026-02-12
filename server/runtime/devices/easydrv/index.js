@@ -196,12 +196,12 @@ function makeLuaSetCmd(tagAddress, value) {
     if (!tagAddress) return '';
     // Strip 't.' prefix (Lua global table used for browse/read, not for set_cmd)
     var addr = tagAddress.startsWith('t.') ? tagAddress.substring(2) : tagAddress;
-    // Parse address: "DEVICE.property[n]" or "DEVICE.property"
-    const match = addr.match(/^(.+)\.([A-Za-z_]\w*)\[?(\d*)\]?$/);
+    // Parse address: "DEVICE.property[n]" or "DEVICE.property.n" or "DEVICE.property"
+    const match = addr.match(/^(.+)\.([A-Za-z_]\w*)(?:\[(\d+)\]|\.(\d+))?$/);
     if (!match) return '';
     const objName = match[1];
     const prop = match[2];
-    const n = match[3] || '0';
+    const n = match[3] || match[4] || '0';
     if (typeof value === 'string') {
         return `__${objName}:set_cmd( "${prop}", ${n}, "${value}" )`;
     }
@@ -870,7 +870,12 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
                 logger.info(`'${data.name}' setValue(${tag.name}, ${raw})`, true, true);
                 return true;
             } else {
-                var cmdStr = `${addr} = ${typeof raw === 'string' ? '"' + raw + '"' : raw}`;
+                var luaSafeAddr = addr.replace(/\.(?=\d)/g, function(m, offset) {
+                var rest = addr.slice(offset + 1);
+                var numMatch = rest.match(/^(\d+)/);
+                return '["' + numMatch[1] + '"].';
+            }).replace(/\]\.$/, ']');
+            var cmdStr = `${luaSafeAddr} = ${typeof raw === 'string' ? '"' + raw + '"' : raw}`;
                 _execCommand(cmdStr);
                 return true;
             }
