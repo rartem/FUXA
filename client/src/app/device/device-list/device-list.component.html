@@ -25,6 +25,10 @@
                         <button *ngIf="!readonly && isDeviceToEdit" mat-icon-button (click)="onAddTag()" class="remove" matTooltip="{{'device.list-add' | translate}}">
                             <mat-icon>add</mat-icon>
                         </button>
+                        <button *ngIf="!readonly && isCdbxImportable()" mat-icon-button (click)="cdbxFileInput.click()" class="remove" matTooltip="{{'device.list-import-cdbx' | translate}}">
+                            <mat-icon>file_upload</mat-icon>
+                        </button>
+                        <input #cdbxFileInput type="file" accept=".cdbx" hidden (change)="onImportCdbx($event)">
                     </mat-header-cell>
                     <mat-cell *matCellDef="let element" [ngClass]="'selectidthClass'">
                         <button mat-icon-button (click)="onEditRow(element)" class="remove" matTooltip="{{'device.list-edit' | translate}}"

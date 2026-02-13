@@ -764,6 +764,8 @@
     "device.browsetag-property-title": "Обзор тегов на сервере",
     "device.tag-property-device": "Устройство",
     "device.tag-property-name": "Имя тега",
+    "device.tag-prefix": "Префикс имени",
+    "device.tag-prefix-placeholder": "напр. prefix1",
     "device.tag-property-register": "Зарегистрировать",
     "device.tag-property-type": "Вид",
     "device.tag-property-address": "Адрес (н-р. db5.dbb3 db4.dbx2.0 MB7)",

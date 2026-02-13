@@ -1,0 +1,7 @@
+node_modules
+_appdata
+_db
+_logs
+_reports
+_webcam_snapshots
+.git

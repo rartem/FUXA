@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/tauri-apps/tauri/dev/crates/tauri-config-schema/schema.json",
+  "productName": "FUXA Client",
+  "version": "1.0.0",
+  "identifier": "com.fuxa.client",
+  "build": {
+    "frontendDist": "../src"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "security": {
+      "csp": "default-src 'self' 'unsafe-inline' 'unsafe-eval' http: https: ws: wss: data: blob: tauri:; img-src * data: blob:; connect-src * ws: wss: http: https: tauri:; script-src 'self' 'unsafe-inline' 'unsafe-eval' http: https: tauri:; style-src 'self' 'unsafe-inline' http: https:; font-src 'self' data: http: https:; frame-src * http: https:"
+    },
+    "windows": [
+      {
+        "title": "FUXA Client",
+        "width": 1400,
+        "height": 900,
+        "minWidth": 800,
+        "minHeight": 600,
+        "center": true
+      }
+    ]
+  }
+}

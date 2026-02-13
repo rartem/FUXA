@@ -1,0 +1,16 @@
+{
+  "name": "fuxa-server",
+  "version": "1.0.0",
+  "description": "FUXA SCADA/HMI Server Manager (Tauri)",
+  "scripts": {
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2"
+  }
+}

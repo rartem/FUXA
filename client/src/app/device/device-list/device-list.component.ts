@@ -10,7 +10,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { TranslateService } from '@ngx-translate/core';
 
 import { TagOptionType, TagOptionsComponent } from './../tag-options/tag-options.component';
-import { Tag, Device, DeviceType, TAG_PREFIX } from '../../_models/device';
+import { Tag, Device, DeviceType, TAG_PREFIX, ModbusTagType, TagDaq, TagDeadbandModeType } from '../../_models/device';
 import { ProjectService } from '../../_services/project.service';
 import { HmiService } from '../../_services/hmi.service';
 import { ConfirmDialogComponent } from '../../gui-helpers/confirm-dialog/confirm-dialog.component';
@@ -203,7 +203,7 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
     }
 
     onAddTag() {
-        if (this.deviceSelected.type === DeviceType.OPCUA || this.deviceSelected.type === DeviceType.BACnet || this.deviceSelected.type === DeviceType.WebAPI) {
+        if (this.deviceSelected.type === DeviceType.OPCUA || this.deviceSelected.type === DeviceType.BACnet || this.deviceSelected.type === DeviceType.WebAPI || this.deviceSelected.type === DeviceType.EasyDrv || this.deviceSelected.type === DeviceType.MPS) {
             this.addOpcTags();
         } else if (this.deviceSelected.type === DeviceType.MQTTclient) {
             this.editTopics();
@@ -228,6 +228,18 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
         }
         if (this.deviceSelected.type === DeviceType.WebAPI) {
             this.tagPropertyService.editTagPropertyWebapi(this.deviceSelected, this.tagsMap).subscribe(result => {
+                this.bindToTable(this.deviceSelected.tags);
+            });
+            return;
+        }
+        if (this.deviceSelected.type === DeviceType.EasyDrv) {
+            this.tagPropertyService.browseTagsEasyDrv(this.deviceSelected, this.tagsMap).subscribe(result => {
+                this.bindToTable(this.deviceSelected.tags);
+            });
+            return;
+        }
+        if (this.deviceSelected.type === DeviceType.MPS) {
+            this.tagPropertyService.browseTagsMps(this.deviceSelected, this.tagsMap).subscribe(result => {
                 this.bindToTable(this.deviceSelected.tags);
             });
             return;
@@ -276,7 +288,8 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
         if (type === DeviceType.SiemensS7 || type === DeviceType.ModbusTCP || type === DeviceType.ModbusRTU ||
             type === DeviceType.internal || type === DeviceType.EthernetIP || type === DeviceType.FuxaServer ||
             type === DeviceType.OPCUA || type === DeviceType.GPIO || type === DeviceType.ADSclient ||
-            type === DeviceType.WebCam || type === DeviceType.MELSEC || type === DeviceType.REDIS) {
+            type === DeviceType.WebCam || type === DeviceType.MELSEC || type === DeviceType.REDIS ||
+            type === DeviceType.EasyDrv || type === DeviceType.MPS) {
             return true;
         } else if (type === DeviceType.MQTTclient) {
             if (tag && tag.options && (tag.options.pubs || tag.options.subs)) {
@@ -364,6 +377,20 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
             });
             return;
         }
+        if (this.deviceSelected.type === DeviceType.EasyDrv) {
+            this.tagPropertyService.editTagPropertyEasyDrv(this.deviceSelected, tag, checkToAdd).subscribe(result => {
+                this.tagsMap[tag.id] = tag;
+                this.bindToTable(this.deviceSelected.tags);
+            });
+            return;
+        }
+        if (this.deviceSelected.type === DeviceType.MPS) {
+            this.tagPropertyService.editTagPropertyMps(this.deviceSelected, tag, checkToAdd).subscribe(result => {
+                this.tagsMap[tag.id] = tag;
+                this.bindToTable(this.deviceSelected.tags);
+            });
+            return;
+        }
     }
 
     editTagOptions(tags: Tag[]) {
@@ -424,8 +451,131 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
     onCopyTagToClipboard(tag: Tag) {
         Utils.copyToClipboard(JSON.stringify(tag));
     }
+
+    isCdbxImportable(): boolean {
+        if (!this.deviceSelected) return false;
+        return this.deviceSelected.type === DeviceType.ModbusTCP ||
+               this.deviceSelected.type === DeviceType.ModbusRTU;
+    }
+
+    onImportCdbx(event: Event) {
+        const input = event.target as HTMLInputElement;
+        if (!input.files || !input.files.length) return;
+        const file = input.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+            const xml = reader.result as string;
+            const tags = this.parseCdbxModbus(xml);
+            if (tags.length) {
+                this.addCdbxModbusTags(tags);
+            }
+        };
+        reader.readAsText(file);
+        input.value = '';
+    }
+
+    private parseCdbxModbus(xml: string): CdbxModbusTag[] {
+        const REGISTER_MAP: { [key: string]: { memaddress: string; type: string } } = {
+            '0X':    { memaddress: '000000', type: ModbusTagType.Bool },
+            '1X':    { memaddress: '100000', type: ModbusTagType.Bool },
+            '3X':    { memaddress: '300000', type: ModbusTagType.Int16 },
+            '3XU':   { memaddress: '300000', type: ModbusTagType.UInt16 },
+            '3XDS':  { memaddress: '300000', type: ModbusTagType.Int32 },
+            '3XDSU': { memaddress: '300000', type: ModbusTagType.UInt32 },
+            '3XR':   { memaddress: '300000', type: ModbusTagType.Float32 },
+            '3XI64': { memaddress: '300000', type: ModbusTagType.Int64 },
+            '4X':    { memaddress: '400000', type: ModbusTagType.Int16 },
+            '4XU':   { memaddress: '400000', type: ModbusTagType.UInt16 },
+            '4XDS':  { memaddress: '400000', type: ModbusTagType.Int32 },
+            '4XDSU': { memaddress: '400000', type: ModbusTagType.UInt32 },
+            '4XR':   { memaddress: '400000', type: ModbusTagType.Float32 },
+            '4XI64': { memaddress: '400000', type: ModbusTagType.Int64 },
+            '4XSTR': { memaddress: '400000', type: ModbusTagType.UInt16 }
+        };
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(xml, 'text/xml');
+        const tags: CdbxModbusTag[] = [];
+        const channels = doc.getElementsByTagName('channels:channel');
+        for (let i = 0; i < channels.length; i++) {
+            const ch = channels[i];
+            const descr = ch.getElementsByTagName('channels:descr')[0]?.textContent?.trim();
+            const enabled = ch.getElementsByTagName('channels:enabled')[0]?.textContent?.trim();
+            if (!descr || enabled === '0') continue;
+            const match = descr.match(/^(\dX(?:DSU|DS|STR|I64|R|U)?)\s*:\s*(\d+)(?:\.\d+)?\s*:\s*(.+)$/);
+            if (!match) continue;
+            const prefix = match[1];
+            const address = match[2];
+            const name = match[3].trim();
+            const reg = REGISTER_MAP[prefix];
+            if (!reg) continue;
+            const protocol = ch.getElementsByTagName('channels:protocol')[0]?.textContent?.trim();
+            const requesttype = ch.getElementsByTagName('channels:requesttype')[0]?.textContent?.trim();
+            const requestperiod = ch.getElementsByTagName('channels:requestperiod')[0]?.textContent?.trim();
+            const delta = ch.getElementsByTagName('channels:delta')[0]?.textContent?.trim();
+            tags.push({
+                name: name,
+                address: address,
+                memaddress: reg.memaddress,
+                type: reg.type,
+                daqEnabled: protocol === '-1',
+                daqByTicks: requesttype === '1',
+                daqInterval: parseInt(requestperiod) || 0,
+                delta: parseFloat(delta) || 0
+            });
+        }
+        return tags;
+    }
+
+    private addCdbxModbusTags(tags: CdbxModbusTag[]) {
+        const existingAddresses = new Set<string>();
+        if (this.deviceSelected.tags) {
+            Object.values(this.deviceSelected.tags).forEach((t: Tag) => {
+                existingAddresses.add(t.memaddress + ':' + t.address);
+            });
+        }
+        let added = 0;
+        tags.forEach(ct => {
+            const key = ct.memaddress + ':' + ct.address;
+            if (existingAddresses.has(key)) return;
+            existingAddresses.add(key);
+            const tag = new Tag(Utils.getGUID(TAG_PREFIX));
+            tag.name = ct.name;
+            tag.address = ct.address;
+            tag.memaddress = ct.memaddress;
+            tag.type = ct.type;
+            if (ct.daqEnabled) {
+                if (ct.daqByTicks) {
+                    tag.daq = new TagDaq(true, true, 0, false);
+                } else {
+                    const intervalSec = Math.max(1, Math.round(ct.daqInterval / 1000));
+                    tag.daq = new TagDaq(true, false, intervalSec, false);
+                }
+            }
+            if (ct.delta > 0) {
+                tag.deadband = { value: ct.delta, mode: TagDeadbandModeType.absolute };
+            }
+            this.deviceSelected.tags[tag.id] = tag;
+            this.tagsMap[tag.id] = tag;
+            added++;
+        });
+        if (added > 0) {
+            this.projectService.setDeviceTags(this.deviceSelected);
+            this.bindToTable(this.deviceSelected.tags);
+        }
+    }
 }
 
 export interface Element extends Tag {
     position: number;
+}
+
+interface CdbxModbusTag {
+    name: string;
+    address: string;
+    memaddress: string;
+    type: string;
+    daqEnabled: boolean;
+    daqByTicks: boolean;
+    daqInterval: number;
+    delta: number;
 }

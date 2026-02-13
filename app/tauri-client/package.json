@@ -1,0 +1,17 @@
+{
+  "name": "fuxa-client",
+  "version": "1.0.0",
+  "description": "FUXA SCADA/HMI Desktop Client (Tauri)",
+  "scripts": {
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-store": "^2"
+  }
+}

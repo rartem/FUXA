@@ -103,7 +103,17 @@ export class TreetableComponent implements OnInit {
                 }
             });
             if (sort) {
-                return result.sort((a, b) => (a.path > b.path) ? 1 : -1);
+                return result.sort((a, b) => {
+                    const pa = a.path.split(Node.SEPARATOR);
+                    const pb = b.path.split(Node.SEPARATOR);
+                    const len = Math.min(pa.length, pb.length);
+                    for (let i = 0; i < len; i++) {
+                        if (pa[i] !== pb[i]) {
+                            return pa[i] > pb[i] ? 1 : -1;
+                        }
+                    }
+                    return pa.length - pb.length;
+                });
             } else {
                 return result;
             }

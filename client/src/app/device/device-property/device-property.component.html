@@ -592,6 +592,42 @@
                         </div>
                     </div>
                 </div>
+                <div *ngSwitchCase="deviceType.EasyDrv">
+                    <div class="my-form-field block mb10">
+                        <span>{{'device.property-easydrv-address' | translate}}</span>
+                        <input [(ngModel)]="data.device.property.address" placeholder="10.0.1.23" style="width: 350px" type="ip" (click)="onAddressChanged()">
+                    </div>
+                    <div style="display: block;margin-bottom: 10px;">
+                        <div class="my-form-field inbk">
+                            <span>{{'device.property-easydrv-port' | translate}}</span>
+                            <input numberOnly [(ngModel)]="data.device.property.port" placeholder="10000" style="width: 80px" type="number">
+                        </div>
+                        <div class="my-form-field inbk ml10">
+                            <span>{{'device.property-easydrv-timeout' | translate}}</span>
+                            <input numberOnly [(ngModel)]="data.device.property.timeout" placeholder="1500" style="width: 80px" type="number">
+                        </div>
+                    </div>
+                    <div class="my-form-field block mb10">
+                        <span>{{'device.property-easydrv-pacname' | translate}}</span>
+                        <input [(ngModel)]="data.device.property.pacName" placeholder="" style="width: 350px" type="text">
+                    </div>
+                </div>
+                <div *ngSwitchCase="deviceType.MPS">
+                    <div class="my-form-field block mb10">
+                        <span>{{'device.property-mps-address' | translate}}</span>
+                        <input [(ngModel)]="data.device.property.address" placeholder="192.168.1.100" style="width: 350px" type="ip" (click)="onAddressChanged()">
+                    </div>
+                    <div style="display: block;margin-bottom: 10px;">
+                        <div class="my-form-field inbk">
+                            <span>{{'device.property-mps-port' | translate}}</span>
+                            <input numberOnly [(ngModel)]="data.device.property.port" placeholder="10101" style="width: 80px" type="number">
+                        </div>
+                        <div class="my-form-field inbk ml10">
+                            <span>{{'device.property-mps-timeout' | translate}}</span>
+                            <input numberOnly [(ngModel)]="data.device.property.timeout" placeholder="5000" style="width: 80px" type="number">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
