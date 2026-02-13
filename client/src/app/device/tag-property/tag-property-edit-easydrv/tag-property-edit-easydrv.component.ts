@@ -102,6 +102,88 @@ export class TagPropertyEditEasyDrvComponent implements OnInit, OnDestroy {
         return '';
     }
 
+    onImportCdbx(event: Event) {
+        const input = event.target as HTMLInputElement;
+        if (!input.files || !input.files.length) return;
+        const file = input.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+            const xml = reader.result as string;
+            const tags = this.parseCdbxXml(xml);
+            if (tags.length) {
+                this.addCdbxNodes(tags);
+            }
+        };
+        reader.readAsText(file);
+        input.value = '';
+    }
+
+    private parseCdbxXml(xml: string): CdbxTag[] {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(xml, 'text/xml');
+        const tags: CdbxTag[] = [];
+        const channels = doc.getElementsByTagName('channels:channel');
+        for (let i = 0; i < channels.length; i++) {
+            const ch = channels[i];
+            const descr = ch.getElementsByTagName('channels:descr')[0]?.textContent?.trim();
+            const enabled = ch.getElementsByTagName('channels:enabled')[0]?.textContent?.trim();
+            if (!descr || enabled === '0') continue;
+            let isString = false;
+            const params = ch.getElementsByTagName('parameters:parameter');
+            for (let j = 0; j < params.length; j++) {
+                const name = params[j].getElementsByTagName('parameters:name')[0]?.textContent?.trim();
+                const value = params[j].getElementsByTagName('parameters:value')[0]?.textContent?.trim();
+                if (name === 'IsString' && value === '1') {
+                    isString = true;
+                }
+            }
+            tags.push({
+                address: descr,
+                type: isString ? EasyDrvTagType.String : EasyDrvTagType.Number
+            });
+        }
+        return tags;
+    }
+
+    private addCdbxNodes(tags: CdbxTag[]) {
+        const tempTags = Object.values(this.data.device.tags);
+        const objectNodes: { [key: string]: Node } = {};
+        tags.forEach(tag => {
+            const addr = tag.address;
+            const dotIdx = addr.indexOf('.');
+            if (dotIdx < 0) return;
+            const objName = addr.substring(0, dotIdx);
+            const rest = addr.substring(dotIdx + 1);
+            if (!objectNodes[objName]) {
+                const objNode = new Node('t.' + objName, objName);
+                objNode.class = NodeType.Object;
+                objNode.property = '';
+                const alreadyExists = !!this.treetable.nodes['t.' + objName];
+                if (!alreadyExists) {
+                    this.treetable.addNode(objNode, null, true, false);
+                }
+                objectNodes[objName] = this.treetable.nodes['t.' + objName];
+            }
+            const parentObj = objectNodes[objName];
+            const tagId = 't.' + addr.replace(/\[\s*(\d+)\s*\]/g, '.$1');
+            const tagName = rest.replace(/\[\s*(\d+)\s*\]/g, '.$1');
+            const leafNode = new Node(tagId, tagName);
+            leafNode.class = NodeType.Variable;
+            leafNode.type = tag.type;
+            leafNode.property = tag.type;
+            let enabled = true;
+            const selected = tempTags.find((t: Tag) => t.address === tagId);
+            if (selected) {
+                enabled = false;
+            }
+            if (!this.treetable.nodes[tagId]) {
+                leafNode.checked = enabled;
+                this.treetable.addNode(leafNode, parentObj, enabled, false);
+            }
+        });
+        this.treetable.update();
+    }
+
     onNoClick(): void {
         this.dialogRef.close();
     }
@@ -128,4 +210,9 @@ export interface TagPropertyEasyDrvData {
     nodes?: Node[];
     tag?: Tag;
     prefix?: string;
+}
+
+interface CdbxTag {
+    address: string;
+    type: string;
 }
