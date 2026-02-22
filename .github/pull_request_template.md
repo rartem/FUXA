@@ -6,6 +6,8 @@ Please describe the changes introduced by this Pull Request.
 - What was changed?
 - Why is this needed?
 
+For documentation-only PRs, focus on the Documentation checklist.
+
 ---
 
 ## 🧪 Type of Change
@@ -15,7 +17,7 @@ Please mark the relevant option:
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Refactoring
-- [ ] Documentation update
+- [ ] Documentation
 - [ ] Other
 
 ---
@@ -36,6 +38,16 @@ Please confirm:
 - [ ] I tested my changes locally
 - [ ] Documentation updated if required
 - [ ] Issue opened (for major changes)
+
+---
+
+## 📚 Documentation Checklist (if applicable)
+
+- [ ] The documentation builds locally with `mkdocs serve`
+- [ ] All links were tested
+- [ ] Images use relative paths (e.g. `images/example.png`)
+- [ ] No references to the old GitHub Wiki
+- [ ] Navigation updated in `mkdocs.yml` (if required)
 
 ---
 

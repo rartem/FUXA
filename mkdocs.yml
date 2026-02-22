@@ -3,9 +3,27 @@ site_url: https://frangoteam.github.io/FUXA/
 
 theme:
   name: material
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
+
+  palette:
+    # Light mode
+    - scheme: default
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+      logo: assets/logo.svg
+
+    # Dark mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+      logo: assets/logo.svg
 
 nav:
   - Home: index.md
+  - Live Demo: https://frangoteam.github.io/
   - Getting Started:
       - Installing and Running: Installing-and-Running.md
   - HowTo:
@@ -27,3 +45,17 @@ nav:
       - WebSockets: HowTo-WebSockets.md
   - Settings: Settings.md
   - Tips and Tricks: Tips-and-Tricks.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/frangoteam/FUXA
+      name: GitHub Repository
+
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/WZhxz9uHh4
+      name: Discord Community
+
+copyright: >
+  Powered by <a href="https://frangoteam.org" target="_blank" rel="noopener">
+  <strong>frangoteam</strong></a>
