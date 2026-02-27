@@ -89,3 +89,13 @@ server/_appdata
 #client/package-lock.json
 
 server/_widgets
+.externalcode/
+app/tauri-client/src-tauri/target/
+app/tauri-server/src-tauri/target/
+app/tauri-client/src-tauri/gen/
+app/tauri-server/src-tauri/gen/
+app/electron/dist/
+app/electron/client/dist/
+
+app/electron/server/
+client/dist/

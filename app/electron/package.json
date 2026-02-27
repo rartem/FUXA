@@ -23,19 +23,25 @@
         "productName": "FUXA",
         "asar": false,
         "files": [
-            "main.js",
-            "*.html",
-            "server/**/*",
-            "client/dist/**/*",
-            "icons/**/*"
-        ],
-        "extraResources": [
+            {
+                "from": ".",
+                "to": ".",
+                "filter": ["main.js", "*.html", "icons/**/*"]
+            },
+            {
+                "from": "server",
+                "to": "server",
+                "filter": ["**/*", "!node_modules/**"]
+            },
             {
                 "from": "server/node_modules",
-                "to": "app/server/node_modules",
-                "filter": [
-                    "!**/.bin/**"
-                ]
+                "to": "server/node_modules",
+                "filter": ["**/*", "!**/.bin/**"]
+            },
+            {
+                "from": "client/dist",
+                "to": "client/dist",
+                "filter": ["**/*"]
             }
         ],
         "directories": {
