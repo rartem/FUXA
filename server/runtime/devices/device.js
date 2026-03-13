@@ -283,6 +283,20 @@ function Device(data, runtime) {
         return comm.getStatus();
     }
 
+    this.getErrors = function (refresh) {
+        if (comm.getErrors) {
+            return comm.getErrors(refresh);
+        }
+        return Promise.resolve([]);
+    }
+
+    this.setErrorCommand = function (params) {
+        if (comm.setErrorCommand) {
+            return comm.setErrorCommand(params);
+        }
+        return Promise.resolve(false);
+    }
+
     /**
      * Call Device to set Tag value
      */

@@ -1236,8 +1236,12 @@
     "msg.import-devices-error": "Ошибка импорта устройств!",
     "msg.report-build-forced": "Send to build Report successful",
     "msg.report-build-error": "Send to build Report failed!",
-    "msg.device-tags-request-result": "Загружено {{value}} из {{current}}"
+    "msg.device-tags-request-result": "Загружено {{value}} из {{current}}",
+    "device.property-easydrv-alarms": "Тревоги",
+    "device.property-easydrv-message-color": "Цвет текста сообщения",
+    "device.property-easydrv-alarm-group-alarm": "Тревога",
+    "device.property-easydrv-alarm-group-message": "Сообщение",
+    "device.property-easydrv-alarm-group-answer": "Ответ",
+    "device.property-easydrv-alarm-text-color": "Цвет текста",
+    "device.property-easydrv-alarm-background-color": "Цвет фона"
 }
-
-
-

@@ -55,7 +55,8 @@
             [ngStyle]="{
                 'width.px': columnsStyle[column].width,
                 'text-align': columnsStyle[column].align,
-                'font-size.px': tableOptions.row.fontSize}">
+                'font-size.px': tableOptions.row.fontSize,
+                'color': getRowTextColor(element)}">
             <ng-container *ngIf="setOfSourceTableData; else stringValue">
                 {{element[column]}}
             </ng-container>
@@ -84,9 +85,9 @@
                     [ngStyle]="{
                         'cursor': isSelectable() ? 'pointer': 'unset',
                         'height.px': tableOptions.row.height,
-                        'background-color': isSelected(row) ? tableOptions.selection.background : tableOptions.row.background,
+                        'background-color': getRowBackgroundColor(row),
                         'border-bottom': '1px solid ' + tableOptions.gridColor,
-                        'color': isSelected(row) ? tableOptions.selection.color : tableOptions.row.color}">
+                        'color': getRowTextColor(row)}">
             </mat-row>
         </ng-container>
         <ng-container *ngSwitchCase="tableType.alarms">
@@ -95,9 +96,9 @@
                     [ngStyle]="{
                         'cursor': isSelectable() ? 'pointer': 'unset',
                         'height.px': tableOptions.row.height,
-                        'background-color': row.bkcolor,
+                        'background-color': getRowBackgroundColor(row),
                         'border-bottom': '1px solid ' + tableOptions.gridColor,
-                        'color': row.color}">
+                        'color': getRowTextColor(row)}">
             </mat-row>
         </ng-container>
         <ng-container *ngSwitchCase="tableType.data">
@@ -107,9 +108,9 @@
                     [ngStyle]="{
                     'cursor': isSelectable() ? 'pointer': 'unset',
                     'height.px': tableOptions.row.height,
-                    'background-color': isSelected(row) ? tableOptions.selection.background : tableOptions.row.background,
+                    'background-color': getRowBackgroundColor(row),
                     'border-bottom': '1px solid ' + tableOptions.gridColor,
-                    'color': isSelected(row) ? tableOptions.selection.color : tableOptions.row.color}">
+                    'color': getRowTextColor(row)}">
             </mat-row>
         </ng-container>
         <ng-container *ngSwitchCase="tableType.history">
@@ -119,9 +120,9 @@
                     [ngStyle]="{
                     'cursor': isSelectable() ? 'pointer': 'unset',
                     'height.px': tableOptions.row.height,
-                    'background-color': isSelected(row) ? tableOptions.selection.background : tableOptions.row.background,
+                    'background-color': getRowBackgroundColor(row),
                     'border-bottom': '1px solid ' + tableOptions.gridColor,
-                    'color': isSelected(row) ? tableOptions.selection.color : tableOptions.row.color}">
+                    'color': getRowTextColor(row)}">
             </mat-row>
         </ng-container>
     </ng-container>

@@ -8,6 +8,7 @@ import { EndPointSettings, HmiService } from '../../_services/hmi.service';
 import { AppService } from '../../_services/app.service';
 import { ProjectService } from '../../_services/project.service';
 import { DeviceType, DeviceSecurity, MessageSecurityMode, SecurityPolicy, ModbusOptionType, ModbusReuseModeType, RedisReadModeType, RedisOptions } from './../../_models/device';
+import { Utils } from '../../_helpers/utils';
 
 @Component({
 	selector: 'app-device-property',
@@ -85,6 +86,7 @@ export class DevicePropertyComponent implements OnInit, OnDestroy {
 	redisOptions = new RedisOptions();
 	writeArgsTooltip = '';
 	result = '';
+    defaultColor = Utils.defaultColor;
 	private subscriptionDeviceProperty: Subscription;
 	private subscriptionHostInterfaces: Subscription;
 	private subscriptionDeviceWebApiRequest: Subscription;
@@ -184,7 +186,7 @@ export class DevicePropertyComponent implements OnInit, OnDestroy {
 			});
 		}
 
-        if (this.data.device.property) {
+        		if (this.data.device.property) {
             if (!this.data.device.property.baudrate) {
                 this.data.device.property.baudrate = 9600;
             }
@@ -201,6 +203,7 @@ export class DevicePropertyComponent implements OnInit, OnDestroy {
                 this.data.device.property.forceFC16 = false;
             }
         }
+        this.ensureEasyDrvAlarmSettings();
 		if (this.data.device.type === DeviceType.REDIS) {
 			const opts = this.data.device?.property?.options;
 			this.redisOptions = (typeof opts === 'string')
@@ -286,6 +289,7 @@ export class DevicePropertyComponent implements OnInit, OnDestroy {
 	}
 
 	onDeviceTypeChanged() {
+        this.ensureEasyDrvAlarmSettings();
 		if (this.data.device.type === DeviceType.WebAPI ) {
 			this.pollingType = this.pollingWebApiType;
 		} else if (this.data.device.type === DeviceType.WebCam) {
@@ -397,6 +401,33 @@ export class DevicePropertyComponent implements OnInit, OnDestroy {
 	onRemoveWriteKey(idx: number) {
 		this.redisOptions.customCommand.write.args.splice(idx, 1);
 	}
+
+    private ensureEasyDrvAlarmSettings() {
+        if (this.data.device.type !== DeviceType.EasyDrv) {
+            return;
+        }
+        if (!this.data.device.property) {
+            this.data.device.property = {};
+        }
+        if (!this.data.device.property.alarms) {
+            this.data.device.property.alarms = {};
+        }
+        this.ensureEasyDrvAlarmGroupStyle('alarm');
+        this.ensureEasyDrvAlarmGroupStyle('message');
+        this.ensureEasyDrvAlarmGroupStyle('answer');
+    }
+
+    private ensureEasyDrvAlarmGroupStyle(group: string) {
+        if (!this.data.device.property.alarms[group] || typeof this.data.device.property.alarms[group] !== 'object') {
+            this.data.device.property.alarms[group] = {};
+        }
+        if (this.data.device.property.alarms[group].color === undefined || this.data.device.property.alarms[group].color === null) {
+            this.data.device.property.alarms[group].color = '';
+        }
+        if (this.data.device.property.alarms[group].bkcolor === undefined || this.data.device.property.alarms[group].bkcolor === null) {
+            this.data.device.property.alarms[group].bkcolor = '';
+        }
+    }
 
 	private securityModeToString(mode): string {
 		let secMode = MessageSecurityMode;

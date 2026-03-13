@@ -431,6 +431,33 @@ async function setDeviceValue(deviceid, sigid, value, fnc) {
     }
 }
 
+async function getDeviceErrors(deviceId, refresh) {
+    if (activeDevices[deviceId] && activeDevices[deviceId].getErrors) {
+        return activeDevices[deviceId].getErrors(refresh);
+    }
+    return null;
+}
+
+async function setDeviceErrorCommand(deviceId, params) {
+    if (activeDevices[deviceId] && activeDevices[deviceId].setErrorCommand) {
+        return activeDevices[deviceId].setErrorCommand(params);
+    }
+    return null;
+}
+
+function getDevicesErrorsSnapshot() {
+    var result = [];
+    for (var id in activeDevices) {
+        if (activeDevices[id] && activeDevices[id].getErrors) {
+            var errors = activeDevices[id].getErrors(false);
+            if (Array.isArray(errors) && errors.length) {
+                result = result.concat(errors);
+            }
+        }
+    }
+    return result;
+}
+
 /**
  * Set connection device status to server tag
  * @param {*} deviceId
@@ -563,5 +590,8 @@ var devices = module.exports = {
     setTagDaqSettings: setTagDaqSettings,
     getDeviceProperty: getDeviceProperty,
     setDeviceProperty: setDeviceProperty,
-    getHistoricalTags: getHistoricalTags
+    getHistoricalTags: getHistoricalTags,
+    getDeviceErrors: getDeviceErrors,
+    setDeviceErrorCommand: setDeviceErrorCommand,
+    getDevicesErrorsSnapshot: getDevicesErrorsSnapshot
 }

@@ -492,37 +492,7 @@ export class DeviceMapComponent implements OnInit, OnDestroy, AfterViewInit {
                     device.type = tempdevice.type;
                     device.enabled = tempdevice.enabled;
                     device.polling = tempdevice.polling;
-                    if (this.appService.isClientApp || this.appService.isDemoApp) {
-                        delete device.property;
-                    }
-                    if (device.property && tempdevice.property) {
-                        device.property.address = tempdevice.property.address;
-                        device.property.port = parseInt(tempdevice.property.port);
-                        device.property.slot = parseInt(tempdevice.property.slot);
-                        device.property.rack = parseInt(tempdevice.property.rack);
-                        device.property.slaveid = tempdevice.property.slaveid;
-                        device.property.baudrate = tempdevice.property.baudrate;
-                        device.property.databits = tempdevice.property.databits;
-                        device.property.stopbits = tempdevice.property.stopbits;
-                        device.property.parity = tempdevice.property.parity;
-                        device.property.options = tempdevice.property.options;
-                        device.property.delay = tempdevice.property.delay;
-                        device.property.method = tempdevice.property.method;
-                        device.property.format = tempdevice.property.format;
-                        device.property.broadcastAddress = tempdevice.property.broadcastAddress;
-                        device.property.adpuTimeout = tempdevice.property.adpuTimeout;
-                        device.property.local = tempdevice.property.local;
-                        device.property.router = tempdevice.property.router;
-                        if (device.type === DeviceType.MELSEC) {
-                            device.property.ascii = tempdevice.property.ascii;
-                            device.property.octalIO = tempdevice.property.octalIO;
-                        }
-                        if (tempdevice.property.connectionOption) {
-                            device.property.connectionOption = tempdevice.property.connectionOption;
-                        }
-                        device.property.socketReuse = tempdevice.property.socketReuse;
-                        device.property.forceFC16 = tempdevice.property.forceFC16;
-                    }
+                    device.property = tempdevice.property ? JSON.parse(JSON.stringify(tempdevice.property)) : null;
                     this.projectService.setDevice(device, olddevice, result.security);
                 }
                 this.loadDevices();

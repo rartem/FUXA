@@ -114,6 +114,31 @@ module.exports = {
             }
         });
 
+        commandApp.get("/api/deviceErrors", secureFnc, async function (req, res, next) {
+            if (res.statusCode === 403) {
+                runtime.logger.error("api get deviceErrors: Tocken Expired");
+            } else {
+                try {
+                    if (!req.query.deviceId) {
+                        res.status(400).json({ error: "not_found", message: 'device id not found!'});
+                        runtime.logger.error("api get deviceErrors: device id not found!");
+                        return;
+                    }
+                    const refresh = req.query.refresh !== 'false';
+                    const result = await runtime.devices.getDeviceErrors(req.query.deviceId, refresh);
+                    if (result === null) {
+                        res.status(404).json({ error: "not_found", message: 'device not found!'});
+                        runtime.logger.error("api get deviceErrors: device not found!");
+                    } else {
+                        res.json(result);
+                    }
+                } catch (error) {
+                    res.status(400).json({ error: "error", message: error.toString()});
+                    runtime.logger.error("api get deviceErrors: " + error);
+                }
+            }
+        });
+
         /**
          * POST set tags values
          */
@@ -150,6 +175,36 @@ module.exports = {
                 } catch (error) {
                     res.status(400).json({ error: "error", message: error});
                     runtime.logger.error("api post setTagValue: " + error);
+                }
+            }
+        });
+
+        commandApp.post("/api/deviceErrorCommand", secureFnc, async function (req, res, next) {
+            const permission = checkGroupsFnc(req);
+            if (res.statusCode === 403) {
+                runtime.logger.error("api post deviceErrorCommand: Tocken Expired");
+            } else if (!authJwt.haveAdminPermission(permission)) {
+                res.status(401).json({error:"unauthorized_error", message: "Unauthorized!"});
+                runtime.logger.error("api post deviceErrorCommand: Unauthorized");
+            } else {
+                try {
+                    const params = req.body && req.body.params ? req.body.params : req.body;
+                    if (!params || !params.deviceId) {
+                        res.status(400).json({ error: "not_found", message: 'device id not found!'});
+                        runtime.logger.error("api post deviceErrorCommand: device id not found!");
+                        return;
+                    }
+                    const result = await runtime.devices.setDeviceErrorCommand(params.deviceId, params);
+                    if (result === null) {
+                        res.status(404).json({ error: "not_found", message: 'device not found!'});
+                        runtime.logger.error("api post deviceErrorCommand: device not found!");
+                    } else {
+                        const errors = await runtime.devices.getDeviceErrors(params.deviceId, true);
+                        res.json({ result: result, errors: errors || [] });
+                    }
+                } catch (error) {
+                    res.status(400).json({ error: "error", message: error.toString()});
+                    runtime.logger.error("api post deviceErrorCommand: " + error);
                 }
             }
         });

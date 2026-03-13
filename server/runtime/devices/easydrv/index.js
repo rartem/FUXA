@@ -34,6 +34,21 @@ const CMD = {
     GET_PARAMS_CRC:  107,  // CMD_GET_PARAMS_CRC
 };
 
+const ERROR_CMD = {
+    ACCEPT: 100,
+    SUPPRESS: 200,
+    UNSET_SUPPRESS: 201
+};
+
+const ERROR_STATE = {
+    0: 'normal',
+    1: 'alarm',
+    2: 'return',
+    3: 'accept'
+};
+
+const ERROR_PROJECT_ID = 1;
+
 const REQ_ID_SIZE = 2; // g_devices_request_id (u_int_2) prepended to GET_DEVICES/GET_STATES responses
 
 const SERVICE_ID        = 1;
@@ -232,6 +247,9 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
 
     // PAC info (populated by get_PAC_info)
     var pacInfo = { name: '', version: 0, paramsCRC: 0 };
+    var deviceErrors = [];
+    var deviceErrorsId = 0;
+    var commandQueue = Promise.resolve();
 
     // Receive buffer for TCP stream reassembly
     var recvBuffer = Buffer.alloc(0);
@@ -280,6 +298,12 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
         if (t && typeof t === 'object') {
             luaState = { t: t };
         }
+    };
+
+    var _enqueueCommand = function (fnc) {
+        var run = commandQueue.then(() => fnc());
+        commandQueue = run.catch(() => {});
+        return run;
     };
 
     // ── TCP frame send ──
@@ -422,18 +446,20 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
 
     // ── Send command and get buffer response ──
     var _sendCommand = async function (cmdByte, extraData) {
-        var cmdLen = 1 + (extraData ? extraData.length : 0);
-        var cmdBuf = Buffer.alloc(cmdLen);
-        cmdBuf[0] = cmdByte;
-        if (extraData) {
-            extraData.copy(cmdBuf, 1);
-        }
-        recvBuffer = Buffer.alloc(0);
-        var response = await _sendFrame(cmdBuf);
-        if (response.error) {
-            throw new Error(response.error);
-        }
-        return response.data;
+        return _enqueueCommand(async function () {
+            var cmdLen = 1 + (extraData ? extraData.length : 0);
+            var cmdBuf = Buffer.alloc(cmdLen);
+            cmdBuf[0] = cmdByte;
+            if (extraData) {
+                extraData.copy(cmdBuf, 1);
+            }
+            recvBuffer = Buffer.alloc(0);
+            var response = await _sendFrame(cmdBuf);
+            if (response.error) {
+                throw new Error(response.error);
+            }
+            return response.data;
+        });
     };
 
     // ── Get PAC info (protocol version, name) — uses fengari ──
@@ -486,26 +512,174 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
         return null;
     };
 
-    // ── Execute device command (set tag) — CMD 102 ──
-    // Fire-and-forget: sends frame directly without using _sendFrame to avoid
-    // incrementing the shared packetIndex and desynchronizing polling responses.
-    var _execCommand = function (cmdStr) {
+    var _execLuaCommand = async function (cmdByte, cmdStr) {
         if (!socket || socket.destroyed) {
             throw new Error('socket not connected');
         }
-        var cmdBytes = Buffer.from(cmdStr, 'utf8');
-        var dataLen = 1 + cmdBytes.length + 1; // CMD byte + lua string + null terminator
-        var frame = Buffer.alloc(HEADER_SIZE + dataLen);
-        frame[0] = FRAME_MARKER;
-        frame[1] = SERVICE_ID;
-        frame[2] = FRAME_SINGLE;
-        frame[3] = 0; // fixed index — not tracked by polling
-        frame[4] = (dataLen >> 8) & 0xFF;
-        frame[5] = dataLen & 0xFF;
-        frame[HEADER_SIZE] = CMD.EXEC_CMD;
-        cmdBytes.copy(frame, HEADER_SIZE + 1);
-        frame[HEADER_SIZE + 1 + cmdBytes.length] = 0; // null terminator for C++ side
-        socket.write(frame);
+        var cmdBytes = Buffer.from(`${cmdStr}\0`, 'utf8');
+        var answer = await _sendCommand(cmdByte, cmdBytes);
+        if (answer && answer.length > 0 && answer[0] !== 0) {
+            throw new Error(`PAC command failed (${answer[0]})`);
+        }
+        return true;
+    };
+
+    var _execCommand = async function (cmdStr) {
+        return _execLuaCommand(CMD.EXEC_CMD, cmdStr);
+    };
+
+    var _execPACErrorLuaCommand = async function (cmdStr) {
+        if (!socket || socket.destroyed) {
+            throw new Error('socket not connected');
+        }
+        await _sendCommand(CMD.SET_PAC_ERROR, Buffer.from(cmdStr, 'utf8'));
+        return true;
+    };
+
+    var _normalizeErrorsLuaString = function (luaStr) {
+        if (!luaStr) {
+            return '';
+        }
+        var normalized = String(luaStr).replace(/\0/g, '').trim();
+        var firstAssignment = normalized.search(/alarms\s*\[\s*\d+\s*\]\s*=/);
+        if (firstAssignment > 0) {
+            normalized = normalized.slice(firstAssignment);
+        }
+        normalized = normalized.replace(/(\}|\])\s*(alarms\s*\[\s*\d+\s*\]\s*=)/g, '$1\n$2');
+        normalized = normalized.replace(/alarms\s*\[\s*\d+\s*\]\s*=\s*\{\s*\}\s*(?=alarms\s*\[\s*\d+\s*\]\s*=)/g, '');
+        return normalized.trim();
+    };
+
+    var _parseErrorsLua = function (luaStr) {
+        luaStr = _normalizeErrorsLuaString(luaStr);
+        var parser = new LuaEngine();
+        parser.init();
+        parser.execute('alarms = alarms or {}');
+        parser.execute(luaStr);
+        var alarms = parser.get('alarms');
+        parser.close();
+
+        var alarmsByProject = alarms ? (alarms[ERROR_PROJECT_ID] || alarms[String(ERROR_PROJECT_ID)]) : null;
+        if (!alarmsByProject || typeof alarmsByProject !== 'object') {
+            return { id: 0, errors: [] };
+        }
+
+        var nextErrors = [];
+        Object.keys(alarmsByProject).sort(function (a, b) {
+            if (a === 'id') return 1;
+            if (b === 'id') return -1;
+            return Number(a) - Number(b);
+        }).forEach(function (key) {
+            if (key === 'id') {
+                return;
+            }
+            var item = alarmsByProject[key];
+            if (!item || typeof item !== 'object') {
+                return;
+            }
+            var objectType = Number(item.id_type);
+            var objectNumber = Number(item.id_n);
+            var objectAlarmNumber = Number(item.id_object_alarm_number);
+            var state = Number(item.state);
+            var priority = Number(item.priority);
+            var type = Number(item.type);
+            nextErrors.push({
+                id: `${data.id}:${objectType}:${objectNumber}:${objectAlarmNumber}`,
+                deviceId: data.id,
+                deviceName: data.name,
+                description: item.description || '',
+                priority: Number.isFinite(priority) ? priority : 0,
+                state: Number.isFinite(state) ? state : 0,
+                stateText: ERROR_STATE[state] || `${state}`,
+                type: Number.isFinite(type) ? type : 0,
+                group: item.group || '',
+                suppress: Boolean(item.suppress),
+                objectType: Number.isFinite(objectType) ? objectType : 0,
+                objectNumber: Number.isFinite(objectNumber) ? objectNumber : 0,
+                objectAlarmNumber: Number.isFinite(objectAlarmNumber) ? objectAlarmNumber : 0
+            });
+        });
+
+        return {
+            id: Number(alarmsByProject.id) || 0,
+            errors: nextErrors
+        };
+    };
+
+    var _getPACErrors = async function () {
+        var answer = await _sendCommand(CMD.GET_PAC_ERRORS, Buffer.from([ERROR_PROJECT_ID]));
+        var luaStr = _extractLuaString(answer);
+        if (!luaStr) {
+            deviceErrors = [];
+            deviceErrorsId = 0;
+            return deviceErrors;
+        }
+        var parsed = _parseErrorsLua(luaStr);
+        deviceErrors = parsed.errors;
+        deviceErrorsId = parsed.id;
+        return deviceErrors;
+    };
+
+    var _normalizeErrorCommand = function (command) {
+        if (typeof command === 'number' && Number.isFinite(command)) {
+            return command;
+        }
+        if (typeof command !== 'string') {
+            return NaN;
+        }
+        var normalized = command.trim().toLowerCase();
+        if (normalized === 'accept' || normalized === 'ack' || normalized === 'acknowledge') {
+            return ERROR_CMD.ACCEPT;
+        }
+        if (normalized === 'suppress') {
+            return ERROR_CMD.SUPPRESS;
+        }
+        if (normalized === 'unset_suppress' || normalized === 'unsuppress' || normalized === 'clear_suppress') {
+            return ERROR_CMD.UNSET_SUPPRESS;
+        }
+        var numeric = Number(normalized);
+        return Number.isFinite(numeric) ? numeric : NaN;
+    };
+
+    var _buildErrorLuaCommands = function (cmd, objectType, objectNumber, objectAlarmNumber) {
+        var args = `${cmd}, ${objectType}, ${objectNumber}, ${objectAlarmNumber}`;
+        return [
+            `errors_manager:get_instance():set_cmd( ${args} )`,
+            `__G_ERRORS_MANAGER:set_cmd( ${args} )`,
+            `G_ERRORS_MANAGER:set_cmd( ${args} )`,
+            `__dev_errors_manager:set_cmd( ${args} )`,
+            `dev_errors_manager:set_cmd( ${args} )`
+        ];
+    };
+
+    var _setPACErrorCommand = async function (params) {
+        var source = params && (params.error || params.alarm) ? (params.error || params.alarm) : params;
+        var command = _normalizeErrorCommand(params ? params.command : undefined);
+        var objectType = Number(source ? source.objectType : undefined);
+        var objectNumber = Number(source ? source.objectNumber : undefined);
+        var objectAlarmNumber = Number(source ? source.objectAlarmNumber : undefined);
+
+        if (!Number.isFinite(command) ||
+            !Number.isFinite(objectType) ||
+            !Number.isFinite(objectNumber) ||
+            !Number.isFinite(objectAlarmNumber)) {
+            throw new Error('invalid error command parameters');
+        }
+
+        var candidates = _buildErrorLuaCommands(command, objectType, objectNumber, objectAlarmNumber);
+        var lastError = null;
+
+        for (var i = 0; i < candidates.length; i++) {
+            try {
+                await _execPACErrorLuaCommand(candidates[i]);
+                await _getPACErrors();
+                return true;
+            } catch (err) {
+                lastError = err;
+            }
+        }
+
+        throw lastError || new Error('unable to execute PAC error command');
     };
 
     // ── Resolve tag value from Lua state (dotted path) ──
@@ -680,6 +854,12 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
                     logger.warn(`'${data.name}' get PAC state warning: ${err.message}`);
                 }
 
+                try {
+                    await _getPACErrors();
+                } catch (err) {
+                    logger.warn(`'${data.name}' get PAC errors warning: ${err.message}`);
+                }
+
                 _emitStatus('connect-ok');
                 logger.info(`'${data.name}' connected!`, true);
                 _checkWorking(false);
@@ -723,6 +903,9 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
                 gotDevices = false;
                 errRetryCount = 0;
                 luaState = {};
+                deviceErrors = [];
+                deviceErrorsId = 0;
+                commandQueue = Promise.resolve();
                 _emitStatus('connect-off');
                 _clearVarsValue();
                 resolve(true);
@@ -792,6 +975,12 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
                 this.addDaq(changed, data.name, data.id);
             }
 
+            try {
+                await _getPACErrors();
+            } catch (err) {
+                logger.warn(`'${data.name}' polling errors warning: ${err.message}`);
+            }
+
             if (lastStatus !== 'connect-ok') {
                 _emitStatus('connect-ok');
             }
@@ -841,6 +1030,21 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
         return lastStatus;
     };
 
+    this.getErrors = function (refresh) {
+        if (refresh !== false && socket && connected) {
+            return _getPACErrors();
+        }
+        return deviceErrors.slice();
+    };
+
+    this.setErrorCommand = async function (params) {
+        if (!socket || !connected) {
+            return false;
+        }
+        await _setPACErrorCommand(params);
+        return true;
+    };
+
     /**
      * Return tag property for frontend
      */
@@ -866,7 +1070,7 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
             var addr = fullAddr.startsWith('t.') ? fullAddr.substring(2) : fullAddr;
             var luaCmd = makeLuaSetCmd(fullAddr, raw);
             if (luaCmd) {
-                _execCommand(luaCmd);
+                await _execCommand(luaCmd);
                 logger.info(`'${data.name}' setValue(${tag.name}, ${raw})`, true, true);
                 return true;
             } else {
@@ -876,7 +1080,7 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
                 return '["' + numMatch[1] + '"].';
             }).replace(/\]\.$/, ']');
             var cmdStr = `${luaSafeAddr} = ${typeof raw === 'string' ? '"' + raw + '"' : raw}`;
-                _execCommand(cmdStr);
+                await _execCommand(cmdStr);
                 return true;
             }
         } catch (err) {

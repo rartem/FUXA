@@ -25,6 +25,7 @@ function AlarmsManager(_runtime) {
     var status = AlarmsStatusEnum.INIT; // Current status (StateMachine)
     var clearAlarms = false;            // Flag to clear current alarms from DB
     var actionsProperty = {};           // Actions property list, key = alarm name + ^~^ + type
+    var externalAlarms = {};
 
 
     /**
@@ -84,6 +85,11 @@ function AlarmsManager(_runtime) {
                         }
                     });
                 }
+                _getExternalAlarmsValues(-1).forEach(alr => {
+                    if (alr.type !== AlarmsTypes.ACTION && result[alr.type] !== undefined) {
+                        result[alr.type]++;
+                    }
+                });
                 resolve(result);
             }).catch(function (err) {
                 reject(err);
@@ -115,6 +121,7 @@ function AlarmsManager(_runtime) {
                 }
             });
         });
+        _getExternalAlarmsValues(permission, filter).forEach(alr => result.push(alr));
         return result;
     }
 
@@ -127,6 +134,12 @@ function AlarmsManager(_runtime) {
                     result += `${ontime.toLocaleString()} - ${alr.type} - ${alr.subproperty.text || ''} - ${alr.status} - ${alr.subproperty.group || ''}\n`;
                 }
             });
+        });
+        _getExternalAlarmsValues(-1).forEach(alr => {
+            if (alr.status && alr.type === type && alr.ontime) {
+                var ontime = new Date(alr.ontime);
+                result += `${ontime.toLocaleString()} - ${alr.type} - ${alr.text || ''} - ${alr.status} - ${alr.group || ''}\n`;
+            }
         });
         return result;
     }
@@ -178,42 +191,63 @@ function AlarmsManager(_runtime) {
      * @param {*} alarmName
      * @returns
      */
-    this.setAlarmAck = function (alarmName, userId, permission) {
-        return new Promise(function (resolve, reject) {
-            var changed = [];
-            var authError = false;
-            Object.keys(alarms).forEach(alrkey => {
-                alarms[alrkey].forEach(alr => {
-                    if (alarmName === null || alr.getId() === alarmName) {
-                        var alrPermission = { show: true, enabled: true };
-                        if (alarmsProperty[alr.name]) {
-                            alrPermission = runtime.checkPermission(permission, alr.tagproperty);
-                        }
-                        if (alrPermission.enabled) {
-                            if (alr.isToAck() > 0) {
-                                alr.setAck(userId);
-                                changed.push(alr);
-                            }
-                        } else {
-                            authError = true;
-                        }
+    this.setAlarmAck = async function (alarmName, userId, permission) {
+        var changed = [];
+        var authError = false;
+        Object.keys(alarms).forEach(alrkey => {
+            alarms[alrkey].forEach(alr => {
+                if (alarmName === null || alr.getId() === alarmName) {
+                    var alrPermission = { show: true, enabled: true };
+                    if (alarmsProperty[alr.name]) {
+                        alrPermission = runtime.checkPermission(permission, alr.tagproperty);
                     }
-                });
-            });
-            if (authError) {
-                reject({code: 401, error:"unauthorized_error", message: "Unauthorized!"});
-            } else {
-                if (changed.length) {
-                    alarmstorage.setAlarms(changed).then(function (result) {
-                        resolve(true);
-                    }).catch(function (err) {
-                        reject(err);
-                    });
-                } else {
-                    resolve(false);
+                    if (alrPermission.enabled) {
+                        if (alr.isToAck() > 0) {
+                            alr.setAck(userId);
+                            changed.push(alr);
+                        }
+                    } else {
+                        authError = true;
+                    }
                 }
-            }
+            });
         });
+
+        var externalToAck = _getExternalAlarmsToAck(alarmName, permission);
+        if (externalToAck.authError) {
+            authError = true;
+        }
+
+        if (authError) {
+            throw {code: 401, error:"unauthorized_error", message: "Unauthorized!"};
+        }
+
+        if (changed.length) {
+            await alarmstorage.setAlarms(changed);
+        }
+
+        var externalChanged = false;
+        for (var i = 0; i < externalToAck.items.length; i++) {
+            var ext = externalToAck.items[i];
+            var result = await devices.setDeviceErrorCommand(ext.deviceId, {
+                deviceId: ext.deviceId,
+                command: 'accept',
+                objectType: ext.objectType,
+                objectNumber: ext.objectNumber,
+                objectAlarmNumber: ext.objectAlarmNumber
+            });
+            if (!result) {
+                throw new Error(`alarm ack failed for ${ext.name}`);
+            }
+            externalChanged = true;
+        }
+
+        if (changed.length || externalChanged) {
+            _syncExternalAlarms();
+            _emitAlarmsChanged();
+        }
+
+        return Boolean(changed.length || externalChanged);
     }
 
     this.clearAlarms = function (all) {
@@ -297,6 +331,7 @@ function AlarmsManager(_runtime) {
         return new Promise(function (resolve, reject) {
             var time = new Date().getTime();
             var changed = [];
+            var externalChanged = _syncExternalAlarms();
             Object.keys(alarms).forEach(alrkey => {
                 var groupalarms = alarms[alrkey];
                 var tag = devices.getDeviceValue(alarms[alrkey]['variableSource'], alrkey);
@@ -322,7 +357,7 @@ function AlarmsManager(_runtime) {
                     reject(err);
                 });
             } else {
-                resolve(false);
+                resolve(externalChanged);
             }
         });
     }
@@ -356,6 +391,7 @@ function AlarmsManager(_runtime) {
         return new Promise(function (resolve, reject) {
             alarms = {};
             alarmsProperty = {};
+            externalAlarms = {};
             runtime.project.getAlarms().then(function (result) {
                 var alarmsFound = 0;
                 if (result) {
@@ -482,6 +518,205 @@ function AlarmsManager(_runtime) {
         }
         working = check;
         return true;
+    }
+
+    var _getExternalAlarmType = function (priority) {
+        if (priority < 250) {
+            return AlarmsTypes.HIGH_HIGH;
+        }
+        if (priority < 500) {
+            return AlarmsTypes.HIGH;
+        }
+        if (priority < 750) {
+            return AlarmsTypes.LOW;
+        }
+        return AlarmsTypes.INFO;
+    }
+
+    var _getExternalAlarmStatus = function (state) {
+        if (state === 1) {
+            return AlarmStatusEnum.ON;
+        }
+        if (state === 2) {
+            return AlarmStatusEnum.OFF;
+        }
+        if (state === 3) {
+            return AlarmStatusEnum.ACK;
+        }
+        return AlarmStatusEnum.VOID;
+    }
+
+    var _getExternalAlarmPermission = function (permission, deviceId) {
+        try {
+            var allDevices = runtime.project.getDevices();
+            var device = allDevices ? allDevices[deviceId] : null;
+            return runtime.checkPermission(permission, device ? device.property : null);
+        } catch (error) {
+            return { show: true, enabled: true };
+        }
+    }
+
+    var _getExternalAlarmDeviceProperty = function (deviceId) {
+        try {
+            var allDevices = runtime.project.getDevices();
+            var device = allDevices ? allDevices[deviceId] : null;
+            return device ? device.property : null;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    var _normalizeExternalAlarmGroup = function (group, type) {
+        var normalized = String(group || '').trim().toLowerCase();
+        if (normalized.indexOf('сообщ') !== -1 || normalized.indexOf('message') !== -1) {
+            return 'message';
+        }
+        if (normalized.indexOf('ответ') !== -1 || normalized.indexOf('answer') !== -1) {
+            return 'answer';
+        }
+        if (normalized.indexOf('трев') !== -1 || normalized.indexOf('alarm') !== -1) {
+            return 'alarm';
+        }
+        if (type === AlarmsTypes.INFO) {
+            return 'message';
+        }
+        return 'alarm';
+    }
+
+    var _getExternalAlarmStyleValue = function (style, key) {
+        if (!style || style[key] === undefined || style[key] === null || style[key] === '') {
+            return undefined;
+        }
+        return style[key];
+    }
+
+    var _getExternalAlarmStyle = function (deviceId, group, type) {
+        var property = _getExternalAlarmDeviceProperty(deviceId);
+        var alarms = property && property.alarms ? property.alarms : null;
+        var groupKey = _normalizeExternalAlarmGroup(group, type);
+        var groupStyle = alarms && alarms[groupKey] ? alarms[groupKey] : null;
+        var message = alarms && alarms.message ? alarms.message : null;
+        return {
+            color: _getExternalAlarmStyleValue(groupStyle, 'color') || _getExternalAlarmStyleValue(message, 'color'),
+            bkcolor: _getExternalAlarmStyleValue(groupStyle, 'bkcolor')
+        };
+    }
+
+    var _syncExternalAlarms = function () {
+        var snapshot = devices.getDevicesErrorsSnapshot ? devices.getDevicesErrorsSnapshot() : [];
+        var seen = {};
+        var changed = false;
+        var now = Date.now();
+
+        snapshot.forEach(error => {
+            if (!error || !error.id) {
+                return;
+            }
+            var type = _getExternalAlarmType(error.priority);
+            var alarmId = `${error.id}${SEPARATOR}${type}`;
+            var status = _getExternalAlarmStatus(error.state);
+            if (!status) {
+                return;
+            }
+
+            seen[alarmId] = true;
+            var previous = externalAlarms[alarmId];
+            var record = previous ? Object.assign({}, previous) : {
+                name: alarmId,
+                deviceId: error.deviceId,
+                objectType: error.objectType,
+                objectNumber: error.objectNumber,
+                objectAlarmNumber: error.objectAlarmNumber,
+                ontime: now,
+                offtime: 0,
+                acktime: 0,
+                userack: ''
+            };
+
+            record.type = type;
+            record.status = status;
+            record.text = error.description || error.deviceName || error.id;
+            record.group = error.group || '';
+            record.suppress = Boolean(error.suppress);
+            record.toack = record.suppress ? 0 : ((status === AlarmStatusEnum.ON || status === AlarmStatusEnum.OFF) ? 1 : 0);
+            var style = _getExternalAlarmStyle(error.deviceId, record.group, record.type);
+            record.color = style.color;
+            record.bkcolor = style.bkcolor;
+
+            if (!previous || previous.status !== status) {
+                changed = true;
+                if (status === AlarmStatusEnum.ON) {
+                    record.ontime = now;
+                    record.offtime = 0;
+                    record.acktime = 0;
+                    record.userack = '';
+                } else if (status === AlarmStatusEnum.OFF) {
+                    record.offtime = previous && previous.offtime ? previous.offtime : now;
+                } else if (status === AlarmStatusEnum.ACK) {
+                    record.acktime = previous && previous.acktime ? previous.acktime : now;
+                }
+            }
+
+            if (previous && (previous.text !== record.text || previous.group !== record.group || previous.suppress !== record.suppress || previous.toack !== record.toack || previous.color !== record.color || previous.bkcolor !== record.bkcolor)) {
+                changed = true;
+            }
+
+            externalAlarms[alarmId] = record;
+        });
+
+        Object.keys(externalAlarms).forEach(alarmId => {
+            if (!seen[alarmId]) {
+                delete externalAlarms[alarmId];
+                changed = true;
+            }
+        });
+
+        return changed;
+    }
+
+    var _getExternalAlarmsValues = function (permission, filter) {
+        var result = [];
+        _syncExternalAlarms();
+        if (filter && filter.tagIds && filter.tagIds.length) {
+            return result;
+        }
+        Object.keys(externalAlarms).forEach(alarmId => {
+            var alr = externalAlarms[alarmId];
+            var alrPermission = _getExternalAlarmPermission(permission, alr.deviceId);
+            if (alrPermission.show && (!filter || _filterAlarm(alr.type, alr.text, alr.group, null, filter))) {
+                result.push({
+                    name: alr.name,
+                    type: alr.type,
+                    ontime: alr.ontime,
+                    offtime: alr.offtime,
+                    acktime: alr.acktime,
+                    status: alr.status,
+                    text: alr.text,
+                    group: alr.group,
+                    bkcolor: alr.bkcolor,
+                    color: alr.color,
+                    toack: alrPermission.enabled ? alr.toack : 0
+                });
+            }
+        });
+        return result;
+    }
+
+    var _getExternalAlarmsToAck = function (alarmName, permission) {
+        var result = { items: [], authError: false };
+        _syncExternalAlarms();
+        Object.keys(externalAlarms).forEach(alarmId => {
+            var alr = externalAlarms[alarmId];
+            if (alarmName === null || alarmId === alarmName) {
+                var alrPermission = _getExternalAlarmPermission(permission, alr.deviceId);
+                if (!alrPermission.enabled) {
+                    result.authError = true;
+                } else if (alr.toack > 0) {
+                    result.items.push(alr);
+                }
+            }
+        });
+        return result;
     }
 
     var _isAlarmEnabled = function (alarm) {

@@ -366,6 +366,28 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnDestroy {
         return this.selectedRow === row;
     }
 
+    getRowTextColor(row: any) {
+        if (this.isSelected(row)) {
+            return this.tableOptions.selection.color;
+        }
+        if (this.type === TableType.alarms) {
+            const tableRowColor = this.tableOptions.row?.color;
+            const alarmRowColor = row?.color;
+            return alarmRowColor || tableRowColor;
+        }
+        return this.tableOptions.row.color;
+    }
+
+    getRowBackgroundColor(row: any) {
+        if (this.isSelected(row)) {
+            return this.tableOptions.selection.background;
+        }
+        if (this.type === TableType.alarms) {
+            return row?.bkcolor || this.tableOptions.row?.background;
+        }
+        return this.tableOptions.row.background;
+    }
+
     private runScript(event: GaugeEvent, selected: MatRow) {
         if (event.actparam) {
             let torun = Utils.clone(this.projectService.getScripts().find(dataScript => dataScript.id == event.actparam));

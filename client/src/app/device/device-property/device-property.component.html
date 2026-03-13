@@ -611,6 +611,66 @@
                         <span>{{'device.property-easydrv-pacname' | translate}}</span>
                         <input [(ngModel)]="data.device.property.pacName" placeholder="" style="width: 350px" type="text">
                     </div>
+                    <div class="element-property-header">
+                        <span>{{'device.property-easydrv-alarms' | translate}}</span>
+                    </div>
+                    <div class="block mt5">
+                        <div class="my-form-field" style="display: inline-block; margin-right: 25px;">
+                            <span>{{'device.property-easydrv-alarm-group-alarm' | translate}}</span>
+                        </div>
+                        <div class="my-form-field section-inline-color color-field">
+                            <span>{{'device.property-easydrv-alarm-text-color' | translate}}</span>
+                            <input [(colorPicker)]="data.device.property.alarms.alarm.color" [cpAlphaChannel]="'always'" class="input-color"
+                                [style.background]="data.device.property.alarms.alarm.color" [cpPresetColors]="defaultColor" [cpOKButton]="true"
+                                [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'" [cpCancelButtonText]="'Cancel'"
+                                [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="width: 88px" [cpPosition]="'auto'" />
+                        </div>
+                        <div class="my-form-field section-inline-color color-field ml15">
+                            <span>{{'device.property-easydrv-alarm-background-color' | translate}}</span>
+                            <input [(colorPicker)]="data.device.property.alarms.alarm.bkcolor" [cpAlphaChannel]="'always'" class="input-color"
+                                [style.background]="data.device.property.alarms.alarm.bkcolor" [cpPresetColors]="defaultColor" [cpOKButton]="true"
+                                [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'" [cpCancelButtonText]="'Cancel'"
+                                [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="width: 88px" [cpPosition]="'auto'" />
+                        </div>
+                    </div>
+                    <div class="block mt5">
+                        <div class="my-form-field" style="display: inline-block; margin-right: 25px;">
+                            <span>{{'device.property-easydrv-alarm-group-message' | translate}}</span>
+                        </div>
+                        <div class="my-form-field section-inline-color color-field">
+                            <span>{{'device.property-easydrv-alarm-text-color' | translate}}</span>
+                            <input [(colorPicker)]="data.device.property.alarms.message.color" [cpAlphaChannel]="'always'" class="input-color"
+                                [style.background]="data.device.property.alarms.message.color" [cpPresetColors]="defaultColor" [cpOKButton]="true"
+                                [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'" [cpCancelButtonText]="'Cancel'"
+                                [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="width: 88px" [cpPosition]="'auto'" />
+                        </div>
+                        <div class="my-form-field section-inline-color color-field ml15">
+                            <span>{{'device.property-easydrv-alarm-background-color' | translate}}</span>
+                            <input [(colorPicker)]="data.device.property.alarms.message.bkcolor" [cpAlphaChannel]="'always'" class="input-color"
+                                [style.background]="data.device.property.alarms.message.bkcolor" [cpPresetColors]="defaultColor" [cpOKButton]="true"
+                                [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'" [cpCancelButtonText]="'Cancel'"
+                                [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="width: 88px" [cpPosition]="'auto'" />
+                        </div>
+                    </div>
+                    <div class="block mt5">
+                        <div class="my-form-field" style="display: inline-block; margin-right: 25px;">
+                            <span>{{'device.property-easydrv-alarm-group-answer' | translate}}</span>
+                        </div>
+                        <div class="my-form-field section-inline-color color-field">
+                            <span>{{'device.property-easydrv-alarm-text-color' | translate}}</span>
+                            <input [(colorPicker)]="data.device.property.alarms.answer.color" [cpAlphaChannel]="'always'" class="input-color"
+                                [style.background]="data.device.property.alarms.answer.color" [cpPresetColors]="defaultColor" [cpOKButton]="true"
+                                [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'" [cpCancelButtonText]="'Cancel'"
+                                [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="width: 88px" [cpPosition]="'auto'" />
+                        </div>
+                        <div class="my-form-field section-inline-color color-field ml15">
+                            <span>{{'device.property-easydrv-alarm-background-color' | translate}}</span>
+                            <input [(colorPicker)]="data.device.property.alarms.answer.bkcolor" [cpAlphaChannel]="'always'" class="input-color"
+                                [style.background]="data.device.property.alarms.answer.bkcolor" [cpPresetColors]="defaultColor" [cpOKButton]="true"
+                                [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'" [cpCancelButtonText]="'Cancel'"
+                                [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="width: 88px" [cpPosition]="'auto'" />
+                        </div>
+                    </div>
                 </div>
                 <div *ngSwitchCase="deviceType.MPS">
                     <div class="my-form-field block mb10">
