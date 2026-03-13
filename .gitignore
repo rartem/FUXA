@@ -98,4 +98,4 @@ app/electron/dist/
 app/electron/client/dist/
 
 app/electron/server/
-client/dist/
+client/dist/*
