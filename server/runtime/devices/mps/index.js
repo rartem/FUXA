@@ -58,7 +58,7 @@ function MPSClient(_data, _logger, _events, _runtime) {
 
     // ── Build a single framed buffer: P001 + 4-byte big-endian length + payload ──
     var _buildFrame = function (message) {
-        var msgBuf = Buffer.from(message, 'utf8');
+        var msgBuf = iconv.encode(message, 'win1251');
         var frame = Buffer.alloc(4 + 4 + msgBuf.length);
         frame[0] = 0x50; frame[1] = 0x30; frame[2] = 0x30; frame[3] = 0x31; // P001
         frame[4] = (msgBuf.length >> 24) & 0xFF;
