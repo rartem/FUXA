@@ -135,7 +135,7 @@ export interface AlarmBaseType {
     ontime: number;
     offtime: number;
     acktime: number;
-    userack: number;
+    userack: string;
     group: string;
     bkcolor: string;
     color: string;

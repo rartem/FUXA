@@ -65,6 +65,8 @@ const AKN_DATA          = 8;   // data acknowledgment (unused in PAC code)
 const AKN_OK            = 12;  // success acknowledgment
 
 const PAC_ACCEPT        = 'PAC accept';  // handshake string sent by PAC on connect
+const CONNECTION_ERROR_GROUP = 'connection';
+const CONNECTION_ERROR_PRIORITY = 100;
 
 const PROTO_QLZ         = 102;
 const PROTO_NON_UNICODE = 103;
@@ -244,6 +246,7 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
     var protocolVersion = PROTO_UNKNOWN;
     var gotDevices = false;
     var pacInfoReceived = false;
+    var connectionFault = false;
 
     // PAC info (populated by get_PAC_info)
     var pacInfo = { name: '', version: 0, paramsCRC: 0 };
@@ -550,6 +553,14 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
         return normalized.trim();
     };
 
+    var _hasErrorsProjectSnapshot = function (luaStr) {
+        var normalized = _normalizeErrorsLuaString(luaStr);
+        if (!normalized) {
+            return false;
+        }
+        return new RegExp(`alarms\\s*\\[\\s*(?:${ERROR_PROJECT_ID}|"${ERROR_PROJECT_ID}"|'${ERROR_PROJECT_ID}')\\s*\\]`).test(normalized);
+    };
+
     var _parseErrorsLua = function (luaStr) {
         luaStr = _normalizeErrorsLuaString(luaStr);
         var parser = new LuaEngine();
@@ -610,14 +621,52 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
         var answer = await _sendCommand(CMD.GET_PAC_ERRORS, Buffer.from([ERROR_PROJECT_ID]));
         var luaStr = _extractLuaString(answer);
         if (!luaStr) {
-            deviceErrors = [];
-            deviceErrorsId = 0;
             return deviceErrors;
         }
-        var parsed = _parseErrorsLua(luaStr);
-        deviceErrors = parsed.errors;
-        deviceErrorsId = parsed.id;
+        if (!_hasErrorsProjectSnapshot(luaStr)) {
+            logger.warn(`'${data.name}' GET_PAC_ERRORS returned no project snapshot, keeping last known errors`);
+            return deviceErrors;
+        }
+        var parsed;
+        try {
+            parsed = _parseErrorsLua(luaStr);
+        } catch (error) {
+            logger.warn(`'${data.name}' GET_PAC_ERRORS parse warning: ${error.message || error}`);
+            return deviceErrors;
+        }
+        deviceErrors = Array.isArray(parsed.errors) ? parsed.errors : [];
+        deviceErrorsId = Number.isFinite(parsed.id) ? parsed.id : 0;
         return deviceErrors;
+    };
+
+    var _getConnectionError = function () {
+        return {
+            id: `${data.id}:connection`,
+            deviceId: data.id,
+            deviceName: data.name,
+            description: `${data.name} connection error`,
+            priority: CONNECTION_ERROR_PRIORITY,
+            state: 1,
+            stateText: ERROR_STATE[1],
+            type: 0,
+            group: CONNECTION_ERROR_GROUP,
+            suppress: true,
+            objectType: 0,
+            objectNumber: 0,
+            objectAlarmNumber: 0
+        };
+    };
+
+    var _hasConnectionError = function () {
+        return connectionFault && !connected;
+    };
+
+    var _getVisibleErrors = function () {
+        var errors = deviceErrors.slice();
+        if (_hasConnectionError()) {
+            errors.push(_getConnectionError());
+        }
+        return errors;
     };
 
     var _normalizeErrorCommand = function (command) {
@@ -836,6 +885,7 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
                 });
 
                 connected = true;
+                connectionFault = false;
                 errRetryCount = 0;
                 recvBuffer = Buffer.alloc(0);
 
@@ -866,6 +916,7 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
                 resolve();
             } catch (err) {
                 connected = false;
+                connectionFault = true;
                 _emitStatus('connect-error');
                 _clearVarsValue();
                 _checkWorking(false);
@@ -903,8 +954,10 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
                 gotDevices = false;
                 errRetryCount = 0;
                 luaState = {};
-                deviceErrors = [];
-                deviceErrorsId = 0;
+                if (!connectionFault) {
+                    deviceErrors = [];
+                    deviceErrorsId = 0;
+                }
                 commandQueue = Promise.resolve();
                 _emitStatus('connect-off');
                 _clearVarsValue();
@@ -988,6 +1041,7 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
             errRetryCount++;
             if (errRetryCount >= MAX_ERRORS_COUNT) {
                 connected = false;
+                connectionFault = true;
                 _emitStatus('connect-error');
             }
             logger.error(`'${data.name}' polling error: ${err}`);
@@ -1032,9 +1086,9 @@ function EasyDrvClient(_data, _logger, _events, _runtime) {
 
     this.getErrors = function (refresh) {
         if (refresh !== false && socket && connected) {
-            return _getPACErrors();
+            return _getPACErrors().then(() => _getVisibleErrors());
         }
-        return deviceErrors.slice();
+        return _getVisibleErrors();
     };
 
     this.setErrorCommand = async function (params) {

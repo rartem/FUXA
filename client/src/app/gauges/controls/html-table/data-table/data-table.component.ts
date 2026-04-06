@@ -18,7 +18,7 @@ import { ScriptService } from '../../../../_services/script.service';
 import { ProjectService } from '../../../../_services/project.service';
 import { SCRIPT_PARAMS_MAP, ScriptParam } from '../../../../_models/script';
 import { HmiService } from '../../../../_services/hmi.service';
-import { AlarmBaseType, AlarmColumnsType, AlarmPriorityType, AlarmsFilter, AlarmStatusType } from '../../../../_models/alarm';
+import { AlarmBaseType, AlarmColumnsType, AlarmPriorityType, AlarmQuery, AlarmsFilter, AlarmStatusType } from '../../../../_models/alarm';
 import { ReportsService } from '../../../../_services/reports.service';
 import { ReportColumnsType, ReportFile, ReportsFilter } from '../../../../_models/report';
 import * as FileSaver from 'file-saver';
@@ -58,6 +58,7 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnDestroy {
     range = { from: Date.now(), to: Date.now() };
     tableType = TableType;
     tableHistoryType = TableType.history;
+    tableAlarmHistoryType = TableType.alarmsHistory;
     lastRangeType = TableRangeType;
     tableOptions = DataTableComponent.DefaultOptions();
     data = [];
@@ -65,8 +66,10 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnDestroy {
     withToolbar = false;
     private lastDaqQuery = new DaqQuery();
     private destroy$ = new Subject<void>();
+    private autoRefreshStop$ = new Subject<void>();
     private historyDateformat = '';
     private historyTimeInterval = 1;
+    private customAlarmHistoryRange = false;
     addValueInterval = 0;
     private pauseMemoryValue: TableMapValueDictionary = {};
     setOfSourceTableData = false;
@@ -92,7 +95,9 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnDestroy {
             this.translateService.get(this.lastRangeType[key]).subscribe((txt: string) => { this.lastRangeType[key] = txt; });
         });
         this.dataSource.filterPredicate = (match: any, filter: string) => {
-            const cells = Object.values(match).map((c: TableCellData) => c.stringValue);
+            const cells = Object.values(match)
+                .map((c: any) => (c && typeof c === 'object' ? (c.stringValue || '') : ''))
+                .filter((c: string) => !!c);
             for (let i = 0; i < cells.length; i++) {
                 if (cells[i].toLowerCase().includes(filter)) { return true; }
             }
@@ -108,6 +113,8 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnDestroy {
             });
             if (this.type === TableType.alarms) {
                 this.startPollingAlarms();
+            } else if (this.type === TableType.alarmsHistory && this.tableOptions.realtime) {
+                this.startPollingAlarmsHistory();
             }
         } else if (this.isReportsType()) {
             this.startPollingReports();
@@ -122,6 +129,8 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnDestroy {
         try {
             this.destroy$.next(null);
             this.destroy$.complete();
+            this.autoRefreshStop$.next(null);
+            this.autoRefreshStop$.complete();
         } catch (e) {
             console.error(e);
         }
@@ -147,11 +156,85 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnDestroy {
         });
     }
 
+    private startPollingAlarmsHistory() {
+        this.autoRefreshStop$.next(null);
+        if (!this.tableOptions.realtime || this.isEditor) {
+            return;
+        }
+        const refreshInterval = Math.max(1, Number(this.tableOptions.refreshInterval) || 1);
+        this.rxjsPollingTimer = timer(refreshInterval * 60000, refreshInterval * 60000);
+        this.rxjsPollingTimer.pipe(
+            takeUntil(this.destroy$),
+            takeUntil(this.autoRefreshStop$)
+        ).subscribe(() => {
+            this.loadAlarmsHistory(false);
+        });
+    }
+
+    private getAlarmsHistoryQuery(): AlarmQuery {
+        if (!this.customAlarmHistoryRange) {
+            this.range.to = Date.now();
+            this.range.from = new Date(this.range.to).setTime(new Date(this.range.to).getTime() - (TableRangeConverter.TableRangeToHours(this.tableOptions.lastRange || TableRangeType.last1h) * 60 * 60 * 1000));
+        }
+        return <AlarmQuery>{
+            start: new Date(this.range.from),
+            end: new Date(this.range.to)
+        };
+    }
+
+    private filterAlarmsHistory(alrs: AlarmBaseType[]): AlarmBaseType[] {
+        const filter = <AlarmsFilter>this.dataFilter;
+        if (!filter) {
+            return alrs;
+        }
+        return alrs.filter(alr => {
+            if (filter.priority?.length && !filter.priority.includes(alr.type)) {
+                return false;
+            }
+            if (filter.text && !String(alr.text || '').toLowerCase().includes(String(filter.text).toLowerCase())) {
+                return false;
+            }
+            if (filter.group && !String(alr.group || '').toLowerCase().includes(String(filter.group).toLowerCase())) {
+                return false;
+            }
+            if (filter.tagIds?.length && !filter.tagIds.includes(alr.name)) {
+                return false;
+            }
+            return true;
+        });
+    }
+
+    private loadAlarmsHistory(showLoading = true) {
+        if (this.isEditor) {
+            return;
+        }
+        if (showLoading) {
+            this.setLoading(true);
+        }
+        this.hmiService.getAlarmsHistory(this.getAlarmsHistoryQuery()).pipe(
+            takeUntil(this.destroy$),
+            catchError((error) => {
+                console.error('Error getAlarmsHistory', error);
+                return of([]);
+            })
+        ).subscribe(result => {
+            this.updateAlarmsTable(this.filterAlarmsHistory(result || []));
+            this.setLoading(false);
+            this.reloadActive = false;
+        });
+    }
+
     onRangeChanged(ev) {
         if (this.isEditor) {
             return;
         }
         if (ev) {
+            if (this.type === TableType.alarmsHistory) {
+                this.customAlarmHistoryRange = false;
+                this.tableOptions.lastRange = ev;
+                this.loadAlarmsHistory();
+                return;
+            }
             this.range.from = Date.now();
             this.range.to = Date.now();
             this.range.from = new Date(this.range.from).setTime(new Date(this.range.from).getTime() - (TableRangeConverter.TableRangeToHours(ev) * 60 * 60 * 1000));
@@ -171,6 +254,13 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnDestroy {
         });
         dialogRef.afterClosed().subscribe((dateRange: IDateRange) => {
             if (dateRange) {
+                if (this.type === TableType.alarmsHistory) {
+                    this.range.from = dateRange.start;
+                    this.range.to = dateRange.end;
+                    this.customAlarmHistoryRange = true;
+                    this.loadAlarmsHistory();
+                    return;
+                }
                 this.range.from = dateRange.start;
                 this.range.to = dateRange.end;
                 this.lastDaqQuery.gid = this.id;
@@ -194,13 +284,24 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     onRefresh() {
+        if (this.type === TableType.alarmsHistory) {
+            this.reloadActive = true;
+            this.loadAlarmsHistory(false);
+            return;
+        }
         this.onRangeChanged(this.lastDaqQuery.event);
         this.reloadActive = true;
     }
 
     setOptions(options: TableOptions): void {
         this.tableOptions = { ...this.tableOptions, ...options };
+        this.tableOptions.refreshInterval = Math.max(1, Number(this.tableOptions.refreshInterval) || 1);
         this.loadData();
+        if (this.type === TableType.alarmsHistory) {
+            this.startPollingAlarmsHistory();
+        } else {
+            this.autoRefreshStop$.next(null);
+        }
         this.onRangeChanged(this.tableOptions.lastRange || TableRangeType.last1h);
     }
 
@@ -328,7 +429,7 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnDestroy {
                 alarm['acktime'] = { stringValue: format(new Date(alr.acktime), 'YYYY.MM.DD HH:mm:ss') };
             }
             if (alr.userack) {
-                alarm['userack'] = { stringValue: format(new Date(alr.userack), 'YYYY.MM.DD HH:mm:ss') };
+                alarm['userack'] = { stringValue: alr.userack };
             }
             rows.push(alarm);
         });
@@ -370,7 +471,7 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.isSelected(row)) {
             return this.tableOptions.selection.color;
         }
-        if (this.type === TableType.alarms) {
+        if (this.type === TableType.alarms || this.type === TableType.alarmsHistory) {
             const tableRowColor = this.tableOptions.row?.color;
             const alarmRowColor = row?.color;
             return alarmRowColor || tableRowColor;
@@ -382,7 +483,7 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.isSelected(row)) {
             return this.tableOptions.selection.background;
         }
-        if (this.type === TableType.alarms) {
+        if (this.type === TableType.alarms || this.type === TableType.alarmsHistory) {
             return row?.bkcolor || this.tableOptions.row?.background;
         }
         return this.tableOptions.row.background;
@@ -520,7 +621,7 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private bindTableControls(): void {
-        if (this.type === TableType.history && this.tableOptions.paginator.show) {
+        if ((this.type === TableType.history || this.type === TableType.alarmsHistory) && this.tableOptions.paginator.show) {
             this.dataSource.paginator = this.paginator;
         }
         this.dataSource.sort = this.sort;
@@ -563,7 +664,7 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         }
         this.dataSource.data = this.data;
-        this.withToolbar = this.type === this.tableHistoryType && (this.tableOptions.paginator.show || this.tableOptions.filter.show || this.tableOptions.daterange.show);
+        this.withToolbar = (this.type === this.tableHistoryType || this.type === this.tableAlarmHistoryType) && (this.tableOptions.paginator.show || this.tableOptions.filter.show || this.tableOptions.daterange.show);
     }
 
     private mapCellContent(cell: TableCellData): void {
@@ -669,6 +770,7 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnDestroy {
                 show: false
             },
             realtime: false,
+            refreshInterval: 1,
             lastRange: Utils.getEnumKey(TableRangeType, TableRangeType.last1h),
             gridColor: '#E0E0E0',
             header: {

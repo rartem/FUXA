@@ -75,7 +75,7 @@ export class HtmlTableComponent {
                 (<DataTableComponent>componentRef.instance).type = gab.property.type;
                 (<DataTableComponent>componentRef.instance).events = gab.property.events;
                 (<DataTableComponent>componentRef.instance).dataFilter = null;
-                if (gab.property.type === TableType.alarms && gab.property.options?.alarmFilter) {
+                if ((gab.property.type === TableType.alarms || gab.property.type === TableType.alarmsHistory) && gab.property.options?.alarmFilter) {
                     const dataFilter = <AlarmsFilter> {
                         priority: gab.property.options?.alarmFilter?.filterA,
                         text: gab.property.options?.alarmFilter?.filterB[0],

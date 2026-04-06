@@ -20,11 +20,11 @@
                             <mat-option [value]="tableType.history">{{'table.property-type-history' | translate}}</mat-option>
                             <mat-option [value]="tableType.alarms">{{'table.property-type-alarms' | translate}}</mat-option>
                             <mat-option [value]="tableType.reports">{{'table.property-type-reports' | translate}}</mat-option>
-                            <!-- <mat-option [value]="tableType.alarmsHistory">{{'table.property-type-alarms-history' | translate}}</mat-option> -->
+                            <mat-option [value]="tableType.alarmsHistory">{{'table.property-type-alarms-history' | translate}}</mat-option>
                         </mat-select>
                     </div>
                     <div class="section-inline-margin2"></div>
-                    <ng-container *ngIf="tableTypeCtrl.value === tableType.history">
+                    <ng-container *ngIf="tableTypeCtrl.value === tableType.history || tableTypeCtrl.value === tableType.alarmsHistory">
                         <div class="my-form-field inbk data-range">
                             <span>{{'table.property-date-last-range' | translate}}</span>
                             <mat-select [(value)]="options.lastRange" (selectionChange)="onTableChanged()">
@@ -33,9 +33,13 @@
                                 </mat-option>
                             </mat-select>
                         </div>
-                        <div class="my-form-field inbk tac data-realtime">
+                        <div class="my-form-field inbk tac data-realtime" *ngIf="tableTypeCtrl.value === tableType.history || tableTypeCtrl.value === tableType.alarmsHistory">
                             <span>{{'table.property-type-with-realtime' | translate}}</span>
                             <mat-slide-toggle color="primary" [(ngModel)]="options.realtime" (change)="onTableChanged()"></mat-slide-toggle>
+                        </div>
+                        <div class="my-form-field inbk section-inline-number ml10" *ngIf="tableTypeCtrl.value === tableType.alarmsHistory && options.realtime">
+                            <span>{{'chart.property-refresh-interval' | translate}}</span>
+                            <input numberOnly [(ngModel)]="options.refreshInterval" (change)="onTableChanged()" (keyup.enter)="onTableChanged()" type="number" min="1">
                         </div>
                     </ng-container>
                 </div>

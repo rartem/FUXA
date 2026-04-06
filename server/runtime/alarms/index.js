@@ -26,6 +26,8 @@ function AlarmsManager(_runtime) {
     var clearAlarms = false;            // Flag to clear current alarms from DB
     var actionsProperty = {};           // Actions property list, key = alarm name + ^~^ + type
     var externalAlarms = {};
+    var externalAlarmsHistory = [];
+    var externalAlarmsInitialized = false;
 
 
     /**
@@ -227,6 +229,7 @@ function AlarmsManager(_runtime) {
         }
 
         var externalChanged = false;
+        var refreshedExternalDevices = {};
         for (var i = 0; i < externalToAck.items.length; i++) {
             var ext = externalToAck.items[i];
             var result = await devices.setDeviceErrorCommand(ext.deviceId, {
@@ -239,11 +242,36 @@ function AlarmsManager(_runtime) {
             if (!result) {
                 throw new Error(`alarm ack failed for ${ext.name}`);
             }
+            var ackTime = Date.now();
+            var currentExternal = externalAlarms[ext.name] ? Object.assign({}, externalAlarms[ext.name]) : Object.assign({}, ext);
+            currentExternal.status = AlarmStatusEnum.ACK;
+            currentExternal.acktime = currentExternal.acktime || ackTime;
+            currentExternal.userack = userId || '';
+            currentExternal.toack = 0;
+            externalAlarms[ext.name] = currentExternal;
+            if (externalAlarmsInitialized) {
+                _queueExternalAlarmHistory(currentExternal, {
+                    status: AlarmStatusEnum.ACK,
+                    eventtime: currentExternal.acktime,
+                    acktime: currentExternal.acktime,
+                    offtime: 0,
+                    userack: currentExternal.userack
+                });
+            }
             externalChanged = true;
+            refreshedExternalDevices[ext.deviceId] = true;
+        }
+
+        var refreshedExternalDeviceIds = Object.keys(refreshedExternalDevices);
+        for (var i = 0; i < refreshedExternalDeviceIds.length; i++) {
+            if (devices.getDeviceErrors) {
+                await devices.getDeviceErrors(refreshedExternalDeviceIds[i], true);
+            }
         }
 
         if (changed.length || externalChanged) {
             _syncExternalAlarms();
+            await _flushExternalAlarmsHistory();
             _emitAlarmsChanged();
         }
 
@@ -328,7 +356,7 @@ function AlarmsManager(_runtime) {
      * Check Alarms status
      */
     var _checkAlarms = function () {
-        return new Promise(function (resolve, reject) {
+        return new Promise(async function (resolve, reject) {
             var time = new Date().getTime();
             var changed = [];
             var externalChanged = _syncExternalAlarms();
@@ -344,20 +372,20 @@ function AlarmsManager(_runtime) {
                     });
                 }
             });
-            if (changed.length) {
-                _checkActions(changed);
-                alarmstorage.setAlarms(changed).then(function (result) {
+            try {
+                if (changed.length) {
+                    _checkActions(changed);
+                    await alarmstorage.setAlarms(changed);
                     changed.forEach(alr => {
                         if (alr.toremove) {
                             alr.init();
                         }
                     });
-                    resolve(true);
-                }).catch(function (err) {
-                    reject(err);
-                });
-            } else {
-                resolve(externalChanged);
+                }
+                var externalHistoryChanged = await _flushExternalAlarmsHistory();
+                resolve(Boolean(changed.length || externalChanged || externalHistoryChanged));
+            } catch (err) {
+                reject(err);
             }
         });
     }
@@ -392,6 +420,8 @@ function AlarmsManager(_runtime) {
             alarms = {};
             alarmsProperty = {};
             externalAlarms = {};
+            externalAlarmsHistory = [];
+            externalAlarmsInitialized = false;
             runtime.project.getAlarms().then(function (result) {
                 var alarmsFound = 0;
                 if (result) {
@@ -602,11 +632,72 @@ function AlarmsManager(_runtime) {
         };
     }
 
+    var _isExternalConnectionAlarm = function (alarm) {
+        return String(alarm && alarm.group || '').trim().toLowerCase() === 'connection';
+    }
+
+    var _getExternalAlarmRecoveryText = function (alarm) {
+        if (_isExternalConnectionAlarm(alarm)) {
+            var deviceName = alarm && (alarm.deviceName || alarm.deviceId || alarm.text || 'Device');
+            return `${deviceName} connection restored`;
+        }
+        return alarm && alarm.text ? alarm.text : '';
+    }
+
+    var _createExternalAlarmStorageItem = function (alarm, options) {
+        var source = Object.assign({}, alarm, options);
+        var alarmId = source.name;
+        return {
+            type: source.type,
+            status: source.status,
+            ontime: source.eventtime || source.ontime || source.offtime || source.acktime || Date.now(),
+            offtime: source.offtime || 0,
+            acktime: source.acktime || 0,
+            userack: source.userack || '',
+            historyOnly: true,
+            subproperty: {
+                text: source.text || '',
+                group: source.group || ''
+            },
+            getId: function () {
+                return alarmId;
+            }
+        };
+    }
+
+    var _queueExternalAlarmHistory = function (alarm, options) {
+        var status = options && options.status !== undefined ? options.status : alarm.status;
+        var eventTime = options && options.eventtime !== undefined ? options.eventtime : (status === AlarmStatusEnum.ACK ? (alarm.acktime || Date.now()) : (status === AlarmStatusEnum.OFF ? (alarm.offtime || Date.now()) : (alarm.ontime || Date.now())));
+        externalAlarmsHistory.push(_createExternalAlarmStorageItem(alarm, Object.assign({
+            status: status,
+            eventtime: eventTime,
+            ontime: eventTime,
+            offtime: status === AlarmStatusEnum.OFF ? (alarm.offtime || eventTime) : 0,
+            acktime: status === AlarmStatusEnum.ACK ? (alarm.acktime || eventTime) : 0,
+            userack: status === AlarmStatusEnum.ACK ? (alarm.userack || '') : (alarm.userack || '')
+        }, options)));
+    }
+
+    var _flushExternalAlarmsHistory = async function () {
+        if (!externalAlarmsHistory.length) {
+            return false;
+        }
+        var pending = externalAlarmsHistory.splice(0, externalAlarmsHistory.length);
+        try {
+            await alarmstorage.setAlarms(pending);
+            return pending.length > 0;
+        } catch (error) {
+            externalAlarmsHistory = pending.concat(externalAlarmsHistory);
+            throw error;
+        }
+    }
+
     var _syncExternalAlarms = function () {
         var snapshot = devices.getDevicesErrorsSnapshot ? devices.getDevicesErrorsSnapshot() : [];
         var seen = {};
         var changed = false;
         var now = Date.now();
+        var shouldLogHistory = externalAlarmsInitialized;
 
         snapshot.forEach(error => {
             if (!error || !error.id) {
@@ -624,6 +715,7 @@ function AlarmsManager(_runtime) {
             var record = previous ? Object.assign({}, previous) : {
                 name: alarmId,
                 deviceId: error.deviceId,
+                deviceName: error.deviceName || '',
                 objectType: error.objectType,
                 objectNumber: error.objectNumber,
                 objectAlarmNumber: error.objectAlarmNumber,
@@ -635,6 +727,7 @@ function AlarmsManager(_runtime) {
 
             record.type = type;
             record.status = status;
+            record.deviceName = error.deviceName || record.deviceName || '';
             record.text = error.description || error.deviceName || error.id;
             record.group = error.group || '';
             record.suppress = Boolean(error.suppress);
@@ -655,6 +748,12 @@ function AlarmsManager(_runtime) {
                 } else if (status === AlarmStatusEnum.ACK) {
                     record.acktime = previous && previous.acktime ? previous.acktime : now;
                 }
+                if (shouldLogHistory) {
+                    _queueExternalAlarmHistory(record, {
+                        status: status,
+                        eventtime: status === AlarmStatusEnum.ACK ? record.acktime : (status === AlarmStatusEnum.OFF ? record.offtime : record.ontime)
+                    });
+                }
             }
 
             if (previous && (previous.text !== record.text || previous.group !== record.group || previous.suppress !== record.suppress || previous.toack !== record.toack || previous.color !== record.color || previous.bkcolor !== record.bkcolor)) {
@@ -666,10 +765,25 @@ function AlarmsManager(_runtime) {
 
         Object.keys(externalAlarms).forEach(alarmId => {
             if (!seen[alarmId]) {
+                var removedAlarm = externalAlarms[alarmId];
+                if (shouldLogHistory && removedAlarm && removedAlarm.status !== AlarmStatusEnum.OFF) {
+                    removedAlarm = Object.assign({}, removedAlarm, {
+                        status: AlarmStatusEnum.OFF,
+                        offtime: removedAlarm.offtime || now,
+                        text: _getExternalAlarmRecoveryText(removedAlarm)
+                    });
+                    _queueExternalAlarmHistory(removedAlarm, {
+                        status: AlarmStatusEnum.OFF,
+                        eventtime: removedAlarm.offtime,
+                        text: removedAlarm.text
+                    });
+                }
                 delete externalAlarms[alarmId];
                 changed = true;
             }
         });
+
+        externalAlarmsInitialized = true;
 
         return changed;
     }

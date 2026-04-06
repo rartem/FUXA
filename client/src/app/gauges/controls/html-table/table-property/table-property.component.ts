@@ -13,7 +13,7 @@ import { Utils } from '../../../../_helpers/utils';
 import { SCRIPT_PARAMS_MAP, Script } from '../../../../_models/script';
 import { ProjectService } from '../../../../_services/project.service';
 import { TableAlarmsComponent, TableAlarmsType } from '../table-alarms/table-alarms.component';
-import { AlarmColumns, AlarmHistoryColumns } from '../../../../_models/alarm';
+import { AlarmColumns, AlarmColumnsType, AlarmHistoryColumns, AlarmHistoryColumnsType } from '../../../../_models/alarm';
 import { TableReportsComponent, TableReportsType } from '../table-reports/table-reports.component';
 import { ReportColumns } from '../../../../_models/report';
 
@@ -80,6 +80,11 @@ export class TablePropertyComponent implements OnInit, OnDestroy {
     onTableChanged() {
         this.property.options = JSON.parse(JSON.stringify(this.options));
         this.property.type = this.tableTypeCtrl.value;
+        if ((this.property.type === TableType.alarms || this.property.type === TableType.alarmsHistory) && !this.property.options.alarmsColumns?.length) {
+            const defaultColumns = (this.property.type === TableType.alarms ? AlarmColumns.filter(column => column !== AlarmColumnsType.history) : AlarmHistoryColumns.filter(column => column !== AlarmHistoryColumnsType.history));
+            this.property.options.alarmsColumns = defaultColumns.map(clnId => new TableColumn(clnId, TableCellType.label, this.translateService.instant('alarms.view-' + clnId)));
+            this.options.alarmsColumns = JSON.parse(JSON.stringify(this.property.options.alarmsColumns));
+        }
         this.onPropChanged.emit(this.data.settings);
     }
 

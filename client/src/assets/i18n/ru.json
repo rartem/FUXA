@@ -199,6 +199,7 @@
     "chart.property-color.legend": "Цвет Легенды",
     "chart.property-legend.mode": "Режим отображения Легенды",
     "chart.property-date-last-range": "Диапазон времени",
+    "chart.property-refresh-interval": "Интервал обновления (мин.)",
     "chart.property-date.format": "Формат даты",
     "chart.property-time.format": "Формат времени",
     "chart.property-axis": "Оси",

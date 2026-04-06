@@ -518,6 +518,7 @@ export interface TableOptions {
         show: boolean;
     };
     realtime?: boolean;
+    refreshInterval?: number;
     lastRange?: TableRangeType;
     gridColor?: string;
     header?: {

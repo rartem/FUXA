@@ -101,6 +101,17 @@
                         'color': getRowTextColor(row)}">
             </mat-row>
         </ng-container>
+        <ng-container *ngSwitchCase="tableType.alarmsHistory">
+            <mat-row *matRowDef="let row; columns: displayedColumns; index as i"
+                    class="mat-row data-table-row"
+                    [ngStyle]="{
+                        'cursor': isSelectable() ? 'pointer': 'unset',
+                        'height.px': tableOptions.row.height,
+                        'background-color': getRowBackgroundColor(row),
+                        'border-bottom': '1px solid ' + tableOptions.gridColor,
+                        'color': getRowTextColor(row)}">
+            </mat-row>
+        </ng-container>
         <ng-container *ngSwitchCase="tableType.data">
             <mat-row *matRowDef="let row; columns: displayedColumns; index as i"
                     (click)="selectRow(row)"
@@ -127,7 +138,7 @@
         </ng-container>
     </ng-container>
 </mat-table>
-<div *ngIf="!isEditor && type === tableHistoryType" class="reload-btn" [style.top.px]="withToolbar ? 45 : 0">
+<div *ngIf="!isEditor && (type === tableHistoryType || type === tableAlarmHistoryType)" class="reload-btn" [style.top.px]="withToolbar ? 45 : 0">
     <button mat-icon-button
             (click)="onRefresh()"
             class="small-icon-button default-color"

@@ -159,6 +159,13 @@ function setAlarms(alarms) {
                 let status = alr.status || '';
                 let userack = alr.userack || '';
                 const alarmId = alr.getId();
+                if (alr.historyOnly) {
+                    await _run(
+                        "INSERT INTO chronicle (nametype, type, status, text, grp, ontime, offtime, acktime, userack) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        [alarmId, alr.type, status, alr.subproperty.text, grp, alr.ontime, alr.offtime, alr.acktime, userack]
+                    );
+                    continue;
+                }
                 await _run(
                     "INSERT OR REPLACE INTO alarms (nametype, type, status, ontime, offtime, acktime) VALUES(?, ?, ?, ?, ?, ?)",
                     [alarmId, alr.type, status, alr.ontime, alr.offtime, alr.acktime]
