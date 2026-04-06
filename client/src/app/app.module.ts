@@ -237,6 +237,7 @@ import { TagPropertyEditRedisComponent } from './device/tag-property/tag-propert
 import { TagPropertyRedisScanComponent } from './device/tag-property/tag-property-edit-redis/tag-property-redis-scan/tag-property-redis-scan.component';
 import { TagPropertyEditEasyDrvComponent } from './device/tag-property/tag-property-edit-easydrv/tag-property-edit-easydrv.component';
 import { TagPropertyEditMpsComponent } from './device/tag-property/tag-property-edit-mps/tag-property-edit-mps.component';
+import { OnboardingWizardComponent } from './editor/onboarding-wizard/onboarding-wizard.component';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -423,6 +424,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         TagPropertyRedisScanComponent,
         TagPropertyEditEasyDrvComponent,
         TagPropertyEditMpsComponent,
+        OnboardingWizardComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         FormsModule,
