@@ -1338,5 +1338,6 @@ export class ServerSettings {
 export enum SaveMode {
     Current,
     Save,
-    SaveAs
+    SaveAs,
+    Force
 }

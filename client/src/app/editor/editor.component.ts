@@ -152,6 +152,8 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
                     this.projectService.saveAs();
                 } else if (mode === SaveMode.Save) {
                     this.onSaveProject(true);
+                } else if (mode === SaveMode.Force) {
+                    this.onForceSaveProject();
                 }
             });
             this.gaugesManager.clearMemory();
@@ -1010,6 +1012,19 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
             this.currentView.svgcontent = this.getContent();
             this.saveView(this.currentView, notify);
         }
+    }
+
+    /**
+     * Force Save Project
+     * Push the current view content to the project and save the whole project payload to the server,
+     * bypassing per-item change detection.
+     */
+    onForceSaveProject() {
+        if (this.currentView) {
+            this.currentView.svgcontent = this.getContent();
+            this.projectService.setView(this.currentView, false);
+        }
+        this.projectService.save();
     }
 
     //#endregion

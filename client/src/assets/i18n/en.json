@@ -8,6 +8,7 @@
     "header.new-project": "New Project",
     "header.save-project": "Save Project",
     "header.save-project-tooltip": "Save all outstanding project changes",
+    "header.force-save-project": "Force Save Project",
     "header.saveas-project": "Save Project As...",
     "header.rename-project": "Rename Project",
     "header.open-project": "Open Project",

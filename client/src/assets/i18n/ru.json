@@ -8,6 +8,7 @@
     "header.new-project": "Новый проект",
     "header.save-project": "Сохранить проект",
     "header.save-project-tooltip": "Сохранение всех изменений в проекте",
+    "header.force-save-project": "Принудительно сохранить проект",
     "header.saveas-project": "Сохранить проект как...",
     "header.rename-project": "Переименовать проект",
     "header.open-project": "Открыть проект",

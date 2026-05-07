@@ -199,6 +199,21 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     }
 
     /**
+     * Force save the whole project to the server, regardless of local change detection.
+     */
+    onForceSaveProject() {
+        try {
+            if (this.saveFromEditor) {
+                this.projectService.save();
+            } else {
+                this.projectService.saveProject(SaveMode.Force);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
      * save Project and Download in Browser
      */
     onSaveProject() {
