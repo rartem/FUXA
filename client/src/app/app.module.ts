@@ -27,7 +27,6 @@ import { LogsViewComponent } from './logs-view/logs-view.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { EditorComponent, DialogLinkProperty } from './editor/editor.component';
 import { LayoutPropertyComponent } from './editor/layout-property/layout-property.component';
-import { PluginsComponent } from './editor/plugins/plugins.component';
 import { AppSettingsComponent } from './editor/app-settings/app-settings.component';
 import { SetupComponent } from './editor/setup/setup.component';
 import { ChartConfigComponent } from './editor/chart-config/chart-config.component';
@@ -238,6 +237,8 @@ import { TagPropertyRedisScanComponent } from './device/tag-property/tag-propert
 import { TagPropertyEditEasyDrvComponent } from './device/tag-property/tag-property-edit-easydrv/tag-property-edit-easydrv.component';
 import { TagPropertyEditMpsComponent } from './device/tag-property/tag-property-edit-mps/tag-property-edit-mps.component';
 import { OnboardingWizardComponent } from './editor/onboarding-wizard/onboarding-wizard.component';
+import { PluginsListComponent } from './plugins/plugins-list/plugins-list.component';
+import { SectionMessageDialogComponent } from './editor/section-message-dialog/section-message-dialog.component';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -276,7 +277,6 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         DeviceWebapiPropertyDialogComponent,
         LayoutPropertyComponent,
         TagsIdsConfigComponent,
-        PluginsComponent,
         AppSettingsComponent,
         SetupComponent,
         LayoutMenuItemPropertyComponent,
@@ -425,6 +425,8 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         TagPropertyEditEasyDrvComponent,
         TagPropertyEditMpsComponent,
         OnboardingWizardComponent,
+        PluginsListComponent,
+        SectionMessageDialogComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         FormsModule,
