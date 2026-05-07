@@ -96,9 +96,12 @@ if (Test-Path $src) {
     Move-Item $src $dst -Force
 }
 
+Copy-Item "$ROOT\app\headless\fuxa-headless.config.example.json" "$ARTIFACTS_DIR\fuxa-headless.config.example.json" -Force
+
 Write-Host ""
 Write-Host "============================================"
 Write-Host " Headless build complete!"
 Write-Host "============================================"
 Write-Host " Binary: artifacts\FUXA-headless-windows-x64.exe"
+Write-Host " Config example: artifacts\fuxa-headless.config.example.json"
 Write-Host "============================================"
