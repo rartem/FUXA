@@ -101,3 +101,5 @@ app/electron/server/
 client/dist/*
 fuxa-headless/*
 artifacts/*
+
+release/
