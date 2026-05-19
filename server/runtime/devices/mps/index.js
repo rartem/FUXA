@@ -39,6 +39,7 @@ function MPSClient(_data, _logger, _events, _runtime) {
     var lastStatus = '';
     var lastTimestampValue = null;
     var errRetryCount = 0;
+    var commandQueue = Promise.resolve();
 
     // MPS device structure from BrowseTags
     var browseData = null;
@@ -67,6 +68,12 @@ function MPSClient(_data, _logger, _events, _runtime) {
         frame[7] = msgBuf.length & 0xFF;
         msgBuf.copy(frame, 8);
         return frame;
+    };
+
+    var _enqueueCommand = function (fnc) {
+        var run = commandQueue.then(() => fnc());
+        commandQueue = run.catch(() => {});
+        return run;
     };
 
     // ── Send framed message on the main socket and receive framed response ──
@@ -205,11 +212,13 @@ function MPSClient(_data, _logger, _events, _runtime) {
 
     // ── Send command and parse JSON response ──
     var _sendCommand = async function (command) {
-        var responseStr = await _sendFramed(command);
-        if (responseStr.error) {
-            throw new Error(responseStr.error);
-        }
-        return responseStr.data;
+        return _enqueueCommand(async function () {
+            var responseStr = await _sendFramed(command);
+            if (responseStr.error) {
+                throw new Error(responseStr.error);
+            }
+            return responseStr.data;
+        });
     };
 
     // ── Send JSON DeviceCommand and parse JSON response ──
@@ -460,6 +469,7 @@ function MPSClient(_data, _logger, _events, _runtime) {
                 socket = null;
                 connected = false;
                 errRetryCount = 0;
+                commandQueue = Promise.resolve();
                 browseData = null;
                 deviceStates = {};
                 _emitStatus('connect-off');
