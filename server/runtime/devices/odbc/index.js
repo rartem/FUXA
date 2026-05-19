@@ -186,7 +186,8 @@ function ODBCclient(_data, _logger, _events) {
      * Return Tag property to show in frontend
      */
     this.getTagProperty = function (tagid) {
-        console.error(`Not supported! (odbc.getTagProperty) (TagID: ${tagid})`);
+        const tag = data.tags ? data.tags[tagid] : null;
+        return tag ? { id: tagid, name: tag.name, type: tag.type, format: tag.format } : null;
     }
 
     /**
