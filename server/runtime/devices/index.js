@@ -11,6 +11,10 @@ var runtime;                        // Access to application resource like logge
 var wokingStatus;                   // Current status (start/stop) to know if is working
 
 const FuxaServerId = '0';
+
+function isEnabledValue(value) {
+    return value === true || value === 'true';
+}
 /**
  * Init by set the access to application resource
  * @param {*} _runtime
