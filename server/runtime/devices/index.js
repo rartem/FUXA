@@ -82,13 +82,16 @@ function update() {
  */
 function updateDevice(device) {
     if (!activeDevices[device.id]) {
-        if (devices.loadDevice(device) && device.enabled) {
+        if (!isEnabledValue(device.enabled)) {
+            return;
+        }
+        if (devices.loadDevice(device)) {
             activeDevices[device.id].start();
         }
     } else {
         activeDevices[device.id].stop().then(function () {
-            devices.loadDevice(device);
-            if (device.enabled) {
+            if (isEnabledValue(device.enabled)) {
+                devices.loadDevice(device);
                 activeDevices[device.id].start();
             } else {
                 delete activeDevices[device.id];
@@ -132,7 +135,7 @@ function load() {
         if (serverDevice && id === FuxaServerId) {
             continue;
         }
-        if (tempdevices[id].enabled) {
+        if (isEnabledValue(tempdevices[id].enabled)) {
             if(tempdevices[id].type == 'ModbusRTU'){
                 if(!(tempdevices[id].property.address in sharedDevices)){
                     sharedDevices[tempdevices[id].property.address] = [];
