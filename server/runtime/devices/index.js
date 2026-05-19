@@ -445,15 +445,23 @@ async function setDeviceValue(deviceid, sigid, value, fnc) {
     }
 }
 
+function isDeviceEnabled(deviceId) {
+    if (deviceId === FuxaServerId) {
+        return true;
+    }
+    var projectDevices = runtime.project.getDevices();
+    return projectDevices && projectDevices[deviceId] && isEnabledValue(projectDevices[deviceId].enabled);
+}
+
 async function getDeviceErrors(deviceId, refresh) {
-    if (activeDevices[deviceId] && activeDevices[deviceId].getErrors) {
+    if (isDeviceEnabled(deviceId) && activeDevices[deviceId] && activeDevices[deviceId].getErrors) {
         return activeDevices[deviceId].getErrors(refresh);
     }
     return null;
 }
 
 async function setDeviceErrorCommand(deviceId, params) {
-    if (activeDevices[deviceId] && activeDevices[deviceId].setErrorCommand) {
+    if (isDeviceEnabled(deviceId) && activeDevices[deviceId] && activeDevices[deviceId].setErrorCommand) {
         return activeDevices[deviceId].setErrorCommand(params);
     }
     return null;
@@ -462,7 +470,7 @@ async function setDeviceErrorCommand(deviceId, params) {
 function getDevicesErrorsSnapshot() {
     var result = [];
     for (var id in activeDevices) {
-        if (activeDevices[id] && activeDevices[id].getErrors) {
+        if (isDeviceEnabled(id) && activeDevices[id] && activeDevices[id].getErrors) {
             var errors = activeDevices[id].getErrors(false);
             if (Array.isArray(errors) && errors.length) {
                 result = result.concat(errors);
@@ -490,7 +498,7 @@ function setDeviceConnectionStatus(deviceId, status) {
  */
 function browseDevice(deviceid, node, callback) {
     return new Promise(function (resolve, reject) {
-        if (activeDevices[deviceid] && activeDevices[deviceid].browse) {
+        if (isDeviceEnabled(deviceid) && activeDevices[deviceid] && activeDevices[deviceid].browse) {
             activeDevices[deviceid].browse(node, callback).then(function (result) {
                 resolve(result);
             }).catch(function (err) {
