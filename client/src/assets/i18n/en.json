@@ -691,6 +691,9 @@
     "editor.interactivity-class": "class:",
     "editor.interactivity-class-title": "Element class",
     "editor.interactivity-name": "name",
+    "editor.widget-info": "Widget",
+    "editor.widget-name": "name",
+    "editor.widget-type": "type",
     "editor.edit-bind-of-tags": "Edit bind of Tags",
 
     "editor.cmenu-property": "Property",

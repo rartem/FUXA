@@ -645,6 +645,7 @@ export class SelElement {
     type = '';
     id: string;
     ele: any = null;
+    ga: GaugeSettings;
 }
 
 export class Event {

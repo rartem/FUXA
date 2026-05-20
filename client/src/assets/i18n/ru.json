@@ -430,6 +430,9 @@
     "editor.interactivity-class": "class:",
     "editor.interactivity-class-title": "Класс элемента",
     "editor.interactivity-name": "название",
+    "editor.widget-info": "Виджет",
+    "editor.widget-name": "имя",
+    "editor.widget-type": "тип",
 
     "editor.cmenu-property": "Свойства",
     "editor.cmenu-cut": "Вырезать",

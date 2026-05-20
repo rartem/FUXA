@@ -285,6 +285,29 @@
                             </div>
                         </div>
                     </mat-expansion-panel>
+                    <!-- WIDGET INFO -->
+                    <mat-expansion-panel class="svg-workarea-fly-p" [style.display]="(selectedElement?.ga)?'block':'none'" (opened)="panelPropertyWidgetOpenState = true"
+                        (closed)="panelPropertyWidgetOpenState = false" hideToggle="true" expanded="true">
+                        <mat-expansion-panel-header class="svg-workarea-leftbar-h">
+                            <mat-panel-title>
+                                <mat-icon aria-label="Select" *ngIf="panelPropertyWidgetOpenState">expand_less</mat-icon>
+                                <mat-icon aria-label="Select" *ngIf="!panelPropertyWidgetOpenState">expand_more</mat-icon>
+                                <span>{{'editor.widget-info' | translate}}</span> <!-- WIDGET INFO -->
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div id="_selected_widget_panel" class="rightbar-panel">
+                            <div class="_toolset">
+                                <div class="svg-property">
+                                    <span>{{'editor.widget-name' | translate}}</span>
+                                    <input id="widget_name" class="rightbar-input" type="text" [value]="selectedElement?.ga?.name || ''" readonly />
+                                </div>
+                                <div class="svg-property">
+                                    <span>{{'editor.widget-type' | translate}}</span>
+                                    <input id="widget_type" class="rightbar-input" type="text" [value]="getWidgetFileName(selectedElement?.ga) || selectedElement?.ga?.label || selectedElement?.type || ''" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
                     <mat-expansion-panel class="svg-workarea-fly-p" [style.display]="(selectedElement)?'block':'none'" (opened)="panelPropertyTransformOpenState = true"
                         (closed)="panelPropertyTransformOpenState = false" hideToggle="true" expanded="true">
                         <mat-expansion-panel-header class="svg-workarea-leftbar-h">

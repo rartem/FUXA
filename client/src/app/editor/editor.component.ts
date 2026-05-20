@@ -105,6 +105,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     };
     panelPropertyIdOpenState: boolean;
     panelPropertyTransformOpenState: boolean;
+    panelPropertyWidgetOpenState: boolean;
     panelAlignOpenState: boolean;
     panelFillOpenState: boolean;
     panelEventOpenState: boolean;
@@ -678,6 +679,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
             if (elems.length <= 1) {
                 this.selectedElement = elems[0];
                 this.selectedElement.type = elems[0].type || 'svg-ext-shapes-' + (this.currentMode || 'default');
+                this.selectedElement.ga = this.getGaugeSettings(this.selectedElement);
                 this.checkColors(this.selectedElement);
                 this.checkGaugeInView(this.selectedElement);
             }
@@ -1689,6 +1691,19 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     flipSelected(fliptype: string) {
+    }
+
+    /**
+     * Extract SVG filename from widget property address for display in property panel
+     * @param gs GaugeSettings
+     * @returns filename or null
+     */
+    getWidgetFileName(gs: GaugeSettings): string | null {
+        if (!gs?.property?.address) return null;
+        const address = gs.property.address;
+        // Extract filename from path like "/api/resources/widgets/circle.svg"
+        const match = address.match(/\/([^\/]+\.svg)$/i);
+        return match ? match[1] : null;
     }
 }
 
