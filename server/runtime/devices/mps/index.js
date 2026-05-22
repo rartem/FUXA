@@ -93,8 +93,10 @@ function MPSClient(_data, _logger, _events, _runtime) {
                 if (result !== null) {
                     responded = true;
                     clearTimeout(timer);
-                    socket.removeListener('data', onData);
-                    socket.removeListener('error', onError);
+                    if (socket) {
+                        socket.removeListener('data', onData);
+                        socket.removeListener('error', onError);
+                    }
                     resolve(result);
                 }
             };
@@ -103,8 +105,10 @@ function MPSClient(_data, _logger, _events, _runtime) {
                 if (!responded) {
                     responded = true;
                     clearTimeout(timer);
-                    socket.removeListener('data', onData);
-                    socket.removeListener('error', onError);
+                    if (socket) {
+                        socket.removeListener('data', onData);
+                        socket.removeListener('error', onError);
+                    }
                     reject(err);
                 }
             };
@@ -112,8 +116,11 @@ function MPSClient(_data, _logger, _events, _runtime) {
             var timer = setTimeout(() => {
                 if (!responded) {
                     responded = true;
-                    socket.removeListener('data', onData);
-                    socket.removeListener('error', onError);
+                    clearTimeout(timer);
+                    if (socket) {
+                        socket.removeListener('data', onData);
+                        socket.removeListener('error', onError);
+                    }
                     reject(new Error('timeout'));
                 }
             }, timeoutMs);
