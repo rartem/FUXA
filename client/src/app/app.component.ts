@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ChangeDetectorRef, Inject } from '@angular/core';
 import { DOCUMENT, Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject, Subscription, combineLatest, fromEvent, interval, map, merge, of, startWith, switchMap, takeUntil, tap, timer } from 'rxjs';
 
@@ -44,6 +45,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 		private cdr: ChangeDetectorRef,
 		private hmiService: HmiService,
 		private authService: AuthService,
+		private titleService: Title,
 		location: Location
 	) {
 		this.location = location;
@@ -52,6 +54,14 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 	ngOnInit() {
 		console.log(`FUXA v${environment.version}`);
 		this.heartbeatService.startHeartbeatPolling();
+		this.settingsService.loaded$.subscribe(loaded => {
+			if (loaded) {
+				this.applyWhiteLabel(this.settingsService.getSettings());
+			}
+		});
+		this.settingsService.settings$.subscribe(settings => {
+			this.applyWhiteLabel(settings);
+		});
 
 		// capture events for the token refresh
 		const inactivityDuration = 1 * 60 * 1000;
@@ -139,6 +149,35 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 			const style = this.document.createElement('style');
 			style.textContent = hmi.layout.customStyles;
 			this.document.head.appendChild(style);
+		}
+	}
+
+	applyWhiteLabel(settings: any) {
+		const wl = settings?.whiteLabel;
+		if (!wl) return;
+		// Title
+		const title = wl.title || 'FUXA';
+		this.titleService.setTitle(title);
+		// Splash screen
+		const splashTitle = this.document.getElementById('splash-title');
+		if (splashTitle) {
+			splashTitle.textContent = title + ' Loading...';
+		}
+		const splashLogo = this.document.getElementById('splash-logo') as HTMLElement;
+		if (splashLogo && wl.logo) {
+			splashLogo.style.background = `url('${wl.logo}') no-repeat center center`;
+			splashLogo.style.backgroundSize = '60px 60px';
+		}
+		const splashFooter = this.document.getElementById('splash-footer');
+		if (splashFooter) {
+			splashFooter.style.display = wl.hidePoweredBy ? 'none' : 'block';
+		}
+		// Favicon
+		if (wl.favicon) {
+			const favicon = this.document.getElementById('appFavicon') as HTMLLinkElement;
+			if (favicon) {
+				favicon.href = wl.favicon;
+			}
 		}
 	}
 

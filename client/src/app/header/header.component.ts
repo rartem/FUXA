@@ -11,6 +11,7 @@ import { SetupComponent } from '../editor/setup/setup.component';
 
 import { ProjectService, SaveMode } from '../_services/project.service';
 import { ThemeService } from '../_services/theme.service';
+import { SettingsService } from '../_services/settings.service';
 
 import { HelpData, DEVICE_READONLY } from '../_models/hmi';
 import { TutorialComponent } from '../help/tutorial/tutorial.component';
@@ -41,7 +42,8 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
                 public dialog: MatDialog,
                 private translateService: TranslateService,
                 private themeService: ThemeService,
-                private projectService: ProjectService
+                private projectService: ProjectService,
+                private settingsService: SettingsService
     ) {
         this.router.events.pipe(
             filter(val => val instanceof NavigationEnd),
@@ -121,8 +123,9 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     }
 
     showInfo() {
+        const wl = this.settingsService.getSettings()?.whiteLabel;
         let dialogRef = this.dialog.open(DialogInfo, {
-            data: { name: 'Info', version: environment.version }
+            data: { name: 'Info', version: environment.version, whiteLabel: wl }
         });
 
         dialogRef.afterClosed().subscribe(result => {

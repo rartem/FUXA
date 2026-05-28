@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MapsLocationImportComponent } from '../maps-location-import/maps-location-import.component';
 import { MapsFabButtonMenuComponent } from './maps-fab-button-menu/maps-fab-button-menu.component';
 import { HmiService } from '../../_services/hmi.service';
+import { SettingsService } from '../../_services/settings.service';
 
 interface MarkerBinding {
     nodeIds: string[];
@@ -65,7 +66,8 @@ export class MapsViewComponent implements AfterViewInit, OnDestroy {
         private projectService: ProjectService,
         private appRef: ApplicationRef,
         private translateService: TranslateService,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private settingsService: SettingsService
     ) { }
 
     ngAfterViewInit(): void {
@@ -77,8 +79,9 @@ export class MapsViewComponent implements AfterViewInit, OnDestroy {
         setTimeout(() => {
             this.map = L.map('map').setView(startLocation, this.view.property?.startZoom || 13);
 
+            const wlTitle = this.settingsService.getSettings()?.whiteLabel?.title;
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; FUXA'
+                attribution: '&copy; ' + (wlTitle || 'FUXA')
             }).addTo(this.map);
 
             this.loadMapsResources();

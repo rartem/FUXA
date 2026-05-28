@@ -3,7 +3,7 @@
 
     <div class="ar-topbar">
         <div>
-            <div class="ar-title">FUXA AR</div>
+            <div class="ar-title">{{ (appTitle || 'FUXA') + ' AR' }}</div>
             <div class="ar-status" *ngIf="isCameraActive && detectorAvailable">
                 Camera active - marker scan supported
             </div>

@@ -27,7 +27,7 @@ FUXA/
 
 - **`main.js`** — главный файл. Парсит CLI-аргументы (`--port`, `--userDir`), загружает настройки из `_appdata/settings.js`, создаёт HTTP/HTTPS-сервер и Socket.IO, настраивает Express-маршруты для статики, инициализирует FUXA через `fuxa.js`, монтирует Swagger UI и Node-RED (опционально).
 - **`fuxa.js`** — фасад. Связывает `runtime` и `api`: вызывает `runtime.init()` и `api.init()`, экспортирует `start()`, `stop()`, `httpApi`.
-- **`settings.default.js`** — настройки по умолчанию (порт, язык, DAQ, CORS, heartbeat, логирование и т.д.).
+- **`settings.default.js`** — настройки по умолчанию (порт, язык, DAQ, CORS, heartbeat, логирование, white-label и т.д.).
 - **`paths.js`** — утилиты для определения путей.
 - **`envParams.js`** — чтение переменных окружения.
 

@@ -6,6 +6,7 @@ import { LayoutSettings, NaviItem, NavigationSettings, LinkType, NaviItemType } 
 import { Router } from '@angular/router';
 import { ProjectService } from '../_services/project.service';
 import { LanguageService } from '../_services/language.service';
+import { SettingsService } from '../_services/settings.service';
 import { Utils } from '../_helpers/utils';
 
 @Component({
@@ -27,12 +28,15 @@ export class SidenavComponent implements AfterContentChecked {
     showSidenav = false;
     layoutNavigation = new NavigationSettings();
     expandedItems: Set<string> = new Set();
+    whiteLabelTitle = '';
+    whiteLabelLogo = '';
     private expandableNavItems = [Utils.getEnumKey(NaviItemType, NaviItemType.text), Utils.getEnumKey(NaviItemType, NaviItemType.inline)];
 
     constructor(private location: Location,
                 private router: Router,
                 private projectService: ProjectService,
                 private languageService: LanguageService,
+                private settingsService: SettingsService,
                 private changeDetector: ChangeDetectorRef) {
     }
 
@@ -76,9 +80,12 @@ export class SidenavComponent implements AfterContentChecked {
 
     public setLayout(layout: LayoutSettings) {
         this.layout = Utils.clone(layout);
+        const wl = this.settingsService.getSettings()?.whiteLabel;
+        this.whiteLabelTitle = wl?.title || '';
+        this.whiteLabelLogo = wl?.logo || '';
         if (this.layout.navigation) {
             this.layoutNavigation = this.layout.navigation;
-            this.logo = this.layout.navigation.logo;
+            this.logo = this.whiteLabelLogo || this.layout.navigation.logo;
             this.layout.navigation.items?.forEach(item => {
                 item.text = this.languageService.getTranslation(item.text) ?? item.text;
                 if (!item.id) {

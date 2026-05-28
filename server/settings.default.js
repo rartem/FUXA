@@ -128,4 +128,12 @@ module.exports = {
     // Node-RED: allow unsafe stdlib modules in functionGlobalContext
     // WARNING: Enabling this exposes modules like child_process/net to flows.
     nodeRedUnsafeModules: false,
+
+    // White-label customization
+    whiteLabel: {
+        title: '',
+        logo: '',
+        favicon: '',
+        hidePoweredBy: false
+    },
 }

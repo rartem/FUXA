@@ -31,6 +31,7 @@ import { UserInfo } from '../users/user-edit/user-edit.component';
 import { Intervals } from '../_helpers/intervals';
 import { Script, ScriptMode } from '../_models/script';
 import { ScriptService } from '../_services/script.service';
+import { SettingsService } from '../_services/settings.service';
 // declare var panzoom: any;
 
 import { ToastrService } from 'ngx-toastr';
@@ -94,6 +95,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         private scriptService: ScriptService,
         private languageService: LanguageService,
         private authService: AuthService,
+        private settingsService: SettingsService,
         public gaugesManager: GaugesManager) {
         this.gridOptions.draggable = { enabled: false };
         this.gridOptions.resizable = { enabled: false };
@@ -285,12 +287,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     onLogin() {
         let cuser = this.authService.getUser();
         if (cuser) {
+            const wl = this.settingsService.getSettings()?.whiteLabel;
             let dialogRef = this.dialog.open(DialogUserInfo, {
                 id: 'myuserinfo',
                 // minWidth: '250px',
                 position: { top: '50px', right: '15px' },
                 backdropClass: 'user-info',
-                data: cuser
+                data: { user: cuser, whiteLabel: wl }
             });
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
@@ -299,8 +302,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
             });
         } else {
+            const wl = this.settingsService.getSettings()?.whiteLabel;
             let dialogConfig = {
-                data: {},
+                data: { whiteLabel: wl },
                 disableClose: true,
                 autoFocus: false,
                 ...(this.hmi.layout.loginoverlaycolor && this.hmi.layout.loginoverlaycolor !== LoginOverlayColorType.none) && {

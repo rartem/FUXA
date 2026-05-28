@@ -1,17 +1,23 @@
 <div style="display:block; text-align: center;padding-top: 20px; padding-bottom: 10px;width: 220px">
-	<div style="display: block; margin: auto">
+	<div *ngIf="data.whiteLabel?.logo" style="display: block; margin: auto">
+		<img [src]="data.whiteLabel.logo" style="max-width: 60px; max-height: 60px;">
+	</div>
+	<div *ngIf="data.whiteLabel?.title" style="font-size: 16px; font-weight: 600; display: block; padding-top: 10px;">
+		{{data.whiteLabel.title}}
+	</div>
+	<div style="display: block; margin: auto; padding-top: 10px;">
 		<mat-icon [style.color]="'rgb(59, 144, 255)'">account_circle</mat-icon>
 	</div>
 	<div style="font-size: 14px;display: block;padding-top: 10px;padding-bottom: 10px;">
-		{{data.username}}
+		{{data.user.username}}
 	</div>
 	<div style="font-size: 14px;display: block;padding-top: 10px;padding-bottom: 10px;">
-		{{data.fullname}}
+		{{data.user.fullname}}
 	</div>
 	<div style="display: block; padding-bottom:20px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1);">
 		<button mat-raised-button [mat-dialog-close]="true">{{'dlg.logout-btn' | translate}}</button>
 	</div>
-	<div style="display: block; font-size: 10px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.1);">
-		FUXA powered by <span><b>frango</b>team</span>
+	<div *ngIf="!data.whiteLabel?.hidePoweredBy" style="display: block; font-size: 10px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.1);">
+		{{ data.whiteLabel?.title || 'FUXA' }} powered by <span><b>frango</b>team</span>
 	</div>
 </div>

@@ -26,6 +26,8 @@ export class LoginComponent {
 	errorEnabled = false;
 	disableCancel = false;
 
+	whiteLabel: any;
+
 	constructor(private authService: AuthService,
 				private projectService: ProjectService,
 				private translateService: TranslateService,
@@ -33,6 +35,7 @@ export class LoginComponent {
 				@Inject(MAT_DIALOG_DATA) private data: any) {
 		const hmi = this.projectService.getHmi();
 		this.disableCancel = hmi?.layout?.loginonstart && hmi.layout?.loginoverlaycolor !== LoginOverlayColorType.none;
+		this.whiteLabel = data?.whiteLabel;
 	}
 
 	onNoClick(): void {

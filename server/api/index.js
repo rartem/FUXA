@@ -287,6 +287,9 @@ function mergeUserSettings(settings) {
     if (settings.logs) {
         runtime.settings.logs = settings.logs;
     }
+    if (settings.whiteLabel) {
+        runtime.settings.whiteLabel = settings.whiteLabel;
+    }
 }
 
 async function getCurrentTokenUser(req) {

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { View } from '../../_models/hmi';
 import { ProjectService } from '../../_services/project.service';
+import { SettingsService } from '../../_services/settings.service';
 import { GaugesManager } from '../../gauges/gauges.component';
 import { ArMarkerScannerMode, ArMarkerScannerService } from './ar-marker-scanner.service';
 import { ArViewService, ArVisibleMarker } from './ar-view.service';
@@ -32,13 +33,18 @@ export class ArViewComponent implements AfterViewInit, OnDestroy {
     private hmiLoadSubscription: Subscription;
     private pendingMarkerId = '';
 
+    appTitle = '';
+
     constructor(
         public arViewService: ArViewService,
         private markerScanner: ArMarkerScannerService,
         public gaugesManager: GaugesManager,
         public projectService: ProjectService,
+        private settingsService: SettingsService,
         private route: ActivatedRoute,
-    ) { }
+    ) {
+        this.appTitle = this.settingsService.getSettings()?.whiteLabel?.title || '';
+    }
 
     get visibleMarkers(): ArVisibleMarker[] {
         return this.arViewService.visibleMarkers;
