@@ -24,6 +24,7 @@ import { HeaderComponent, DialogInfo } from './header/header.component';
 import { IframeComponent } from './iframe/iframe.component';
 import { ViewComponent } from './view/view.component';
 import { LogsViewComponent } from './logs-view/logs-view.component';
+import { EventsHistoryComponent } from './events-history/events-history.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { EditorComponent, DialogLinkProperty } from './editor/editor.component';
 import { LayoutPropertyComponent } from './editor/layout-property/layout-property.component';
@@ -66,6 +67,7 @@ import { ResDemoService } from './_services/rcgi/resdemo.service';
 import { ResClientService } from './_services/rcgi/resclient.service';
 import { ProjectService } from './_services/project.service';
 import { HmiService } from './_services/hmi.service';
+import { EventsService } from './_services/events.service';
 import { AppService } from './_services/app.service';
 import { TutorialComponent } from './help/tutorial/tutorial.component';
 import { WindowRef } from './_helpers/windowref';
@@ -367,6 +369,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         ScriptEditorParamComponent,
         LanguageTextListComponent,
         LogsViewComponent,
+        EventsHistoryComponent,
         NgxGaugeComponent,
         NgxNouisliderComponent,
         NgxSchedulerComponent,
@@ -476,6 +479,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         HeartbeatService,
         DataConverterService,
         ScriptService,
+        EventsService,
         ResourcesService,
         PluginService,
         SettingsService,

@@ -1398,10 +1398,7 @@
     "maps.location-to-import-input-title": "Sélectionner l'emplacement à importer",
     "logs.view-title": "Journaux système",
     "logs.view-files": "Fichiers de journaux",
-    "events.view-ontime": "Date / heure",
-    "events.view-type": "Type",
-    "events.view-source": "Source",
-    "events.view-text": "Texte",
+    "events.view-type": "Nom",
     "card.config-title": "Paramètres de carte",
     "card.config-content-type": "Type de contenu",
     "card.config-content-view": "Vue du contenu",
@@ -1624,5 +1621,14 @@
     "editor.move-to": "Déplacer vers",
     "editor.root": "Racine",
     "dlg.foldername-title": "Nom du dossier",
-    "msg.folder-remove": "Êtes-vous sûr de vouloir supprimer le dossier '{{value}}'? Tous les éléments seront déplacés vers la racine."
+    "msg.folder-remove": "Êtes-vous sûr de vouloir supprimer le dossier '{{value}}'? Tous les éléments seront déplacés vers la racine.",
+    "events.view-title": "Historique des événements",
+    "events.view-timestamp": "Horodatage",
+    "events.view-details": "Détails",
+    "events.search": "RECHERCHE",
+    "events.filter-placeholder": "Filtrer",
+    "logs.filter": "Filtrer",
+    "logs.filter-placeholder": "Entrez le texte du filtre...",
+    "events.view-user": "Utilisateur",
+    "events.user-filter-placeholder": "Filtrer par utilisateur..."
 }

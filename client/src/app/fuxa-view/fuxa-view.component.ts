@@ -33,6 +33,8 @@ import { WebcamPlayerDialogComponent, WebcamPlayerDialogData } from '../gui-help
 import { DevicesUtils, PlaceholderDevice, Tag } from '../_models/device';
 import { LanguageService } from '../_services/language.service';
 import { EventUtils } from '../_helpers/event-utils';
+import { EventsService } from '../_services/events.service';
+import { AuthService } from '../_services/auth.service';
 
 declare var SVG: any;
 
@@ -94,7 +96,9 @@ export class FuxaViewComponent implements OnInit, AfterViewInit, OnDestroy {
         private hmiService: HmiService,
         private languageService: LanguageService,
         private resolver: ComponentFactoryResolver,
-        private fuxaDialog: MatDialog) {
+        private fuxaDialog: MatDialog,
+        private eventsService: EventsService,
+        private authService: AuthService) {
     }
 
     ngOnInit() {
@@ -567,6 +571,16 @@ export class FuxaViewComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public runEvents(self: any, ga: GaugeSettings, ev: any, events: any) {
+        const eventType = ev?.type || 'click';
+        const user = this.authService.getUser()?.username || '';
+        const viewName = this.view?.name || '';
+        this.eventsService.logEvent(
+            'user-action',
+            'user',
+            user,
+            eventType + ' on ' + (ga.name || ga.id),
+            { gaugeId: ga.id, gaugeName: ga.name, gaugeType: ga.type, view: viewName, event: eventType }
+        ).subscribe();
         for (let i = 0; i < events.length; i++) {
             let actindex = Object.keys(GaugeEventActionType).indexOf(events[i].action);
             let eventTypes = Object.values(GaugeEventActionType);

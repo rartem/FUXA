@@ -45,6 +45,10 @@
             <mat-option *ngFor="let file of logs.files" [value]="file">{{file}}</mat-option>
         </mat-select>
     </div>
+    <div class="my-form-field log-filter-field">
+        <span>{{'logs.filter' | translate}}</span>
+        <input matInput [formControl]="logFilter" style="width: 250px;" type="text" placeholder="{{'logs.filter-placeholder' | translate}}">
+    </div>
 </div>
 <div class="scroll-buttons">
     <button (click)="scrollToTop()" class="scroll-btn scroll-top">↑</button>

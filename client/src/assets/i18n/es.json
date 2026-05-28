@@ -734,5 +734,15 @@
     "editor.move-to": "Mover a",
     "editor.root": "Raíz",
     "dlg.foldername-title": "Nombre de carpeta",
-    "msg.folder-remove": "¿Está seguro de que desea eliminar la carpeta '{{value}}'? Todos los elementos se moverán a la raíz."
+    "msg.folder-remove": "¿Está seguro de que desea eliminar la carpeta '{{value}}'? Todos los elementos se moverán a la raíz.",
+    "events.view-title": "Historial de eventos",
+    "events.view-timestamp": "Marca de tiempo",
+    "events.view-type": "Nombre",
+    "events.view-details": "Detalles",
+    "events.search": "BUSCAR",
+    "events.filter-placeholder": "Filtro",
+    "logs.filter": "Filtrar",
+    "logs.filter-placeholder": "Introduzca texto de filtro...",
+    "events.view-user": "Usuario",
+    "events.user-filter-placeholder": "Filtrar por usuario..."
 }

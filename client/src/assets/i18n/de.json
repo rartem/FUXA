@@ -1069,10 +1069,7 @@
     "report.chart-height": "Höhe",
     "logs.view-title": "Systemprotokolle",
     "logs.view-files": "Logs-Dateien",
-    "events.view-ontime": "Datum/Uhrzeit",
-    "events.view-type": "Typ",
-    "events.view-source": "Quelle",
-    "events.view-text": "Text",
+    "events.view-type": "Name",
     "card.config-title": "Karteneinstellungen",
     "card.config-content-type": "Inhaltstyp",
     "card.config-content-view": "Inhaltsansicht",
@@ -1237,5 +1234,14 @@
     "editor.move-to": "Verschieben nach",
     "editor.root": "Wurzel",
     "dlg.foldername-title": "Ordnername",
-    "msg.folder-remove": "Sind Sie sicher, dass Sie den Ordner '{{value}}' entfernen möchten? Alle Elemente werden in die Wurzel verschoben."
+    "msg.folder-remove": "Sind Sie sicher, dass Sie den Ordner '{{value}}' entfernen möchten? Alle Elemente werden in die Wurzel verschoben.",
+    "events.view-title": "Ereignisverlauf",
+    "events.view-timestamp": "Zeitstempel",
+    "events.view-details": "Details",
+    "events.search": "SUCHEN",
+    "events.filter-placeholder": "Filter",
+    "logs.filter": "Filter",
+    "logs.filter-placeholder": "Filtertext eingeben...",
+    "events.view-user": "Benutzer",
+    "events.user-filter-placeholder": "Benutzer filtern..."
 }

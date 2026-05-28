@@ -1,9 +1,11 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 
 import { UntypedFormControl } from '@angular/forms';
 import { MatTable as MatTable, MatTableDataSource as MatTableDataSource } from '@angular/material/table';
 import { MatPaginator as MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 import { DiagnoseService } from '../_services/diagnose.service';
 import { AppService } from '../_services/app.service';
@@ -14,7 +16,7 @@ import { LogsRequest } from '../_models/diagnose';
     templateUrl: './logs-view.component.html',
     styleUrls: ['./logs-view.component.css']
 })
-export class LogsViewComponent implements AfterViewInit {
+export class LogsViewComponent implements AfterViewInit, OnDestroy {
 
     @ViewChild(MatTable, {static: false}) table: MatTable<any>;
     @ViewChild(MatSort, {static: false}) sort: MatSort;
@@ -27,6 +29,7 @@ export class LogsViewComponent implements AfterViewInit {
     typeFilter = new UntypedFormControl();
     sourceFilter = new UntypedFormControl();
     textFilter = new UntypedFormControl();
+    logFilter = new UntypedFormControl('');
 
     filteredValues = {
         ontime: '', source: '', type: '', text: ''
@@ -35,7 +38,10 @@ export class LogsViewComponent implements AfterViewInit {
     readonly displayColumns = ['ontime', 'type', 'source', 'text'];
     tableView = false;
     content = '';
+    rawLines: string[] = [];
     logs = { selected: 'fuxa.log', files: [] };
+
+    private filterSubscription: Subscription;
 
     constructor(private diagnoseService: DiagnoseService,
                 private appService: AppService) { }
@@ -48,17 +54,40 @@ export class LogsViewComponent implements AfterViewInit {
         });
 
         this.loadLogs(this.logs.selected);
+
+        this.filterSubscription = this.logFilter.valueChanges.pipe(
+            debounceTime(300)
+        ).subscribe(() => {
+            this.applyLogFilter();
+        });
+    }
+
+    ngOnDestroy() {
+        if (this.filterSubscription) {
+            this.filterSubscription.unsubscribe();
+        }
     }
 
     loadLogs(logfile: string) {
         this.appService.showLoading(true);
         this.diagnoseService.getLogs(<LogsRequest>{ file: logfile }).subscribe(result => {
-            this.content = result.body.replace(new RegExp('\n', 'g'), '<br />');
+            this.rawLines = result.body.split('\n');
+            this.applyLogFilter();
             this.appService.showLoading(false);
         }, err => {
             this.appService.showLoading(false);
             console.error('get Logs err: ' + err);
         });
+    }
+
+    applyLogFilter() {
+        const filter = (this.logFilter.value || '').toLowerCase().trim();
+        if (!filter) {
+            this.content = this.rawLines.join('<br />');
+            return;
+        }
+        const filtered = this.rawLines.filter(line => line.toLowerCase().includes(filter));
+        this.content = filtered.join('<br />');
     }
 
     scrollToTop() {

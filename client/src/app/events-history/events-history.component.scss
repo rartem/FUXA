@@ -1,0 +1,202 @@
+:host {
+    display: block;
+    height: 100%;
+    min-height: 0;
+
+    .header-panel {
+        background-color: var(--headerBackground);
+        color: var(--headerColor);
+        height: 36px;
+        width: 100%;
+        text-align: center;
+        line-height: 32px;
+        border-bottom: 1px solid var(--headerBorder);
+    }
+
+    .work-panel {
+        position: absolute;
+        top: 37px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        overflow: hidden;
+        background-color: var(--workPanelBackground);
+    }
+
+    .filter-bar {
+        display: flex;
+        align-items: center;
+        padding: 8px 16px;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .date-range {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .date-field {
+        width: 220px;
+        font-size: 13px;
+    }
+
+    .search-btn {
+        height: 36px;
+        margin-bottom: 18px;
+    }
+
+    .text-filter {
+        flex: 1 1 auto;
+        min-width: 150px;
+    }
+
+    .user-filter {
+        flex: 0 0 200px;
+        min-width: 150px;
+    }
+
+    .filter-field {
+        width: 100%;
+        font-size: 13px;
+    }
+
+    .table-container {
+        overflow: auto;
+        height: calc(100% - 110px);
+    }
+
+    .table-pagination {
+        position: absolute;
+        bottom: 8px;
+        z-index: 3;
+        width: fit-content;
+        right: 20px;
+        margin-right: 0;
+        overflow: hidden;
+        border-radius: 6px;
+        background-color: var(--headerBackground);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+        color: rgba(255, 255, 255, 0.95);
+        opacity: 0.82;
+    }
+
+    ::ng-deep .table-pagination .mat-mdc-paginator-container {
+        min-height: 44px;
+        color: rgba(255, 255, 255, 0.95);
+    }
+
+    ::ng-deep .table-pagination .mat-mdc-paginator-page-size,
+    ::ng-deep .table-pagination .mat-mdc-paginator-range-label,
+    ::ng-deep .table-pagination .mat-mdc-select-value,
+    ::ng-deep .table-pagination .mat-mdc-select-arrow,
+    ::ng-deep .table-pagination .mat-mdc-icon-button {
+        color: rgba(255, 255, 255, 0.95);
+    }
+
+    ::ng-deep .table-pagination .mat-mdc-text-field-wrapper {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    ::ng-deep .table-pagination .mdc-notched-outline__leading,
+    ::ng-deep .table-pagination .mdc-notched-outline__notch,
+    ::ng-deep .table-pagination .mdc-notched-outline__trailing {
+        border-color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .mat-table {
+        display: block;
+        height: 100%;
+        min-width: 100%;
+        overflow: auto;
+        box-sizing: border-box;
+        padding-bottom: 58px;
+    }
+
+    .mat-header-row {
+        top: 0;
+        position: sticky;
+        z-index: 2;
+        min-height: unset;
+        height: 40px;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.92);
+    }
+
+    .my-header-row {
+        min-height: 35px;
+        height: 35px;
+    }
+
+    .mat-header-cell {
+        font-size: 14px;
+        padding-left: unset !important;
+        min-height: 40px;
+        height: 40px;
+        align-items: center;
+        line-height: 40px;
+        background-color: rgba(255, 255, 255, 0.92);
+    }
+
+    .mat-row {
+        min-height: 35px;
+        height: 35px;
+        align-items: center;
+    }
+
+    .mat-cell {
+        align-items: center;
+    }
+
+    ::ng-deep .mat-header-cell .mat-sort-header-container {
+        align-items: center;
+    }
+
+    .my-mat-row {
+        min-height: 35px;
+        height: 35px;
+    }
+
+    .mat-column-timestamp {
+        flex: 0 0 180px;
+        padding-right: 16px;
+    }
+
+    .mat-column-type {
+        flex: 0 0 150px;
+        padding-right: 16px;
+    }
+
+    .mat-column-user {
+        flex: 0 0 120px;
+        padding-right: 16px;
+    }
+
+    .mat-column-details {
+        flex: 2 1 auto;
+        padding-right: 16px;
+        min-width: 200px;
+    }
+
+    .details-text {
+        font-family: monospace;
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .spinner-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.15);
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

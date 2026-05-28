@@ -1,10 +1,8 @@
 {
     "with param": "пример {{value}}",
-
     "app.home": "Главная",
     "app.lab": "Лаборатория",
     "app.editor": "Редактор",
-
     "header.new-project": "Новый проект",
     "header.save-project": "Сохранить проект",
     "header.save-project-tooltip": "Сохранение всех изменений в проекте",
@@ -26,15 +24,10 @@
     "header.help-info": "О программе",
     "header.info-version": "Версия ",
     "header.theme": "Светлая/темная тема",
-
     "project.name": "Название проекта",
-
     "sidenav.title": "FUXA",
-
     "tutorial.title": "Руководство FUXA",
-
     "dlg.info-title": "FUXA",
-
     "dlg.layout-title": "Настройки вида",
     "dlg.layout-general": "Общие",
     "dlg.layout-lbl-auto-resize": "Автоматическое изменение размера",
@@ -56,7 +49,6 @@
     "dlg.layout-lbl-title": "Заголовок",
     "dlg.layout-lbl-alarms": "Режим отображения Сигнализации",
     "dlg.layout-lbl-infos": "Режим отображения информационных уведомлений",
-
     "dlg.menuitem-title": "Пункт меню",
     "dlg.menuitem-image": "[Мое изображение...]",
     "dlg.menuitem-icon": "Иконка",
@@ -65,7 +57,6 @@
     "dlg.menuitem-link": "Перейти по ссылке",
     "dlg.menuitem-alarms": "Alarms by Click",
     "dlg.menuitem-address": "Link address",
-
     "dlg.docproperty-title": "Настройки вида",
     "dlg.docproperty-width": "Ширина",
     "dlg.docproperty-height": "Высота",
@@ -81,7 +72,6 @@
     "dlg.docproperty-size-1600-1200": "1600 x 1200 пикселей",
     "dlg.docproperty-size-1920-1080": "1920 x 1080 пикселей",
     "dlg.docproperty-margin": "Отступ",
-
     "dlg.docname-title": "Название вида",
     "dlg.foldername-title": "Название папки",
     "dlg.docname-name": "Название",
@@ -91,34 +81,27 @@
     "dlg.item-req-name": "Имя (запрещено использование пробелов и цифр)",
     "dlg.item-name-error": "Имя уже существует!",
     "dlg.parameter-title": "Параметр",
-
     "dlg.tagname-title": "Название тега",
     "dlg.tagname-name": "Название",
-
     "dlg.linkproperty-title": "Создание гиперссылки",
     "dlg.linkproperty-url": "URL гиперссылки",
-
     "dlg.login-title": "Войти...",
     "dlg.logout-btn": "Выйти",
-
     "dlg.ok": "OK",
     "dlg.cancel": "Отмена",
     "dlg.close": "Закрыть",
-
     "dlg.userproperty-title": "Пользователь",
     "dlg.userproperty-groups": "Роли",
     "dlg.useraccess-groups": "Доступы (пусто = полный доступ для всех)",
-
     "dlg.gauge-permission-title": "Авторизация",
     "dlg.gauge-permission-label": "(пусто = полный доступ для всех)",
     "dlg.gauge-permission-show": "Показать",
     "dlg.gauge-permission-enabled": "Включено",
-
     "general.close": "Закрыть",
     "general.search": "Найти...",
     "general.search-notfound": "Варианты не найдены",
     "general.username": "Имя пользователя",
-	"general.fullname": "Полное имя",
+    "general.fullname": "Полное имя",
     "general.password": "Пароль",
     "general.clientId": "Идентификатор клиента",
     "general.authority": "Доступ",
@@ -129,35 +112,27 @@
     "general.align-left": "По левому краю",
     "general.align-center": "По центру",
     "general.align-right": "По правому краю",
-
     "tester.title": "Переменная",
     "tester.send": "Отправить",
-
     "item.navsmode-none": "Нет",
     "item.navsmode-push": "По нажатию",
     "item.navsmode-over": "Поверх",
     "item.navsmode-fix": "Фиксированно",
-
     "item.navtype-icons": "Иконки",
     "item.navtype-text": "Текст",
     "item.navtype-icons-text-block": "Иконки и текст (вертикально)",
     "item.navtype-icons-text-inline": "Иконки и текст (горизонтально)",
-
     "item.notifymode-hide": "Скрытый",
     "item.notifymode-fix": "Фиксированный",
     "item.notifymode-float": "Пуш",
-
     "item.zoommode-disabled": "Выключено",
     "item.zoommode-enabled": "Вручную",
     "item.zoommode-autoresize": "Автоматическое изменение размера",
-
     "item.headerbarmode-hide": "Скрыть",
     "item.headerbarmode-show": "Показать",
-
     "dlg.layout-input-dialog": "Диалоговый режим поля ввода",
     "item.inputmode-disabled": "Выключено",
     "item.inputmode-enabled": "Включено",
-
     "chart.config-title": "Настройки графиков",
     "chart.config-charts": "Графики",
     "chart.config-devices": "Устройства",
@@ -178,11 +153,10 @@
     "chart.config-interpo-stepAfter": "ступень после",
     "chart.config-interpo-stepBefore": "ступень до",
     "chart.config-interpo-spline": "ступенчатая",
-
     "chart.property-data": "Данные",
     "chart.property-props": "Свойства",
     "chart.property-layout": "Вид",
-	"chart.property-name": "Название",
+    "chart.property-name": "Название",
     "chart.property-chart": "График для отображения",
     "chart.property-newchart": "Новый график...",
     "chart.property-chart-type": "Режим отображения",
@@ -212,21 +186,17 @@
     "chart.property-axis-y2": "Метка Y2",
     "chart.property-axis-y3": "Метка Y3",
     "chart.property-axis-y4": "Метка Y4",
-
     "chart.rangetype-last8h": "Последние 8 часов",
     "chart.rangetype-last1d": "Последний день",
     "chart.rangetype-last3d": "Последние 3 дня",
     "chart.rangetype-last1w": "Последняя неделя",
-
     "chart.legend-always": "всегда",
     "chart.legend-follow": "следовать",
     "chart.legend-bottom": "внизу",
     "chart.legend-never": "никогда",
-
     "chart.labels-serie": "Serie",
     "chart.labels-time": "Время",
     "chart.labels-title": "Заголовок",
-
     "graph.config-title": "Настройки графика",
     "graph.config-rename": "Переименовать",
     "graph.config-source-tag": "Добавить тег источника",
@@ -243,7 +213,6 @@
     "graph.property-fnctype": "Вид функции",
     "graph.bar-date-fnc-value-integral": "Сумма (интеграл)",
     "graph.bar-date-fnc-hour-integral": "Сумма за час (интеграл)",
-
     "graph.property-data": "Данные",
     "graph.property-general": "Общие",
     "graph.property-title": "Заголовок",
@@ -299,23 +268,19 @@
     "graph.property-datalabels-show": "Показать",
     "graph.property-datalabels-fontsize": "Размер шрифта",
     "graph.property-datalabels-align": "Выравнивание",
-
     "graph.rangetype-last1h": "Последний час",
     "graph.rangetype-last1d": "Последний день",
     "graph.rangetype-last3d": "Последние 3 дня",
     "graph.rangetype-last1w": "Последняя неделя",
-
     "graph.grouptype-hours": "Часы",
     "graph.grouptype-days": "Дни",
-
     "iframe.property-data": "Данные",
     "iframe.property-address": "Адрес",
     "iframe.property-name": "Название",
-
     "table.property-title": "Настройки таблиц",
     "table.property-data": "Данные",
     "table.property-date-last-range": "Диапазон времени",
-	"table.property-name": "Name",
+    "table.property-name": "Name",
     "table.property-type": "Вид",
     "table.property-header": "Заголовок",
     "table.property-header-height": "Высота",
@@ -370,12 +335,10 @@
     "table.cell-align-left": "По левому краю",
     "table.cell-align-center": "По центру",
     "table.cell-align-right": "По правому краю",
-
     "table.history-filter": "Фильтр",
     "table.rangetype-last1h": "Последний час",
     "table.rangetype-last1d": "Последний день",
     "table.rangetype-last3d": "Последние 3 дня",
-
     "editor.view-svg": "Canvas/SVG",
     "editor.view-cards": "Контейнер с несколькими Видами",
     "editor.views": "Виды",
@@ -420,16 +383,14 @@
     "editor.controls-slider-settings": "Настройки слайдера",
     "editor.controls-shape-settings": "Настройки фигуры",
     "editor.controls-html-switch-settings": "Настройки переключателя",
-	"editor.controls-switch": "Переключатель",
+    "editor.controls-switch": "Переключатель",
     "editor.controls-graphbar": "Столбчатый график",
     "editor.controls-graph-bar-settings": "Настройки столбчатого графика",
     "editor.controls-graph-pie-settings": "Настройки круговой диаграммы",
     "editor.controls-iframe": "Iframe",
     "editor.controls-iframe-settings": "Настройки Iframe",
     "editor.controls-table": "Таблица",
-
     "editor.layout-settings": "Настройки вида",
-
     "editor.interactivity": "Интерактивность",
     "editor.interactivity-id": "id:",
     "editor.interactivity-id-title": "Идентификатор элемента",
@@ -439,7 +400,6 @@
     "editor.widget-info": "Виджет",
     "editor.widget-name": "имя",
     "editor.widget-type": "тип",
-
     "editor.cmenu-property": "Свойства",
     "editor.cmenu-cut": "Вырезать",
     "editor.cmenu-copy": "Копировать",
@@ -456,7 +416,6 @@
     "editor.cmenu-layer-delete": "Удалить слой",
     "editor.cmenu-layer-marge-down": "Объединить с нижним",
     "editor.cmenu-layer-marge-all": "Объединить все",
-
     "editor.transform": "Трансформация",
     "editor.transform-x": "x",
     "editor.transform-x-title": "Изменить координату X",
@@ -510,7 +469,6 @@
     "editor.transform-change-image-title": "ПРЕДУПРЕЖДЕНИЕ: Данное изображение не может быть встроено. Оно будет зависеть от заданного пути для отображения",
     "editor.transform-angle": "угол",
     "editor.transform-angle-title": "Изменить угол поворота",
-
     "editor.align": "Выравнивание",
     "editor.align-left-title": "Выровнять по левому краю",
     "editor.align-center-title": "Выровнять по центру",
@@ -518,7 +476,6 @@
     "editor.align-top-title": "Выровнять по верхнему краю",
     "editor.align-middle-title": "Выровнять по середине",
     "editor.align-bottom-title": "Выровнять по нижнему краю",
-
     "editor.stroke": "Обводка",
     "editor.stroke-width": "ширина обводки",
     "editor.stroke-width-title": "Изменение ширины обводки на 1, shift-клик для изменения на 0.1",
@@ -532,7 +489,6 @@
     "editor.stroke-capround-title": "Скругленные концы линий",
     "editor.stroke-shadow": "тень",
     "editor.stroke-shadow-title": "ширина тени",
-
     "editor.marker": "Маркер",
     "editor.marker-start": "начало",
     "editor.marker-start-title": "Выберите тип начального маркера",
@@ -540,10 +496,8 @@
     "editor.marker-middle-title": "Выберите тип среднего маркера",
     "editor.marker-end": "конец",
     "editor.marker-end-title": "Выберите тип конечного маркера",
-
     "editor.hyperlink": "Гиперссылка",
     "editor.hyperlink-url": "url",
-
     "editor.tools-launch-title": "Просмотр",
     "editor.tools-select": "Выделение",
     "editor.tools-pencil": "Карандаш",
@@ -554,7 +508,6 @@
     "editor.tools-path": "Кривая",
     "editor.tools-text": "Текст",
     "editor.tools-image": "Изображение",
-
     "editor.tools-zoom-title": "Масштабирование [Ctrl+Up/Down]",
     "editor.tools-grid-title": "Показать/скрыть сетку",
     "editor.tools-undo-title": "Отменить [Z]",
@@ -575,12 +528,9 @@
     "editor.tools-alignbottom-title": "Выровнять по нижнему краю",
     "editor.tools-ungroup-title": "Разгруппировать элементы [G]",
     "editor.tools-hyperlink-title": "Создать гиперссылку",
-	"editor.tools-svg-selector": "Выбор элемента из списка",
-
-	"svg.selector.property-title": "Список элементов",
-
+    "editor.tools-svg-selector": "Выбор элемента из списка",
+    "svg.selector.property-title": "Список элементов",
     "tutorial.editor-keyboard-shortcuts": "Горячие клавиши",
-
     "shapes.action-hide": "Скрыть",
     "shapes.action-show": "Показать",
     "shapes.action-blink": "Моргание",
@@ -605,7 +555,6 @@
     "shapes.event-setvalue-set": "установить",
     "shapes.event-setvalue-add": "увеличить",
     "shapes.event-setvalue-remove": "уменьшить",
-
     "pipe.property-props": "Свойства",
     "pipe.property-border-width": "Ширина границы",
     "pipe.property-border-color": "Цвет границы",
@@ -615,7 +564,6 @@
     "pipe.property-content-color": "Цвет содержимого",
     "pipe.property-content-space": "Заштрихованное содержимое",
     "pipe.action-hide-content": "Скрыть содержимое",
-
     "slider.property-props": "Свойства",
     "slider.property-horizontal": "Горизонтальная",
     "slider.property-vertical": "Вертикальная",
@@ -648,7 +596,6 @@
     "slider.property-slider-color": "Цвет соединителя",
     "slider.property-slider-background": "Базовый цвет",
     "slider.property-slider-handle": "Цвет указателя",
-
     "html-switch.property-off-value": "Значение Выкл",
     "html-switch.property-on-value": "Значение Вкл",
     "html-switch.property-on-background": "Фон Вкл",
@@ -662,12 +609,10 @@
     "html-switch.property-on-text-color": "Цвет текста Вкл",
     "html-switch.property-font-size": "Размер шрифта",
     "html-switch.property-font": "Шрифт",
-
     "html-input.min": "Мин",
     "html-input.max": "Макс",
     "html-input.out-of-range": "Значение выходит за диапазон",
     "html-input.not-a-number": "Значение не является числом",
-
     "editor.tools-zoomlevel-title": "Масштаб",
     "editor.tools-zoomlevel-fitcanvas": "По размеру холста",
     "editor.tools-zoomlevel-fitsection": "По размеру выделения",
@@ -675,7 +620,6 @@
     "editor.tools-fillcolor-title": "Изменить цвет заливки",
     "editor.tools-strokecolor-title": "Изменить цвет обводки",
     "editor.tools-palettecolor-title": "Щелкните для изменения цвета заливки, shift-клик для изменения цвета штриха",
-
     "device.list-title": "Настройки устройств",
     "device.list-device": "Устройство",
     "device.list-filter": "Фильтр",
@@ -691,7 +635,6 @@
     "device.list-remove": "Удалить тег",
     "device.list-remove-all": "Удалить все теги",
     "device.list-options": "Настройки тегов",
-
     "devices.export": "Экспорт устройств",
     "devices.export-json": "JSON",
     "devices.export-csv": "CSV",
@@ -740,7 +683,6 @@
     "device.webapi-property-gettags": "Теги URL GET",
     "device.webapi-property-posttags": "Теги URL POST",
     "device.webapi-property-loadtags": "Загрузить теги",
-
     "device.browsetopics-property-title": "Топики брокера для подписывания и публикации",
     "device.browsetopics-property-sub": "Подписаться",
     "device.browsetopics-property-pub": "Опубликовать",
@@ -770,7 +712,6 @@
     "device.topic-name-exist": "Имя Топика '{{value}}' уже существует",
     "device.topic-subs-address-exist": "Топик для подписывания с адресом '{{value}}' уже существует",
     "device.topic-pubs-address-exist": "Топик для публикации с адресом '{{value}}' уже существует",
-
     "device.property-mqtt-address": "Адрес (mqtt://[server]:[port])",
     "device.tag-property-title": "Свойства тега",
     "device.browsetag-property-title": "Обзор тегов на сервере",
@@ -795,21 +736,16 @@
     "device.tag-array-id": "ИД массива:",
     "device.tag-array-value": "Value:",
     "device-tag-dialog-title": "Выбор тега",
-
     "device.tag-options-title": "Свойства тегов",
-
-
     "device.tag-uns-path": "UNS Path",
     "device.tag-daq-enabled": "Регистрация включена",
     "device.tag-daq-changed": "Сохранять значения по изменению",
     "device.tag-daq-interval": "Интервал сохранения значений (сек.)",
-
     "device.connect-ok": "Ок",
     "device.connect-error": "Ошибка",
     "device.connect-failed": "Не удалось",
     "device.connect-off": "Выключено",
     "device.connect-busy": "Занято",
-
     "devices.mode-map": "Диаграмма устройств",
     "devices.mode-list": "Список устройств",
     "devices.list-name": "Название",
@@ -818,12 +754,10 @@
     "devices.list-polling": "Опрос",
     "devices.list-enabled": "Включено",
     "devices.list-status": "Статус",
-
     "users.list-title": "Настройки пользователей",
     "users.list-name": "Имя пользователя",
-	"users.list-fullname": "Полное имя",
+    "users.list-fullname": "Полное имя",
     "users.list-groups": "Роли",
-
     "gauges.property-props": "Свойства",
     "gauges.property-events": "События",
     "gauges.property-title": "Настройка",
@@ -867,8 +801,8 @@
     "gauges.property-actions": "Действия",
     "gauges.property-action-type": "Вид",
     "gauges.property-action-param": "Идентификатор действия",
-    "gauges.property-action-minAngle" : "Минимальный угол",
-    "gauges.property-action-maxAngle" : "Максимальный угол",
+    "gauges.property-action-minAngle": "Минимальный угол",
+    "gauges.property-action-maxAngle": "Максимальный угол",
     "gauges.property-events-mapping-from": "Контекстная переменная",
     "gauges.property-map-variable": "Добавить контекстную переменную для привязки",
     "gauges.property-head-remove-mapvariable": "Удалить привязку",
@@ -877,7 +811,6 @@
     "gauges.property-tag-label": "Тег",
     "gauges.property-tag-internal-title": "Установить тег внутреннего устройства",
     "gauges.property-input-range": "Разрешенный диапазон ввода",
-
     "bag.property-ticks": "Такты",
     "bag.property-divisions": "Деления",
     "bag.property-subdivisions": "Подделения",
@@ -909,7 +842,6 @@
     "bag.property-format-digits": "Формат цифр",
     "bag.property-zones": "Зоны",
     "bag.property-color": "Цвет",
-
     "alarms.list-title": "Настройки оповещений",
     "alarms.list-name": "Название",
     "alarms.list-device": "Устройство / Переменная",
@@ -966,7 +898,6 @@
     "alarm.property-action-type": "Вид действия",
     "alarm.property-action-value": "Значение для установки",
     "alarm.property-action-destination": "Вид для отображения",
-
     "notifications.list-title": "Настройки оповещений",
     "notifications.list-name": "Название",
     "notifications.list-receiver": "Получатели",
@@ -985,7 +916,6 @@
     "notification.property-priority": "Приоритет",
     "notification.type-alarm": "Сигнализация",
     "notification.type-trigger": "Триггер",
-
     "scripts.list-title": "Настроки скриптов",
     "scripts.list-name": "Название",
     "scripts.list-type": "Вид",
@@ -994,15 +924,12 @@
     "scripts.list-scheduling": "Планирование / Интервалы",
     "scripts.list-permission": "Авторизация",
     "scripts.list-options": "Свойства скрипта",
-
     "script.permission-title": "Авторизация",
     "script.permission-label": "(пусто = полный доступ для всех)",
     "script.permission-enabled": "Включено",
-
     "script.mode": "Режим выполнения",
     "script.mode-title": "Режим выполнения",
     "script.mode-label": "(По умолчанию: Сервер)",
-
     "script.property-title": "Скрипт",
     "script.property-systems": "Системные функции",
     "script.property-test": "Тест",
@@ -1027,14 +954,12 @@
     "script.scheduling-interval": "Интервал в секундах",
     "script.sys-fnc-setview-text": "$setView (View name)",
     "script.sys-fnc-setview-tooltip": "Системная функция для установка клиентского Вида: $setView (View name  - строка)",
-
     "reports.list-title": "Настройки отчета",
     "reports.list-name": "Название",
     "reports.list-type": "Вид",
     "reports.list-receiver": "Получатель",
     "reports.list-scheduling": "Планирование / Интервал",
     "reports.list-enabled": "Включено",
-
     "report.property-title": "Отчет",
     "report.property-name": "Название",
     "report.property-receiver": "Email-адреса получателей",
@@ -1092,15 +1017,9 @@
     "report.chart-name": "Название графика",
     "report.chart-width": "Ширина",
     "report.chart-height": "Высота",
-
     "logs.view-title": "Системные отчеты",
     "logs.view-files": "Файлы отчетов",
-
-    "events.view-ontime": "Дата/Время",
-    "events.view-type": "Вид",
-    "events.view-source": "Источник",
-    "events.view-text": "Текст",
-
+    "events.view-type": "Имя",
     "card.config-title": "Настройки карточек",
     "card.config-content-type": "Тип содержимого",
     "card.config-content-view": "Вид содержимого",
@@ -1110,30 +1029,24 @@
     "card.widget-table": "Таблица",
     "card.widget-iframe": "Ссылка",
     "card.style-zoom": "Масштаб",
-
     "resources.lib-images": "Изображения",
-
     "texts.list-title": "Настройки текста",
     "texts.list-filter": "Фильтр",
     "texts.list-filter-group": "Группа",
     "texts.list-id": "ИД",
     "texts.list-group": "Группа",
     "texts.list-value": "Текст",
-
     "text.settings-title": "Текст",
     "text.settings-id": "ИД",
     "text.settings-group": "Группа",
     "text.settings-value": "Текст",
-
     "gui.range-number-min": "Мин",
     "gui.range-number-max": "Макс",
     "gui.range-number-boolean": "Маскирование",
     "gui.range-number-true": "True [1-1]",
     "gui.range-number-false": "False [0-0]",
     "gui.range-number-switcher": "Диапазон - число или логическое",
-
     "dlg.bitmask-title": "Битовая маска",
-
     "dlg.plugins-title": "Плагины",
     "dlg.plugins-name": "Название",
     "dlg.plugins-version": "Версия",
@@ -1143,7 +1056,6 @@
     "dlg.plugins-status-installed": "Устанавка...OK!",
     "dlg.plugins-status-removed": "Удаление...OK!",
     "dlg.plugins-status-error": "Ошибка! Попробуйте вручную!",
-
     "dlg.setup-title": "Настройки",
     "dlg.setup-gui": "Пользовательский интерфейс",
     "dlg.setup-diverse": "Другие",
@@ -1190,13 +1102,11 @@
     "dlg.app-auth-expiration-3h": "Включено со временем действия токена 3 часа.",
     "dlg.app-auth-expiration-1d": "Включено со временем действия токена 1 день.",
     "dlg.app-auth-tooltip": "После включения вы будете иметь аккаунт администратора 'admin/123456'. Не забудьте изменить его",
-
     "dlg.app-settings-daqstore": "Хранилище данных",
     "dlg.app-settings-daqstore-type": "СУБД",
     "dlg.app-settings-daqstore-url": "URL",
     "dlg.app-settings-daqstore-configurl": "Config URL",
     "dlg.app-settings-daqstore-queryconn": "Query connection (PGWire)",
-
     "dlg.app-settings-daqstore-questdb-host": "QuestDB Host",
     "dlg.app-settings-daqstore-ingestconn": "Ingestion connection (ILP)",
     "dlg.app-settings-daqstore-token": "Token",
@@ -1211,7 +1121,6 @@
     "store.retention-days30": "30 дней",
     "store.retention-days90": "90 дней",
     "store.retention-year1": "1 год",
-
     "msg.alarm-remove": "Вы действительно хотите удалить Сигнализацию ",
     "msg.text-remove": "Вы действительно хотите удалить Текст ",
     "msg.alarmproperty-error-exist": "Сигнализация с таким именем уже существует!",
@@ -1223,7 +1132,6 @@
     "msg.device-tag-exist": "Тег с таким именем уже существует!",
     "msg.notification-property-missing-value": "Некоторые значения отсутствуют!",
     "msg.report-property-missing-value": "Некорректные или отсутствующие значения!",
-
     "msg.home-welcome": "Подождите... перейдите в редактор, сопоставьте устройства, настройте визуализацию и привяжите переменные устройств",
     "msg.project-load-error": "Не удалось прочитать '{{value}}'",
     "msg.project": "Вы хотите сохранить изменения в Проекте?",
@@ -1263,5 +1171,14 @@
     "device.property-easydrv-alarm-group-message": "Сообщение",
     "device.property-easydrv-alarm-group-answer": "Ответ",
     "device.property-easydrv-alarm-text-color": "Цвет текста",
-    "device.property-easydrv-alarm-background-color": "Цвет фона"
+    "device.property-easydrv-alarm-background-color": "Цвет фона",
+    "events.view-title": "История событий",
+    "events.view-timestamp": "Метка времени",
+    "events.view-details": "Детали",
+    "events.search": "ПОИСК",
+    "events.filter-placeholder": "Фильтр",
+    "logs.filter": "Фильтр",
+    "logs.filter-placeholder": "Введите текст фильтра...",
+    "events.view-user": "Пользователь",
+    "events.user-filter-placeholder": "Фильтр по пользователю..."
 }

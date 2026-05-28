@@ -1,5 +1,6 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HmiService } from '../_services/hmi.service';
+import { EventsService } from '../_services/events.service';
 import { ChartRangeType, ChartViewType } from '../_models/chart';
 
 import { GaugeSettings, Variable, Event, GaugeEvent, GaugeEventType, GaugeStatus, Size, DaqQuery, TableType, GaugeVideoProperty } from '../_models/hmi';
@@ -78,6 +79,7 @@ export class GaugesManager {
 
     constructor(private hmiService: HmiService,
         private authService: AuthService,
+        private eventsService: EventsService,
         private winRef: WindowRef) {
         // subscription to the change of variable value, then emit to the gauges of fuxa-view
         this.hmiService.onVariableChanged.subscribe(sig => {
@@ -633,6 +635,14 @@ export class GaugesManager {
      * @param event
      */
     putEvent(event: Event) {
+        const user = this.authService.getUser()?.username || '';
+        this.eventsService.logEvent(
+            'user-action',
+            'user',
+            user,
+            'put value on ' + (event.ga?.name || event.ga?.id),
+            { gaugeId: event.ga?.id, gaugeName: event.ga?.name, gaugeType: event.ga?.type, value: event.value, variableId: event.variableId || event.ga?.property?.variableId }
+        ).subscribe();
         if (event.type === HtmlImageComponent.propertyWidgetType) {
             const value = GaugeBaseComponent.valueBitmask(event.ga.property.bitmask, event.value, this.hmiService.variables[event.variableId]?.value);
             this.hmiService.putSignalValue(event.variableId, String(value));
@@ -651,6 +661,14 @@ export class GaugesManager {
      * @param val
      */
     putSignalValue(sigid: string, val: string, fnc: string = null) {
+        const user = this.authService.getUser()?.username || '';
+        this.eventsService.logEvent(
+            'user-action',
+            'user',
+            user,
+            'set signal ' + sigid,
+            { signalId: sigid, value: val, function: fnc }
+        ).subscribe();
         this.hmiService.putSignalValue(sigid, val, fnc);
     }
 

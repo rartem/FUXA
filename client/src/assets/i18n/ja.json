@@ -1,10 +1,8 @@
 {
     "with param": "サンプル {{value}}",
-
     "app.home": "ホーム",
     "app.lab": "実行",
     "app.editor": "エディター",
-
     "header.new-project": "新規プロジェクト",
     "header.save-project": "プロジェクトを保存",
     "header.save-project-tooltip": "未保存の変更を全て保存",
@@ -26,15 +24,10 @@
     "header.change-thema": "テーマ切り替え (beta)",
     "header.info-version": "バージョン ",
     "header.theme": "テーマ ライト/ダーク",
-
     "project.name": "プロジェクト名",
-
     "sidenav.title": "FUXA",
-
     "tutorial.title": "チュートリアル",
-
     "dlg.info-title": "FUXA",
-
     "dlg.layout-title": "レイアウト設定",
     "dlg.layout-general": "一般",
     "dlg.layout-lbl-auto-resize": "自動リサイズ",
@@ -47,7 +40,7 @@
     "dlg.layout-navigation-mode": "ナビゲーションを表示",
     "dlg.layout-connection-message": "接続エラーを表示 (Toast)",
     "dlg.layout-show-dev": "ボタンを表示",
-    "dlg.layout-navigation": "ナビゲーションサイドメニュー" ,
+    "dlg.layout-navigation": "ナビゲーションサイドメニュー",
     "dlg.layout-nav-bkcolor": "背景色",
     "dlg.layout-nav-fgcolor": "色",
     "dlg.layout-lbl-smode": "サイドモード",
@@ -69,7 +62,6 @@
     "dlg.layout-lbl-login-info": "ログイン情報",
     "dlg.layout-lbl-custom-styles": "カスタムスタイル",
     "dlg.layout-lbl-show-language": "言語を表示",
-
     "dlg.menuitem-title": "メニュー項目",
     "dlg.menuitem-image": "[マイ画像...]",
     "dlg.menuitem-icon": "アイコン",
@@ -79,16 +71,13 @@
     "dlg.menuitem-alarms": " クリックでアラーム",
     "dlg.menuitem-address": "リンクアドレス",
     "dlg.menuitem-icons-filter": "アイコンフィルター",
-
     "dlg.menuitem-submenu": "サブメニュー",
     "dlg.menuitem-add-submenu": "サブメニュー項目を追加",
     "dlg.menuitem-submenu-items": "サブメニュー項目",
     "sidenav.new_item": "新しいサブメニュー項目",
-
     "dlg.headeritem-title": "ヘッダー項目",
     "dlg.headeritem-icon": "アイコン",
     "dlg.headeritem-icons-filter": "アイコンフィルター",
-
     "dlg.docproperty-title": "プロパティを表示",
     "dlg.docproperty-name": "名前",
     "dlg.docproperty-width": "幅",
@@ -118,7 +107,6 @@
     "dlg.docproperty-gridtype-verticalFixed": "垂直固定",
     "dlg.docproperty-gridtype-horizontalFixed": "水平固定",
     "dlg.docproperty-renderDelay": "ビュー描画遅延 (ms)",
-
     "dlg.docname-title": "ビュー名",
     "dlg.docname-name": "名前",
     "dlg.docproperty-type": "ビュータイプ",
@@ -127,39 +115,31 @@
     "dlg.item-req-name": "関数名（スペースや数字は使用不可）",
     "dlg.item-name-error": "名前が存在します！",
     "dlg.parameter-title": "パラメータ",
-
     "dlg.tagname-title": "タグ名",
     "dlg.tagname-name": "名前",
-
     "dlg.linkproperty-title": "ハイパーリンクを作成",
     "dlg.linkproperty-url": "ハイパーリンクURL",
-
     "dlg.login-title": "サインイン...",
     "dlg.logout-btn": "サインアウト",
-
     "dlg.ok": "OK",
     "dlg.cancel": "キャンセル",
     "dlg.close": "閉じる",
     "dlg.apply": "適用",
-
     "dlg.userproperty-title": "ユーザー",
     "dlg.userproperty-groups": "認証グループ",
     "dlg.userproperty-roles": "承認ロール",
     "dlg.useraccess-groups": "承認 (空 = 全員に完全アクセス権)",
     "dlg.userproperty-language": "言語",
     "dlg.userproperty-start": "開始ビュー",
-
     "dlg.gauge-permission-title": "認証",
     "dlg.gauge-permission-label": "(空 = 全員に完全アクセス権)",
     "dlg.gauge-permission-show": "表示",
     "dlg.gauge-permission-enabled": "有効",
-
     "date.range-start": "開始日",
     "date.range-end": "終了日",
-
     "general.search-up": "検索",
     "general.close": "閉じる",
-    "general.search": "検索..." ,
+    "general.search": "検索...",
     "general.search-notfound": "該当するオプションが見つかりません",
     "general.username": "ユーザー名",
     "general.fullname": "フルネーム",
@@ -193,58 +173,46 @@
     "general.sunday-short": "日",
     "general.save-template": "テンプレートとして保存",
     "general.import-template": "テンプレートからインポート",
-
     "tester.title": "変数",
     "tester.send": "送信",
-
     "item.overlaycolor-none": "なし",
     "item.overlaycolor-black": "黒",
     "item.overlaycolor-white": "白",
-
     "item.navsmode-none": "なし",
     "item.navsmode-push": "プッシュ",
     "item.navsmode-over": "オーバー",
     "item.navsmode-fix": "固定",
-
     "item.navtype-icons": "アイコン",
     "item.navtype-text": "テキスト",
     "item.navtype-icons-text-block": "アイコン＆テキスト（ブロック）",
     "item.navtype-icons-text-inline": "アイコン＆テキスト（インライン）",
-
     "item.headertype-button": "ボタン",
     "item.headertype-label": "ラベル",
     "item.headertype-image": "画像",
     "item.headeranchor-left": "左",
     "item.headeranchor-right": "右",
     "item.headeranchor-center": "中央",
-
     "item.notifymode-hide": "非表示",
     "item.notifymode-fix": "固定",
     "item.notifymode-float": "プッシュ",
-
     "item.logininfo-type-nothing": "なし",
     "item.logininfo-type-username": "ユーザー名",
     "item.logininfo-type-fullname": "フルネーム",
     "item.logininfo-type-both": "ユーザー名 & フルネーム",
-
     "item.language-show-mode-nothing": "非表示",
     "item.language-show-mode-simple": "表示",
     "item.language-show-mode-key": "キー付きで表示",
     "item.language-show-mode-fullname": "フルネーム付きで表示",
-
     "item.zoommode-disabled": "無効",
     "item.zoommode-enabled": "手動",
     "item.zoommode-autoresize": "自動リサイズ",
-
     "item.headerbarmode-hide": "非表示",
     "item.headerbarmode-show": "表示",
-
     "dlg.layout-input-dialog": "入力フィールドのダイアログモード",
     "item.inputmode-disabled": "無効",
     "item.inputmode-enabled": "ダイアログ",
     "item.inputmode-keyboard": "仮想キーボード",
     "item.inputmode-keyboard-full-screen": "仮想キーボード フルスクリーン",
-
     "chart.config-title": "チャート設定",
     "chart.config-charts": "チャート",
     "chart.config-devices": "デバイス",
@@ -261,7 +229,7 @@
     "chart.config-addline": "線を追加",
     "chart.config-addlinePlaceholder": "プレースホルダーを追加",
     "chart.config-line-interpolation": "補間",
-    "chart.config-line-fill": "塗りつぶし" ,
+    "chart.config-line-fill": "塗りつぶし",
     "chart.config-interpo-linear": "線形",
     "chart.config-interpo-stepAfter": "次の一歩",
     "chart.config-interpo-stepBefore": "一歩手前",
@@ -273,7 +241,6 @@
     "chart.config-line-zone-max": "最大",
     "chart.config-line-zone-stroke": "ストローク",
     "chart.config-line-zone-fill": "塗りつぶし",
-
     "chart.property-data": "データ",
     "chart.property-props": "プロパティ",
     "chart.property-layout": "レイアウト",
@@ -322,21 +289,17 @@
     "chart.property-axis-y4-min": "Y4 最小値",
     "chart.property-axis-y4-max": "Y4 最大値",
     "chart.property-script": "スクリプト データソース",
-
-    "chart.rangetype-last8h": "過去8時間" ,
+    "chart.rangetype-last8h": "過去8時間",
     "chart.rangetype-last1d": "過去1日間",
     "chart.rangetype-last3d": "過去3日間",
     "chart.rangetype-last1w": "過去1週間",
-
     "chart.legend-always": "常に",
     "chart.legend-follow": "追従",
     "chart.legend-bottom": "下部",
     "chart.legend-never": "非表示",
-
     "chart.labels-serie": "シリーズ",
     "chart.labels-time": "時間",
     "chart.labels-title": "タイトル",
-
     "graph.config-title": "グラフ設定",
     "graph.config-rename": "名前変更",
     "graph.config-source-tag": "ソースタグ追加",
@@ -353,7 +316,6 @@
     "graph.property-fnctype": "関数タイプ",
     "graph.bar-date-fnc-value-integral": "合計 (積分)",
     "graph.bar-date-fnc-hour-integral": "時間合計 (積分)",
-
     "graph.property-data": "データ",
     "graph.property-name": "名前",
     "graph.property-general": "一般",
@@ -364,7 +326,7 @@
     "graph.property-layout": "レイアウト",
     "graph.property-graph": "表示するグラフ",
     "graph.property-props": "プロパティ",
-    "graph.property-newgraph": "新しいグラフ..." ,
+    "graph.property-newgraph": "新しいグラフ...",
     "graph.property-date-last-range": "日付範囲",
     "graph.property-date-group": "グループ",
     "graph.property-offline": "オンライン",
@@ -410,27 +372,22 @@
     "graph.property-datalabels-show": "表示",
     "graph.property-datalabels-fontsize": "フォントサイズ",
     "graph.property-datalabels-align": "配置",
-
     "graph.rangetype-last1h": "過去1時間",
     "graph.rangetype-last1d": "過去1日間",
     "graph.rangetype-last3d": "過去3日間",
     "graph.rangetype-last1w": "過去1週間",
     "graph.rangetype-last1m": "過去1か月",
-
     "graph.grouptype-hours": "時間",
     "graph.grouptype-days": "日",
-
     "iframe.property-data": "データ",
     "iframe.property-address": "アドレス (fix)",
     "iframe.property-image": "画像",
-
     "video.property-title": "動画設定",
     "video.property-data": "データ",
     "video.property-address": "アドレス",
     "video.property-controls": "コントロールを表示",
     "video.property-image": "初期画像",
     "video.property-image-placeholder": "初期画像を選択",
-
     "panel.property-data": "データ",
     "panel.property-view-name": "ビュー名",
     "panel.property-name": "名前",
@@ -438,7 +395,6 @@
     "panel.property-scalemode-none": "なし",
     "panel.property-scalemode-contain": "含める",
     "panel.property-scalemode-stretch": "拡大",
-
     "table.property-title": "データテーブル設定",
     "table.property-data": "データ",
     "table.property-date-last-range": "日付範囲",
@@ -449,7 +405,7 @@
     "table.property-header-height": "高さ",
     "table.property-header-background": "背景",
     "table.property-header-color": "色",
-    "table.property-header-fontSize": "フォントサイズ" ,
+    "table.property-header-fontSize": "フォントサイズ",
     "table.property-row": "行",
     "table.property-row-height": "高さ",
     "table.property-row-background": "背景",
@@ -506,29 +462,25 @@
     "table.cell-align-left": "左",
     "table.cell-align-center": "中央",
     "table.cell-align-right": "右",
-
     "table.history-filter": "フィルター",
-    "table.rangetype-last1h": "過去1時間" ,
+    "table.rangetype-last1h": "過去1時間",
     "table.rangetype-last1d": "過去1日間",
     "table.rangetype-last3d": "過去3日間",
-
     "table.alarms-title": "テーブルアラーム",
     "table.alarms-history-title": "テーブルアラーム履歴",
     "table.alarm-columns": "アラーム列",
     "table.alarm-filter": "アラームフィルター",
     "table.alarm-priority": "優先度",
     "table.alarm-tags": "タグ",
-
     "table.reports-title": "テーブルレポート",
     "table.report-columns": "レポート列",
     "table.report-view-name": "名前",
-    "table.report-view-ontime": "作成日時" ,
+    "table.report-view-ontime": "作成日時",
     "table.report-view-download": "ダウンロード",
     "table.report-view-delete": "削除",
     "table.report-filter": "レポートフィルター",
     "table.report-filter-name": "名前",
     "table.report-filter-count": "最大",
-
     "editor.view-svg": "Canvas/SVG",
     "editor.view-cards": "マルチビューコンテナ",
     "editor.view-maps": "マップ",
@@ -584,9 +536,7 @@
     "editor.controls-panel-settings": "パネル設定",
     "editor.controls-video": "動画",
     "editor.controls-video-settings": "動画設定",
-
     "editor.layout-settings": "レイアウト設定",
-
     "editor.interactivity": "インタラクティブ機能",
     "editor.interactivity-id": "id:",
     "editor.interactivity-id-title": "要素を識別",
@@ -594,14 +544,13 @@
     "editor.interactivity-class-title": "要素クラス",
     "editor.interactivity-name": "名前",
     "editor.edit-bind-of-tags": "タグの編集バインド",
-
     "editor.cmenu-property": "プロパティ",
     "editor.cmenu-cut": "切り取り",
     "editor.cmenu-copy": "コピー",
     "editor.cmenu-paste": "貼り付け",
     "editor.cmenu-paste-place": "元の位置に貼り付け",
     "editor.cmenu-delete": "削除",
-    "editor.cmenu-group": "グループ化" ,
+    "editor.cmenu-group": "グループ化",
     "editor.cmenu-ungroup": "グループ解除",
     "editor.cmenu-bring-front": "前面へ移動",
     "editor.cmenu-bring-forward": "前方へ移動",
@@ -613,7 +562,6 @@
     "editor.cmenu-layer-marge-all": "全て統合",
     "editor.cmenu-unlock": "ロック解除",
     "editor.cmenu-lock": "ロック",
-
     "editor.transform": "変換",
     "editor.transform-x": "x",
     "editor.transform-x-title": "X座標を変更",
@@ -638,7 +586,7 @@
     "editor.transform-circlecy": "cy",
     "editor.transform-circlecy-title": "円のcy座標を変更",
     "editor.transform-circler": "r",
-    "editor.transform-circler-title": "円の半径を変更" ,
+    "editor.transform-circler-title": "円の半径を変更",
     "editor.transform-ellipsecx": "cx",
     "editor.transform-ellipsecx-title": "楕円のcx座標を変更",
     "editor.transform-ellipsecy": "cy",
@@ -669,7 +617,6 @@
     "editor.transform-angle-title": "回転角度を変更",
     "editor.transform-hide": "非表示",
     "editor.transform-lock": "ロック",
-
     "editor.align": "配置",
     "editor.align-left-title": "左揃え",
     "editor.align-center-title": "中央揃え",
@@ -677,7 +624,6 @@
     "editor.align-top-title": "上揃え",
     "editor.align-middle-title": "中央揃え",
     "editor.align-bottom-title": "下揃え",
-
     "editor.stroke": "ストローク",
     "editor.stroke-width": "ストローク幅",
     "editor.stroke-width-title": "ストローク幅を1ずつ変更、Shiftキーを押しながらクリックで0.1ずつ変更",
@@ -691,7 +637,6 @@
     "editor.stroke-capround-title": "線端形状（Round）",
     "editor.stroke-shadow": "影",
     "editor.stroke-shadow-title": "影付き",
-
     "editor.marker": "マーカー",
     "editor.marker-start": "開始",
     "editor.marker-start-title": "開始マーカータイプを選択",
@@ -699,10 +644,8 @@
     "editor.marker-middle-title": "中間マーカータイプを選択",
     "editor.marker-end": "終了",
     "editor.marker-end-title": "終了マーカータイプを選択",
-
     "editor.hyperlink": "ハイパーリンク",
     "editor.hyperlink-url": "URL",
-
     "editor.tools-launch-title": "現在のビューを起動",
     "editor.tools-select": "ツールを選択",
     "editor.tools-pencil": "鉛筆ツール",
@@ -713,10 +656,9 @@
     "editor.tools-path": "パスツール",
     "editor.tools-text": "テキストツール",
     "editor.tools-image": "画像ツール (埋め込み)",
-
     "editor.tools-zoom-title": "ズームツール [Ctrl+Up/Down]",
     "editor.tools-grid-title": "グリッドの表示/非表示",
-    "editor.tools-undo-title": "元に戻す [Z]" ,
+    "editor.tools-undo-title": "元に戻す [Z]",
     "editor.tools-redo-title": "やり直し [Y]",
     "editor.tools-clone-title": "要素の複製 [D]",
     "editor.tools-delete-title": "要素の削除 [Delete/Backspace]",
@@ -735,17 +677,12 @@
     "editor.tools-ungroup-title": "要素のグループ解除 [G]",
     "editor.tools-hyperlink-title": "ハイパーリンクを作成",
     "editor.tools-svg-selector": "アイテムリストセレクター",
-
     "editor.settings-general": "一般",
     "editor.settings-events": "イベント",
     "editor.settings-actions": "アクション",
-
     "tags.ids-config-title": "タグ-IDリファレンス",
-
     "svg.selector.property-title": "アイテムリストを表示",
-
     "tutorial.editor-keyboard-shortcuts": "エディタ キーボードショートカット",
-
     "shapes.action-hide": "非表示",
     "shapes.action-show": "表示",
     "shapes.action-blink": "点滅",
@@ -754,12 +691,11 @@
     "shapes.action-pause": "一時停止",
     "shapes.action-reset": "リセット",
     "shapes.action-clockwise": "時計回りに回転",
-    "shapes.action-anticlockwise": "反時計回りに回転" ,
+    "shapes.action-anticlockwise": "反時計回りに回転",
     "shapes.action-downup": "上下",
     "shapes.action-rotate": "回転",
     "shapes.action-move": "移動",
     "shapes.action-refreshImage": "画像更新",
-
     "shapes.event-click": "クリック",
     "shapes.event-dblclick": "ダブルクリック",
     "shapes. event-mouseup": "マウスアップ",
@@ -771,7 +707,7 @@
     "shapes.event-onpage": "ページを開く",
     "shapes.event-onwindow": "カードを開く",
     "shapes.event-ondialog": "ダイアログを開く",
-    "shapes.event-oniframe": "iframeを開く" ,
+    "shapes.event-oniframe": "iframeを開く",
     "shapes.event-oncard": "ウィンドウを開く",
     "shapes.event-onopentab": "タブを開く",
     "shapes.event-onsetvalue": "値を設定",
@@ -790,7 +726,6 @@
     "shapes.event-onLoad": "読み込み時",
     "shapes.event-relativefrom-window": "ウィンドウ",
     "shapes.event-relativefrom-mouse": "マウス",
-
     "pipe.property-title": "パイプ設定",
     "pipe.property-data": "データ",
     "pipe.property-style": "スタイル",
@@ -807,7 +742,6 @@
     "pipe.property-style-animation-image": "画像を選択 (SVG)",
     "pipe.property-style-animation-count": "画像数",
     "pipe.property-style-animation-delay": "アニメーション遅延 (ミリ秒)",
-
     "slider.property-props": "プロパティ",
     "slider.property-horizontal": "水平",
     "slider.property-vertical": "垂直",
@@ -840,26 +774,23 @@
     "slider.property-slider-color": "接続色",
     "slider.property-slider-background": "ベースカラー",
     "slider.property-slider-handle": "ポインターカラー",
-
     "html-switch.property-off-value": "オフ値",
     "html-switch.property-on-value": "オン値",
     "html-switch.property-on-background": "オン時の背景色",
     "html-switch.property-off-background": "オフ時の背景色",
     "html-switch.property-off-text": "オフ時のテキスト",
     "html-switch.property-on-text": "オン時のテキスト",
-    "html-switch.property-on-slider-color": "オン時のスライダー色" ,
+    "html-switch.property-on-slider-color": "オン時のスライダー色",
     "html-switch.property-off-slider-color": "オフ時のスライダー色",
     "html-switch.property-radius": "半径の隅",
     "html-switch.property-off-text-color": "オフ時のテキスト色",
     "html-switch.property-on-text-color": "オン時のテキスト色",
     "html-switch.property-font-size": "フォントサイズ",
     "html-switch.property-font": "フォント",
-
     "html-input.min": "最小",
     "html-input.max": "最大",
     "html-input.out-of-range": "値が範囲外です",
     "html-input.not-a-number": "値が数値ではありません",
-
     "editor.tools-zoomlevel-title": "ズームレベル",
     "editor.tools-zoomlevel-fitcanvas": "キャンバスに合わせる",
     "editor.tools-zoomlevel-fitsection": "選択範囲に合わせる",
@@ -867,7 +798,6 @@
     "editor.tools-fillcolor-title": "塗りつぶし色を変更",
     "editor.tools-strokecolor-title": "線の色を変更",
     "editor.tools-palettecolor-title": "クリックで塗りつぶし色を変更、Shiftキーを押しながらクリックで線の色を変更",
-
     "device.list-title": "接続設定",
     "device.list-device": "接続",
     "device.list-filter": "フィルター",
@@ -886,7 +816,6 @@
     "device.list-options": "タグオプション",
     "device.list-clipboard": "タグオブジェクトをクリップボードにコピー",
     "device.list-direction": "方向",
-
     "devices.export": "接続をエクスポート",
     "devices.export-json": "JSON",
     "devices.export-csv": "CSV",
@@ -938,7 +867,7 @@
     " device.not-webapi-result": "WebAPI結果の設定",
     "device.property-show": "デバイスプロパティを表示",
     "device.property-hide": "デバイスプロパティを非表示",
-    "device.property-interface-address": "インターフェースとポート" ,
+    "device.property-interface-address": "インターフェースとポート",
     "device.property-interface-address-ph": "127.0.0.1:47808",
     "device.property-broadcast-address": "ブロードキャスト",
     "device.property-broadcast-address-ph": "127.0.0.255",
@@ -968,7 +897,6 @@
     "device.property-melsec-target": "アドレス (IP[:port])",
     "device.property-melsec-ascii": "ASCII",
     "device.property-melsec-octalIO": "8進数I/O",
-
     "device.browsetopics-property-title": "サブスクライブおよび公開するブローカートピック",
     "device.browsetopics-property-sub": "サブスクライブ",
     "device.browsetopics-property-pub": "公開",
@@ -995,10 +923,9 @@
     "device.topic-type-timestamp": "タイムスタンプ",
     "device.topic-type-value": "値（トピックの）",
     "device.topic-type-static": "静的",
-    "device.topic-name-exist": "トピック名 '{{value}}' は既に存在します" ,
+    "device.topic-name-exist": "トピック名 '{{value}}' は既に存在します",
     "device.topic-subs-address-exist": "アドレス '{{value}}' でサブスクライブするトピックは既に存在します",
     "device.topic-pubs-address-exist": "アドレス '{{value}}' で公開するトピックは既に存在します",
-
     "device.property-mqtt-address": "アドレス (mqtt://[server]: [port])",
     "device.tag-property-title": "タグプロパティ",
     "device.browsetag-property-title": "サーバー内のタグを閲覧",
@@ -1021,21 +948,16 @@
     "device.tag-property-direction": "方向",
     "device.tag-property-edge": "エッジ",
     "device.tag-property-gpio": "GPIO番号",
-
-
     "device.tag-array-id": "配列ID:",
     "device.tag-array-value": "値:",
     "device-tag-dialog-title": "タグ選択",
-
     "device.tag-options-title": "タグオプション",
     "device.tag-daq-enabled": "登録有効",
     "device.tag-daq-changed": "変更時保存",
     "device. tag-daq-interval": "値保存間隔 (秒)",
     "device.tag-daq-restored": "復元対象",
-
     "device.tag-format": "桁数フォーマット (2 = #.##)",
     "device.tag-deadband": "デッドバンド",
-
     "device.tag-uns-path": "UNS Path",
     "device.tag-scale": "スケーリングモード / 変換",
     "device. tag-scale-mode-undefined": "スケーリングなし",
@@ -1068,18 +990,12 @@
     "device.tag-property-webcam-options.quality": "画質",
     "device.tag-property-webcam-options.outputType": "出力タイプ",
     "device.tag-property-webcam-options.callbackReturn": "コールバック戻り値",
-
-
-
-
     "device.edit-placeholder-titel": "編集用プレースホルダー",
-
     "device.connect-ok": "接続成功",
     "device.connect-error": "接続エラー",
     "device.connect-failed": "接続失敗",
     "device.connect-off": "オフ",
     "device.connect-busy": "ビジー",
-
     "devices.mode-map": "デバイス図",
     "devices. mode-list": "デバイス一覧",
     "devices.list-name": "名前",
@@ -1088,27 +1004,22 @@
     "devices.list-polling": "ポーリング",
     "devices.list-enabled": "有効",
     "devices.list-status": "ステータス",
-
     "users.list-title": "ユーザー設定",
     "users.list-name": "ユーザー名",
     "users.list-fullname": "フルネーム",
     "users.list-groups": "グループ",
     "users.list-roles": "ロール",
     "users.list-start": "表示開始",
-
     "roles.list-title": "ロール設定",
     "roles.list-index": "インデックス",
     "roles.list-name": "名前",
     "roles.list-description": "説明",
-
     "user-role-edit-title": "ロール設定",
     "user-role-edit-name": "名前",
     "user-role-edit-index": "インデックス",
     "user-role-edit-description": "説明",
-
     "events-history.list-title": "イベント履歴",
     "events-history.filter-daterange": "日付範囲フィルター",
-
     "gauges.property-props": "プロパティ",
     "gauges.property-events": "イベント",
     "gauges.property-title": "プロパティ",
@@ -1134,7 +1045,7 @@
     "gauges.property-event-resource": "リソース",
     "gauges.property-event-width": "幅",
     "gauges.property-event-height": "高さ",
-    "gauges.property-event-scale": "スケール" ,
+    "gauges.property-event-scale": "スケール",
     "gauges.property-event-script": "スクリプト",
     "gauges.property-event-script-param-name": "パラメータ",
     "gauges.property-event-script-param-value": "値",
@@ -1169,7 +1080,6 @@
     "gauges.property-input-convertion": "変換",
     "gauges.property-input-convertion-milliseconds": "ミリ秒",
     "gauges.property-input-convertion-string": "文字列",
-
     "gauges.property-update-enabled": "更新を有効化",
     "gauges.property-update-esc": "ESCで更新",
     "gauges.property-input-esc-action": "離脱時のアクション",
@@ -1181,11 +1091,11 @@
     "gauges.property-actions": "アクション",
     "gauges.property-action-type": "タイプ",
     "gauges.property-action-param": "アクションID",
-    "gauges.property-action-minAngle" : "最小角度",
-    "gauges.property-action-maxAngle" : "最大角度",
-    "gauges.property-action-toX" : "X位置へ",
-    "gauges.property-action-toY" : "Y位置へ",
-    "gauges.property-action-duration" : "持続時間",
+    "gauges.property-action-minAngle": "最小角度",
+    "gauges.property-action-maxAngle": "最大角度",
+    "gauges.property-action-toX": "X位置へ",
+    "gauges.property-action-toY": "Y位置へ",
+    "gauges.property-action-duration": "持続時間",
     "gauges.property-events-mapping-from": "コンテキスト変数",
     "gauges.property-map-variable": "バインドするコンテキスト変数を追加",
     "gauges.property-head-remove-mapvariable": "バインドを削除",
@@ -1193,9 +1103,8 @@
     "gauges.property-interval-msec": "間隔 (ミリ秒)",
     "gauges.property-tag-label": "タグ",
     "gauges.property-tag-internal-title": "宛先のプレースホルダー（または内部デバイスのタグ）を設定",
-    "gauges.property-input-range": "許可された入力範囲" ,
+    "gauges.property-input-range": "許可された入力範囲",
     "gauges.property-language-text": "テキストまたは @TextID",
-
     "bag.property-ticks": "目盛",
     "bag.property-divisions": "分割",
     "bag.property-subdivisions": "細分割",
@@ -1228,7 +1137,6 @@
     "bag.property-zones": "ゾーン",
     "bag.property-color": "色",
     "bag.property-fill": "塗りつぶし",
-
     "alarms.list-title": "アラーム設定",
     "alarms.list-name": "名前",
     "alarms.list-device": "デバイス / 変数",
@@ -1284,7 +1192,7 @@
     "alarm.action-popup": "ポップアップ表示",
     "alarm.action-onsetview": "ビュー設定",
     "alarm.action-onsetvalue": "値を設定",
-    "alarm.action-onRunScript": "スクリプトを実行" ,
+    "alarm.action-onRunScript": "スクリプトを実行",
     "alarm.action-toastMessage": "メッセージを表示",
     "alarm.action-sendMsg": "メッセージを送信",
     "alarm.property-action-type": "アクションタイプ",
@@ -1292,7 +1200,6 @@
     "alarm.property-action-destination": "表示するビュー",
     "alarm.property-action-toastMessage": "表示するメッセージ",
     "alarm.property-action-toastType": "タイプ",
-
     "notifications.list-title": "通知設定",
     "notifications.list-name": "名前",
     "notifications.list-receiver": "受信者",
@@ -1303,7 +1210,7 @@
     "notifications.list-subscriptions": "サブスクリプション",
     "notification.property-title": "通知",
     "notification.property-name": "名前",
-    "notification.property-receiver": "受信者: メールアドレス ';' / WebApi (Telegram https://api.telegram.org/bot...${content})" ,
+    "notification.property-receiver": "受信者: メールアドレス ';' / WebApi (Telegram https://api.telegram.org/bot...${content})",
     "notification.property-type": "タイプ",
     "notification.property-delay": "遅延 (分)",
     "notification.property-interval": "間隔 (分)",
@@ -1311,7 +1218,6 @@
     "notification.property-priority": "優先度",
     "notification.type-alarm": "アラーム",
     "notification.type-trigger": "トリガー",
-
     "scripts.list-title": "スクリプト設定",
     "scripts.list-name": "名前",
     "scripts.list-type": "タイプ",
@@ -1320,19 +1226,15 @@
     "scripts.list-scheduling": "スケジュール / 間隔",
     "scripts.list-permission": "権限",
     "scripts.list-options": "スクリプトオプション",
-
     "script.permission-title": "権限",
     "script.permission-label": "(空 = 全員に完全アクセス権)",
     "script.permission-enabled": "有効",
-
     "script.create-title": "スクリプト作成",
-
     "script.mode": "実行モード",
     "script.mode-title": "実行モード",
     "script.mode-label": "実行モード",
     "script.mode-CLIENT": "クライアント (ブラウザで実行)",
     "script.mode-SERVER": "サーバー (サーバーで実行)",
-
     "script.property-title": "スクリプト",
     "script.property-systems": "システム関数",
     "script.property-templates": "テンプレート",
@@ -1358,7 +1260,7 @@
     " script.sys-fnc-gettag-text": "$getTag (TagID)",
     "script.sys-fnc-gettag-tooltip": "タグ値を取得するシステム関数: $getTag (TagID as string) 文字列または数値として値を返す",
     "script.scheduling-title": "スクリプトスケジューリング",
-    "script.scheduling-type": "タイプ" ,
+    "script.scheduling-type": "タイプ",
     "script.scheduling-interval": "間隔でループ",
     "script.scheduling-start": "開始時のみ",
     "script.scheduling-add-item": "スケジューラを追加",
@@ -1410,38 +1312,34 @@
     "script.sys-fnc-setDeviceProperty-tooltip": "デバイスプロパティを設定するシステム関数: $setDeviceProperty(Device name as string, Property as object {address, port, ...} )",
     "script.sys-fnc-setDeviceProperty-params": "'Device name', 'Property'",
     "script.sys-fnc-getHistoricalTag-text": "$getHistoricalTags(TagIds array, from msec., to msec.)",
-    "script.sys-fnc-getHistoricalTag-tooltip":"ミリ秒範囲で履歴タグを取得: $getHistoricalTags([TagIds] as array, from as number, to as number)",
-    "script.sys-fnc-getHistoricalTag-params":"'タグID配列', '開始ミリ秒', '終了ミリ秒'",
+    "script.sys-fnc-getHistoricalTag-tooltip": "ミリ秒範囲で履歴タグを取得: $getHistoricalTags([TagIds] as array, from as number, to as number)",
+    "script.sys-fnc-getHistoricalTag-params": "'タグID配列', '開始ミリ秒', '終了ミリ秒'",
     "script.sys-fnc-sendMessage-text": "$sendMessage(address, subject, message)",
     "script.sys-fnc-sendMessage-tooltip": "メッセージ（メール）を送信するシステム関数: $sendMessage(address as string, subject as string, message as string)",
-    "script.sys-fnc-sendMessage-params": "'address', 'subject', 'message'" ,
+    "script.sys-fnc-sendMessage-params": "'address', 'subject', 'message'",
     "script.sys-fnc-getAlarms-text": "$getAlarms()",
     "script.sys-fnc-getAlarms-tooltip": "アラームリストを取得するシステム関数 (): $getAlarms()",
     "script.sys-fnc-getAlarms-params": "",
     "script.sys-fnc-getAlarmsHistory-text": "$getAlarmsHistory(from msec., to msec.)",
     "script.sys-fnc-getAlarmsHistory-tooltip": "履歴アラームリストを取得するシステム関数 (): $getAlarmsHistory(from as number, to as number)",
-    "script.sys-fnc-getAlarmsHistory-params": "'From msec.', 'To msec.'" ,
+    "script.sys-fnc-getAlarmsHistory-params": "'From msec.', 'To msec.'",
     "script.sys-fnc-ackAlarms-text": "$ackAlarm(Alarm name, types)",
     "script.sys-fnc-ackAlarms-tooltip": "アラームをACKするシステム関数 (): $ackAlarm(Alarm name as string, [types] 'highhigh|high|low')",
     "script.sys-fnc-ackAlarms-params": "'Alarm name', 'types'",
-
-    "script.template-chart-data-text": "カスタマイズされたチャートデータ" ,
+    "script.template-chart-data-text": "カスタマイズされたチャートデータ",
     "script.template-chart-data-tooltip": "返すカスタムチャートデータのコードテンプレート",
     "script.template-invoke-chart-update-options-text": "チャート更新オプション",
     "script.template-invoke-chart-update-options-tooltip": "チャートオプション（Y軸スケール範囲）を更新するコードテンプレート。クライアントモードのみ！",
     "script.template-getHistoricalTagsoptions-text": "履歴タグの値を取得",
     "script.template-getHistoricalTagsoptions-tooltip": "履歴タグの値を取得するコードテンプレート。",
-
     "client.script-access-title": "クライアントスクリプトへのアクセス",
     "client.script-access-info": "フロントエンド（例：ウィジェット）から window.iFEMSScriptAPI 経由でシステム機能へのアクセスを設定します。",
-
     "reports.list-title": "レポート設定",
     "reports.list-name": "名前",
     "reports.list-type": "タイプ",
     "reports.list-receiver": "受信者",
     "reports.list-scheduling": "スケジュール / 間隔",
     "reports.list-enabled": "有効",
-
     "report.property-title": "レポート",
     "report.property-name": "名前",
     "report.property-receiver": "受信者メールアドレス",
@@ -1504,7 +1402,6 @@
     "report.chart-name": "チャート名",
     "report.chart-width": "幅",
     "report.chart-height": "高さ",
-
     "maps.locations-list-title": "場所設定",
     "maps.locations-list-name": "名前",
     "maps.locations-list-view": "表示",
@@ -1526,15 +1423,9 @@
     "maps.close-popups": "全てのポップアップを閉じる",
     "maps.location-to-import": "インポートする位置情報",
     "maps.location-to-import-input-title": "インポートする位置情報を選択",
-
     "logs.view-title": "システムログ",
     "logs.view-files": "ログファイル",
-
-    "events.view-ontime": "日付/時刻",
-    "events.view-type": "タイプ",
-    "events.view-source": "ソース",
-    "events.view-text": "テキスト",
-
+    "events.view-type": "名前",
     "card.config-title": "カード設定",
     "card.config-content-type": "コンテンツタイプ",
     "card.config-content-view": "コンテンツ表示",
@@ -1544,7 +1435,6 @@
     "card.widget-table": "テーブル",
     "card.widget-iframe": "リンク",
     "card.style-zoom": "ズーム",
-
     "resources.lib-icons": "アイコン",
     "resources.lib-images": "画像",
     "resource.list-title": "リソース一覧",
@@ -1552,10 +1442,8 @@
     "resource.list-type": "ファイルタイプ",
     "resource.list-title-fonts": "フォント一覧",
     "resources.lib-widgets": "ウィジェット",
-
     "widgets.kiosk-title": "ウィジェットキオスク",
     "widget.remove": "ウィジェットを削除",
-
     "texts.list-title": "言語設定",
     "texts.list-filter": "フィルター",
     "texts.list-filter-group": "グループ",
@@ -1576,16 +1464,13 @@
     "text.settings-id": "名前 (許可される文字と数字、スペース不可)",
     "text.settings-group": "グループ",
     "text.settings-value": "テキスト (デフォルト)",
-
     "gui.range-number-min": "最小値",
     "gui.range-number-max": "最大値",
     "gui.range-number-boolean": "マスク値",
     "gui.range-number-true": "真 [1-1]",
     "gui.range-number-false": "偽 [0-0]",
     "gui.range-number-switcher": "数値またはブール値としての範囲",
-
     "dlg.bitmask-title": "ビットマスク",
-
     "dlg.plugins-title": "サーバープラグイン",
     "dlg.plugins-info": "インストールされていないプラグインはサーバーで手動インストール可能: 'npm install [package name]@[version]'",
     "dlg.plugins-type": "タイプ",
@@ -1598,7 +1483,6 @@
     "dlg.plugins-status-installed": "インストール中...OK！",
     "dlg.plugins-status-removed": "削除中...OK！",
     "dlg.plugins-status-error": "エラー！手動で試してください！",
-
     "dlg.setup-title": "セットアップ",
     "dlg.setup-gui": "ユーザーインターフェース",
     "dlg.setup-diverse": "その他",
@@ -1660,13 +1544,11 @@
     "dlg.app-auth-expiration-1d": "有効（トークン有効期限：1日）",
     "dlg.app-auth-tooltip": "有効化済み: 管理者アカウント 'admin/123456' が存在します（変更をお忘れなく）。サーバーの再起動が必要です！",
     "dlg.app-settings-client-broadcast": "クライアント（フロントエンド）に全タグ値をブロードキャスト",
-
     "dlg.app-settings-daqstore": "DAQストレージ",
     "dlg.app-settings-daqstore-type": "データベースタイプ",
     "dlg.app-settings-daqstore-url": "URL",
     "dlg.app-settings-daqstore-configurl": "Config URL",
     "dlg.app-settings-daqstore-queryconn": "Query connection (PGWire)",
-
     "dlg.app-settings-daqstore-questdb-host": "QuestDB Host",
     "dlg.app-settings-daqstore-ingestconn": "Ingestion connection (ILP)",
     "dlg.app-settings-daqstore-token": "トークン",
@@ -1676,11 +1558,9 @@
     "dlg.app-settings-daqstore-database": "データベース名",
     "dlg.app-settings-daqstore-username": "ユーザー名",
     " dlg.app-settings-daqstore-password": "パスワード",
-
     "dlg.app-settings-user-group-label": "認証タイプ",
     "dlg.app-settings-user-group": "グループ (デフォルト)",
     "dlg.app-settings-user-roles": "ロール",
-
     "store.retention-none": "無効",
     "store.retention-day1": "1日間",
     "store.retention-days2": "2日間",
@@ -1692,15 +1572,12 @@
     "store.retention-year1": "1年間",
     "store.retention-year3": "3年間",
     "store.retention-year5": "5年間",
-
     "plugin.group-connection-device": "接続デバイス",
     "plugin.group-connection-database": "接続データベース",
     "plugin.group-chart-report": "レポート用チャート画像",
-
     "action-settings-title": "アクション設定",
     "action-settings-readonly-tag": "タグ",
     "action-settings-readonly-values": "値",
-
     "msg.alarm-ack-all": "全てのアラームを承認しますか？",
     "msg.alarm-remove": "アラームを削除しますか？",
     "msg.text-remove": "テキストを削除しますか？",
@@ -1716,7 +1593,6 @@
     "msg.report-property-missing-value": "不正または不足している値があります！",
     "msg.file-upload-failed": "アップロードに失敗しました！",
     "msg.file-delete-failed": "ファイル削除に失敗しました！",
-
     "msg.home-welcome": "お待ちください...エディタに移動し、デバイスをマッピングし、可視化を設計し、デバイス変数をバインドしてください",
     "msg.server-connection-failed": "サーバー接続に失敗しました！",
     "msg.project-load-error": "'{{value}}' を読み取れませんでした",
@@ -1766,6 +1642,14 @@
     "msg.maps-location-name-exist": "マップ位置名が既に存在します！",
     "msg.text-name-exist": "テキスト名が既に存在します！",
     "msg.texts-text-remove": "テキスト '{{value}}' を削除しますか？",
-    "msg.operation-unauthorized": "操作が許可されていません！"
+    "msg.operation-unauthorized": "操作が許可されていません！",
+    "events.view-title": "イベント履歴",
+    "events.view-timestamp": "タイムスタンプ",
+    "events.view-details": "詳細",
+    "events.search": "検索",
+    "events.filter-placeholder": "フィルター",
+    "logs.filter": "フィルター",
+    "logs.filter-placeholder": "フィルターテキストを入力...",
+    "events.view-user": "ユーザー",
+    "events.user-filter-placeholder": "ユーザーフィルター..."
 }
-

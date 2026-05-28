@@ -113,6 +113,28 @@ export class ResWebApiService implements ResourceStorageService {
         });
     }
 
+    getEventsHistory(query: { start: Date, end: Date, filter?: string }): Observable<any[]> {
+        let header = new HttpHeaders({ 'Content-Type': 'application/json' });
+        const requestOptions: Object = {
+            headers: header,
+            params: {
+                start: query.start.getTime(),
+                end: query.end.getTime(),
+                filter: query.filter || ''
+            },
+            observe: 'response'
+        };
+        return this.http.get<any[]>(this.endPointConfig + '/api/events', requestOptions).pipe(
+            switchMap((response: any) => {
+                if (response.body === null || response.body === undefined) {
+                    return of([]);
+                }
+                return of(response.body);
+            }),
+            map((body: any[]) => body)
+        );
+    }
+
     checkServer(): Observable<any> {
         return this.http.get<any>(this.endPointConfig + '/api/settings');
     }

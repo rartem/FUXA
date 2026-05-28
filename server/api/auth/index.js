@@ -118,6 +118,12 @@ module.exports = {
                             }
                         });
                         runtime.logger.info('api-signin: ' + userInfo[0].username + ' ' + userInfo[0].fullname + ' ' + userInfo[0].groups);
+                        if (runtime.eventsMgr) {
+                            runtime.eventsMgr.logEvent('login', 'user', userInfo[0].username, 'login', {
+                                username: userInfo[0].username,
+                                fullname: userInfo[0].fullname || ''
+                            });
+                        }
                     } else {
                         res.status(401).json({ status: 'error', message: 'Invalid email/password!!!', data: null });
                         runtime.logger.error('api post signin: Invalid email/password!!!');
@@ -196,6 +202,21 @@ module.exports = {
          * Clear refresh cookie
          */
         authApp.post('/api/signout', function (req, res, next) {
+            var username = '';
+            try {
+                if (req.headers.authorization) {
+                    const token = req.headers.authorization.split(' ')[1];
+                    const decoded = jwt.decode(token);
+                    if (decoded && decoded.id) {
+                        username = decoded.id;
+                    }
+                }
+            } catch (e) {}
+            if (runtime.eventsMgr && username) {
+                runtime.eventsMgr.logEvent('logout', 'user', username, 'logout', {
+                    username: username
+                });
+            }
             if (enableRefreshCookieAuth) {
                 clearRefreshCookie(res);
             }

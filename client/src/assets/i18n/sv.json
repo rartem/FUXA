@@ -1,10 +1,8 @@
 {
     "with param": "exempel {{value}}",
-
     "app.home": "Hem",
     "app.lab": "Labb",
     "app.editor": "Redigerare",
-
     "header.new-project": "Nytt projekt",
     "header.save-project": "Spara projekt",
     "header.save-project-tooltip": "Spara alla osparade projektändringar",
@@ -26,15 +24,10 @@
     "header.change-thema": "Byt tema (beta)",
     "header.info-version": "Version ",
     "header.theme": "Ljust/mörkt Tema",
-
     "project.name": "Projektnamn",
-
     "sidenav.title": "FUXA",
-
     "tutorial.title": "FUXA Handledning",
-
     "dlg.info-title": "FUXA",
-	
     "dlg.layout-title": "Layoutinställningar",
     "dlg.layout-general": "Allmänt",
     "dlg.layout-lbl-auto-resize": "Automatisk storleksändring",
@@ -69,7 +62,6 @@
     "dlg.layout-lbl-login-info": "Inloggnings-info",
     "dlg.layout-lbl-custom-styles": "Anpassade stilar",
     "dlg.layout-lbl-show-language": "Visa språk",
-
     "dlg.menuitem-title": "Menyobjekt",
     "dlg.menuitem-image": "[My Image...]",
     "dlg.menuitem-icon": "Ikon",
@@ -79,16 +71,13 @@
     "dlg.menuitem-alarms": "Larm vid klick",
     "dlg.menuitem-address": "Länkadress",
     "dlg.menuitem-icons-filter": "Ikonfilter",
-	
     "dlg.menuitem-submenu": "Undermeny",
     "dlg.menuitem-add-submenu": "Lägg till undermenyobjekt",
     "dlg.menuitem-submenu-items": "Undermenyobjekt",
     "sidenav.new_item": "Nytt undermenyobjekt",
-
     "dlg.headeritem-title": "Headerobjekt",
     "dlg.headeritem-icon": "Ikon",
     "dlg.headeritem-icons-filter": "Ikonfilter",
-
     "dlg.docproperty-title": "Vyegenskaper",
     "dlg.docproperty-name": "Namn",
     "dlg.docproperty-width": "Bredd",
@@ -117,7 +106,6 @@
     "dlg.docproperty-gridtype-fixed": "Fast",
     "dlg.docproperty-gridtype-verticalFixed": "Fast vertikal",
     "dlg.docproperty-gridtype-horizontalFixed": "Fast horisontell",
-
     "dlg.docname-title": "Vy-namn",
     "dlg.docname-name": "Namn",
     "dlg.docproperty-type": "Vy-typ",
@@ -126,36 +114,28 @@
     "dlg.item-req-name": "Funktionsnamn (Inga mellanslag eller siffror tillåtna)",
     "dlg.item-name-error": "Namnet finns redan!",
     "dlg.parameter-title": "Parameter",
-
     "dlg.tagname-title": "Taggnamn",
     "dlg.tagname-name": "Namn",
-
     "dlg.linkproperty-title": "Skapa hyperlänk",
     "dlg.linkproperty-url": "Hyperlänk URL",
-
     "dlg.login-title": "Logga in...",
     "dlg.logout-btn": "Logga ut",
-
     "dlg.ok": "OK",
     "dlg.cancel": "AVBRYT",
     "dlg.close": "STÄNG",
     "dlg.apply": "TILLÄMPA",
-
     "dlg.userproperty-title": "Användare",
     "dlg.userproperty-groups": "Behörighetsgrupper",
     "dlg.userproperty-roles": "Behörighetsroller",
     "dlg.useraccess-groups": "Behörighet (tom = full tillgång för alla)",
     "dlg.userproperty-language": "Språk",
     "dlg.userproperty-start": "Startvy",
-
     "dlg.gauge-permission-title": "Behörighet",
     "dlg.gauge-permission-label": "(tom = full tillgång för alla)",
     "dlg.gauge-permission-show": "Visa",
     "dlg.gauge-permission-enabled": "Aktiverad",
-
     "date.range-start": "Startdatum",
     "date.range-end": "Slutdatum",
-
     "general.search-up": "SÖK",
     "general.close": "Stäng",
     "general.search": "Sök...",
@@ -192,58 +172,46 @@
     "general.sunday-short": "Sön",
     "general.save-template": "Spara som mall",
     "general.import-template": "Importera från mall",
-
     "tester.title": "Variabel",
     "tester.send": "Skicka",
-
     "item.overlaycolor-none": "Ingen",
     "item.overlaycolor-black": "Svart",
     "item.overlaycolor-white": "Vit",
-
     "item.navsmode-none": "None",
     "item.navsmode-push": "Push",
     "item.navsmode-over": "Over",
     "item.navsmode-fix": "Fixed",
-
     "item.navtype-icons": "Ikoner",
     "item.navtype-text": "Text",
     "item.navtype-icons-text-block": "Ikoner & Text (block)",
     "item.navtype-icons-text-inline": "Ikoner & Text (inline)",
-
     "item.headertype-button": "Knapp",
     "item.headertype-label": "Etikett",
     "item.headertype-image": "Bild",
     "item.headeranchor-left": "Vänster",
     "item.headeranchor-right": "Höger",
     "item.headeranchor-center": "Mitten",
-
     "item.notifymode-hide": "Dölj",
     "item.notifymode-fix": "Fast",
     "item.notifymode-float": "Skjut",
-
     "item.logininfo-type-nothing": "Ingenting",
     "item.logininfo-type-username": "Användarnamn",
     "item.logininfo-type-fullname": "Fullständigt namn",
     "item.logininfo-type-both": "Användarnamn & Fullständigt namn",
-
     "item.language-show-mode-nothing": "Dölj",
     "item.language-show-mode-simple": "Visa",
     "item.language-show-mode-key": "Visa med nyckel",
     "item.language-show-mode-fullname": "Visa med fullständigt namn",
-
     "item.zoommode-disabled": "Inaktiverad",
     "item.zoommode-enabled": "Manuellt",
     "item.zoommode-autoresize": "Automatisk storleksändring",
-
     "item.headerbarmode-hide": "Dölj",
     "item.headerbarmode-show": "Visa",
-
     "dlg.layout-input-dialog": "Dialogläge för inmatningsfält",
     "item.inputmode-disabled": "Inaktiverad",
     "item.inputmode-enabled": "Dialog",
     "item.inputmode-keyboard": "Virtuellt tangentbord",
     "item.inputmode-keyboard-full-screen": "Virtuellt tangentbord helskärm",
-
     "chart.config-title": "Diagraminställningar",
     "chart.config-charts": "Diagram",
     "chart.config-devices": "Enheter",
@@ -271,7 +239,6 @@
     "chart.config-line-zone-max": "Max",
     "chart.config-line-zone-stroke": "Linje",
     "chart.config-line-zone-fill": "Fyll",
-
     "chart.property-data": "Data",
     "chart.property-props": "Egenskap",
     "chart.property-layout": "Layout",
@@ -320,21 +287,17 @@
     "chart.property-axis-y4-min": "Y4 Min",
     "chart.property-axis-y4-max": "Y4 Max",
     "chart.property-script": "Scriptdatakälla",
-
     "chart.rangetype-last8h": "Senaste 8 timmarna",
     "chart.rangetype-last1d": "Senaste dygnet",
     "chart.rangetype-last3d": "Senaste 3 dagarna",
     "chart.rangetype-last1w": "Senaste veckan",
-
     "chart.legend-always": "alltid",
     "chart.legend-follow": "följer",
     "chart.legend-bottom": "botten",
     "chart.legend-never": "aldrig",
-
     "chart.labels-serie": "Serie",
     "chart.labels-time": "Tid",
     "chart.labels-title": "Titel",
-
     "graph.config-title": "Grafinställningar",
     "graph.config-rename": "Byt namn",
     "graph.config-source-tag": "Lägg till källtagg",
@@ -351,7 +314,6 @@
     "graph.property-fnctype": "Funktionstyp",
     "graph.bar-date-fnc-value-integral": "Summa (Integral)",
     "graph.bar-date-fnc-hour-integral": "Timvis summa (Integral)",
-
     "graph.property-data": "Data",
     "graph.property-name": "Namn",
     "graph.property-general": "Allmänt",
@@ -408,20 +370,16 @@
     "graph.property-datalabels-show": "Visa",
     "graph.property-datalabels-fontsize": "Teckenstorlek",
     "graph.property-datalabels-align": "Justering",
-
     "graph.rangetype-last1h": "Senaste timmen",
     "graph.rangetype-last1d": "Senaste dygnet",
     "graph.rangetype-last3d": "Senaste 3 dagarna",
     "graph.rangetype-last1w": "Senaste veckan",
     "graph.rangetype-last1m": "Senaste månaden",
-
     "graph.grouptype-hours": "Timmar",
     "graph.grouptype-days": "Dagar",
-
     "iframe.property-data": "Data",
     "iframe.property-address": "Adress",
     "iframe.property-name": "Namn",
-
     "panel.property-data": "Data",
     "panel.property-view-name": "Vy namn",
     "panel.property-name": "Namn",
@@ -429,7 +387,6 @@
     "panel.property-scalemode-none": "Ingen",
     "panel.property-scalemode-contain": "Anpassa",
     "panel.property-scalemode-stretch": "Sträck ut",
-
     "table.property-title": "Inställningar för datatabell",
     "table.property-data": "Data",
     "table.property-date-last-range": "Datumintervall",
@@ -493,19 +450,16 @@
     "table.cell-align-left": "Vänster",
     "table.cell-align-center": "Mitten",
     "table.cell-align-right": "Höger",
-
     "table.history-filter": "Filter",
     "table.rangetype-last1h": "Senaste timmen",
     "table.rangetype-last1d": "Senaste dagen",
     "table.rangetype-last3d": "Senaste 3 dagarna",
-
     "table.alarms-title": "Tabell Larm",
     "table.alarms-history-title": "Tabell Larminformation",
     "table.alarm-columns": "Larmkolumner",
     "table.alarm-filter": "Larmfilter",
     "table.alarm-priority": "Prioritet",
     "table.alarm-tags": "Taggar",
-
     "table.reports-title": "Tabell Rapporter",
     "table.report-columns": "Rapportkolumner",
     "table.report-view-name": "Namn",
@@ -515,7 +469,6 @@
     "table.report-filter": "Rapportfilter",
     "table.report-filter-name": "Namn",
     "table.report-filter-count": "Max.",
-
     "editor.view-svg": "Arbetsyta/SVG",
     "editor.view-cards": "Fler vybehållare",
     "editor.view-maps": "Kartor",
@@ -568,9 +521,7 @@
     "editor.controls-image": "Bild (länk)",
     "editor.controls-panel": "Panel",
     "editor.controls-panel-settings": "Panelinställningar",
-
     "editor.layout-settings": "Layoutinställningar",
-    
     "editor.interactivity": "Interaktivitet",
     "editor.interactivity-id": "id:",
     "editor.interactivity-id-title": "Identifiera elementet",
@@ -578,7 +529,6 @@
     "editor.interactivity-class-title": "Elementklass",
     "editor.interactivity-name": "namn",
     "editor.edit-bind-of-tags": "Redigera bindning av taggar",
-
     "editor.cmenu-property": "Egenskap",
     "editor.cmenu-cut": "Klipp ut",
     "editor.cmenu-copy": "Kopiera",
@@ -597,7 +547,6 @@
     "editor.cmenu-layer-marge-all": "Sammanfoga alla",
     "editor.cmenu-unlock": "Lås upp",
     "editor.cmenu-lock": "Lås",
-
     "editor.transform": "Transformera",
     "editor.transform-x": "x",
     "editor.transform-x-title": "Ändra X-koordinat",
@@ -653,7 +602,6 @@
     "editor.transform-angle-title": "Ändra rotationsvinkel",
     "editor.transform-hide": "Dölj",
     "editor.transform-lock": "Lås",
-
     "editor.align": "Justera",
     "editor.align-left-title": "Justera vänster",
     "editor.align-center-title": "Centrera",
@@ -661,7 +609,6 @@
     "editor.align-top-title": "Justera topp",
     "editor.align-middle-title": "Justera mitten",
     "editor.align-bottom-title": "Justera botten",
-
     "editor.stroke": "Kantlinje",
     "editor.stroke-width": "kantlinjebredd",
     "editor.stroke-width-title": "Ändra kantlinjebredd med 1, shift-klicka för att ändra med 0,1",
@@ -675,7 +622,6 @@
     "editor.stroke-capround-title": "Linjeavslut Rund",
     "editor.stroke-shadow": "Skugga",
     "editor.stroke-shadow-title": "Med skugga",
-
     "editor.marker": "Markör",
     "editor.marker-start": "start",
     "editor.marker-start-title": "Välj startmarkörtyp",
@@ -683,10 +629,8 @@
     "editor.marker-middle-title": "Välj mittmarkörtyp",
     "editor.marker-end": "slut",
     "editor.marker-end-title": "Välj slutmarkörtyp",
-
     "editor.hyperlink": "Hyperlänk",
     "editor.hyperlink-url": "url",
-
     "editor.tools-launch-title": "Starta aktuell vy",
     "editor.tools-select": "Markeringsverktyg",
     "editor.tools-pencil": "Pennverktyg",
@@ -697,7 +641,6 @@
     "editor.tools-path": "Bana-verktyg",
     "editor.tools-text": "Textverktyg",
     "editor.tools-image": "Bildverktyg (inbäddad)",
-
     "editor.tools-zoom-title": "Zoomverktyg [Ctrl+Upp/Ner]",
     "editor.tools-grid-title": "Visa/Dölj rutnät",
     "editor.tools-undo-title": "Ångra [Z]",
@@ -719,17 +662,12 @@
     "editor.tools-ungroup-title": "Avgruppera element [G]",
     "editor.tools-hyperlink-title": "Skapa hyperlänk",
     "editor.tools-svg-selector": "Objektlistväljare",
-
     "editor.settings-general": "Allmänt",
     "editor.settings-events": "Händelser",
     "editor.settings-actions": "Åtgärder",
-
     "tags.ids-config-title": "Tags-Ids referens",
-
     "svg.selector.property-title": "Visa objektlista",
-
     "tutorial.editor-keyboard-shortcuts": "Kortkommandon i redigeraren",
-
     "shapes.action-hide": "Dölj",
     "shapes.action-show": "Visa",
     "shapes.action-blink": "Blinka",
@@ -769,7 +707,6 @@
     "shapes.event-onLoad": "Vid inladdning",
     "shapes.event-relativefrom-window": "Fönster",
     "shapes.event-relativefrom-mouse": "Mus",
-
     "pipe.property-title": "Rörinställningar",
     "pipe.property-data": "Data",
     "pipe.property-style": "Stil",
@@ -786,7 +723,6 @@
     "pipe.property-style-animation-image": "Välj bild (SVG)",
     "pipe.property-style-animation-count": "Antal bilder",
     "pipe.property-style-animation-delay": "Animationsfördröjning (ms)",
-
     "slider.property-props": "Egenskaper",
     "slider.property-horizontal": "Horisontell",
     "slider.property-vertical": "Vertikal",
@@ -819,7 +755,6 @@
     "slider.property-slider-color": "Färg för koppling",
     "slider.property-slider-background": "Basfärg",
     "slider.property-slider-handle": "Pekarfärg",
-
     "html-switch.property-off-value": "Av-värde",
     "html-switch.property-on-value": "På-värde",
     "html-switch.property-on-background": "På-bakgrund",
@@ -833,12 +768,10 @@
     "html-switch.property-on-text-color": "På-textfärg",
     "html-switch.property-font-size": "Teckenstorlek",
     "html-switch.property-font": "Teckensnitt",
-
     "html-input.min": "Min",
     "html-input.max": "Max",
     "html-input.out-of-range": "Värde utanför tillåtet intervall",
     "html-input.not-a-number": "Värdet är inte ett nummer",
-
     "editor.tools-zoomlevel-title": "Zoomnivå",
     "editor.tools-zoomlevel-fitcanvas": "Anpassa till arbetsyta",
     "editor.tools-zoomlevel-fitsection": "Anpassa till markering",
@@ -846,7 +779,6 @@
     "editor.tools-fillcolor-title": "Ändra fyllnadsfärg",
     "editor.tools-strokecolor-title": "Ändra kantfärg",
     "editor.tools-palettecolor-title": "Klicka för att ändra fyllnadsfärg, shift-klicka för att ändra kantfärg",
-
     "device.list-title": "Anslutningsinställningar",
     "device.list-device": "Enhet",
     "device.list-filter": "Filter",
@@ -865,7 +797,6 @@
     "device.list-options": "Taggalternativ",
     "device.list-clipboard": "Kopiera taggobjekt till urklipp",
     "device.list-direction": "Riktning",
-
     "devices.export": "Exportera enheter",
     "devices.export-json": "JSON",
     "devices.export-csv": "CSV",
@@ -940,7 +871,6 @@
     "device.template-device": "Mallnamn",
     "device.template-tags": "Mallnamn",
     "device.property-socket-reuse": "Återanvänd socket",
-
     "device.browsetopics-property-title": "Broker-ämnen att prenumerera och publicera",
     "device.browsetopics-property-sub": "Prenumerera",
     "device.browsetopics-property-pub": "Publicera",
@@ -970,7 +900,6 @@
     "device.topic-name-exist": "Ämnesnamnet '{{value}}' finns redan",
     "device.topic-subs-address-exist": "Ämnet att prenumerera på med adress '{{value}}' finns redan",
     "device.topic-pubs-address-exist": "Ämnet att publicera med adress '{{value}}' finns redan",
-
     "device.property-mqtt-address": "Adress (mqtt://[server]:[port])",
     "device.tag-property-title": "Taggegenskaper",
     "device.browsetag-property-title": "Bläddra taggar på server",
@@ -993,21 +922,16 @@
     "device.tag-property-direction": "Riktning",
     "device.tag-property-edge": "Kant",
     "device.tag-property-gpio": "GPIO-nummer",
-
-
     "device.tag-array-id": "Array-ID:",
     "device.tag-array-value": "Värde:",
     "device-tag-dialog-title": "Taggval",
-
     "device.tag-options-title": "Taggalternativ",
     "device.tag-daq-enabled": "Registrering aktiverad",
     "device.tag-daq-changed": "Spara om ändrad",
     "device.tag-daq-interval": "Spara värdeintervall (sek.)",
     "device.tag-daq-restored": "Återställ",
-
     "device.tag-format": "Format decimaler (2 = #.##)",
     "device.tag-deadband": "Deadband",
-
     "device.tag-uns-path": "UNS Path",
     "device.tag-scale": "Skalningsläge / Konvertering",
     "device.tag-scale-mode-undefined": "Ingen skalning",
@@ -1032,14 +956,11 @@
     "device.tag-scale-write-script-tooltip": "Script för att transformera värde före skrivning till klient",
     "device.tag-scale-write-script-params": "Ange skrivscriptets parametrar",
     "device.tag-scale-script-params-tooltip": "JSON-formaterad array av parametrar med värden att skicka till scriptet",
-
-
     "device.connect-ok": "OK",
     "device.connect-error": "Fel",
     "device.connect-failed": "Misslyckades",
     "device.connect-off": "Av",
     "device.connect-busy": "Upptagen",
-
     "devices.mode-map": "Anslutningsdiagram",
     "devices.mode-list": "Anslutningslista",
     "devices.list-name": "Namn",
@@ -1048,27 +969,22 @@
     "devices.list-polling": "Pollning",
     "devices.list-enabled": "Aktiverad",
     "devices.list-status": "Status",
-
     "users.list-title": "Användarinställningar",
     "users.list-name": "Användarnamn",
     "users.list-fullname": "Fullständigt namn",
     "users.list-groups": "Grupper",
     "users.list-roles": "Roller",
     "users.list-start": "Startvy",
-
     "roles.list-title": "Rollinställningar",
     "roles.list-index": "Index",
     "roles.list-name": "Namn",
     "roles.list-description": "Beskrivning",
-
     "user-role-edit-title": "Rollinställning",
     "user-role-edit-name": "Namn",
     "user-role-edit-index": "Index",
     "user-role-edit-description": "Beskrivning",
-
     "events-history.list-title": "Händelsehistorik",
     "events-history.filter-daterange": "Datumintervallfilter",
-
     "gauges.property-props": "Egenskaper",
     "gauges.property-events": "Händelser",
     "gauges.property-title": "Egenskaper",
@@ -1128,7 +1044,6 @@
     "gauges.property-input-convertion": "Konvertering",
     "gauges.property-input-convertion-milliseconds": "Millisekunder",
     "gauges.property-input-convertion-string": "Sträng",
-
     "gauges.property-update-enabled": "Aktivera uppdatering",
     "gauges.property-update-esc": "ESC-uppdatering",
     "gauges.property-input-esc-action": "Åtgärd vid lämning",
@@ -1154,7 +1069,6 @@
     "gauges.property-tag-internal-title": "Ange platshållare för Destination (eller Tagg på intern enhet)",
     "gauges.property-input-range": "Tillåtet inmatningsintervall",
     "gauges.property-language-text": "Text eller @TextID",
-
     "bag.property-ticks": "Tjocklekar",
     "bag.property-divisions": "Indelningar",
     "bag.property-subdivisions": "Underindelningar",
@@ -1187,7 +1101,6 @@
     "bag.property-zones": "Zoner",
     "bag.property-color": "Färg",
     "bag.property-fill": "Fyllning",
-
     "alarms.list-title": "Larminställningar",
     "alarms.list-name": "Namn",
     "alarms.list-device": "Anslutning / Variabel",
@@ -1251,7 +1164,6 @@
     "alarm.property-action-destination": "Vy att visa",
     "alarm.property-action-toastMessage": "Meddelande att visa",
     "alarm.property-action-toastType": "Typ",
-
     "notifications.list-title": "Notifieringsinställningar",
     "notifications.list-name": "Namn",
     "notifications.list-receiver": "Mottagare",
@@ -1270,7 +1182,6 @@
     "notification.property-priority": "Prioritet",
     "notification.type-alarm": "Larm",
     "notification.type-trigger": "Utlösare",
-
     "scripts.list-title": "Skriptinställningar",
     "scripts.list-name": "Namn",
     "scripts.list-type": "Typ",
@@ -1279,19 +1190,15 @@
     "scripts.list-scheduling": "Schemaläggning / Intervall",
     "scripts.list-permission": "Behörighet",
     "scripts.list-options": "Skriptalternativ",
-
     "script.permission-title": "Behörighet",
     "script.permission-label": "(tomt = full åtkomst för alla)",
     "script.permission-enabled": "Aktiverad",
-
     "script.create-title": "Skapa skript",
-
     "script.mode": "Körläge",
     "script.mode-title": "Körläge",
     "script.mode-label": "Körläge",
     "script.mode-CLIENT": "Klient (Kör i webbläsaren)",
     "script.mode-SERVER": "Server (Kör på servern)",
-
     "script.property-title": "Skript",
     "script.property-systems": "Systemfunktioner",
     "script.property-templates": "Mallar",
@@ -1377,21 +1284,18 @@
     "script.sys-fnc-ackAlarms-text": "$ackAlarm(Larmnamn, typer)",
     "script.sys-fnc-ackAlarms-tooltip": "Systemfunktion för att KVITTERA larm (): $ackAlarm(Larmnamn som sträng, [typer] 'highhigh|high|low')",
     "script.sys-fnc-ackAlarms-params": "'Larmnamn', 'typer'",
-
     "script.template-chart-data-text": "Anpassad diagramdata",
     "script.template-chart-data-tooltip": "Kodmall för anpassad diagramdata att returnera",
     "script.template-invoke-chart-update-options-text": "Uppdatera diagraminställningar",
     "script.template-invoke-chart-update-options-tooltip": "Kodmall för att uppdatera diagraminställningar (Y-axelns skala). Endast KLIENT-läge!",
     "script.template-getHistoricalTagsoptions-text": "Hämta historiska Tagg-värden",
     "script.template-getHistoricalTagsoptions-tooltip": "Kodmall för att hämta historiska Tagg-värden.",
-
     "reports.list-title": "Rapportinställningar",
     "reports.list-name": "Namn",
     "reports.list-type": "Typ",
     "reports.list-receiver": "Mottagare",
     "reports.list-scheduling": "Schemaläggning / Intervall",
     "reports.list-enabled": "Aktiverad",
-
     "report.property-title": "Rapport",
     "report.property-name": "Namn",
     "report.property-receiver": "Mottagarnas e-postadresser",
@@ -1454,7 +1358,6 @@
     "report.chart-name": "Diagramnamn",
     "report.chart-width": "Bredd",
     "report.chart-height": "Höjd",
-
     "maps.locations-list-title": "Platsinställningar",
     "maps.locations-list-name": "Namn",
     "maps.locations-list-view": "Vy",
@@ -1476,15 +1379,9 @@
     "maps.close-popups": "Stäng alla popup-fönster",
     "maps.location-to-import": "Plats att importera",
     "maps.location-to-import-input-title": "Välj plats att importera",
-
     "logs.view-title": "Systemloggar",
     "logs.view-files": "Loggfiler",
-
-    "events.view-ontime": "Datum/Tid",
-    "events.view-type": "Typ",
-    "events.view-source": "Källa",
-    "events.view-text": "Text",
-
+    "events.view-type": "Namn",
     "card.config-title": "Kortinställningar",
     "card.config-content-type": "Innehållstyp",
     "card.config-content-view": "Innehållsvy",
@@ -1494,7 +1391,6 @@
     "card.widget-table": "Tabell",
     "card.widget-iframe": "Länk",
     "card.style-zoom": "Zoom",
-
     "resources.lib-icons": "Ikoner",
     "resources.lib-images": "Bilder",
     "resource.list-title": "Resurslista",
@@ -1502,10 +1398,8 @@
     "resource.list-type": "Filtyp",
     "resource.list-title-fonts": "Teckensnittslista",
     "resources.lib-widgets": "Widgetar",
-
     "widgets.kiosk-title": "Widget-kiosk",
     "widget.remove": "Ta bort widget",
-
     "texts.list-title": "Språkinställningar",
     "texts.list-filter": "Filter",
     "texts.list-filter-group": "Grupp",
@@ -1526,16 +1420,13 @@
     "text.settings-id": "Namn (tillåtna bokstäver och siffror, inga mellanslag)",
     "text.settings-group": "Grupp",
     "text.settings-value": "Text (standard)",
-
     "gui.range-number-min": "Min",
     "gui.range-number-max": "Max",
     "gui.range-number-boolean": "Maskvärde",
     "gui.range-number-true": "Sant [1-1]",
     "gui.range-number-false": "Falskt [0-0]",
     "gui.range-number-switcher": "Intervall som tal eller boolean",
-
     "dlg.bitmask-title": "Bitmask",
-
     "dlg.plugins-title": "Server-plugins",
     "dlg.plugins-info": "Plugins som inte är installerade kan installeras manuellt på servern: 'npm install [paketnamn]@[version]'",
     "dlg.plugins-type": "Typ",
@@ -1548,7 +1439,6 @@
     "dlg.plugins-status-installed": "Installerar...OK!",
     "dlg.plugins-status-removed": "Tar bort...OK!",
     "dlg.plugins-status-error": "Fel! Försök manuellt!",
-
     "dlg.setup-title": "Konfiguration",
     "dlg.setup-gui": "Användargränssnitt",
     "dlg.setup-diverse": "Övrigt",
@@ -1607,13 +1497,11 @@
     "dlg.app-auth-expiration-1d": "Aktiverad med token som löper ut efter 1 dag",
     "dlg.app-auth-tooltip": "Aktiverad: du har ett administratörskonto 'admin/123456' (glöm inte att ändra det). Serveromstart krävs!",
     "dlg.app-settings-client-broadcast": "Sänd alla taggvärden till klient (frontend)",
-
     "dlg.app-settings-daqstore": "DAQ-lagring",
     "dlg.app-settings-daqstore-type": "Databastyp",
     "dlg.app-settings-daqstore-url": "URL",
     "dlg.app-settings-daqstore-configurl": "Config URL",
     "dlg.app-settings-daqstore-queryconn": "Query connection (PGWire)",
-
     "dlg.app-settings-daqstore-questdb-host": "QuestDB Host",
     "dlg.app-settings-daqstore-ingestconn": "Ingestion connection (ILP)",
     "dlg.app-settings-daqstore-token": "Token",
@@ -1623,11 +1511,9 @@
     "dlg.app-settings-daqstore-database": "Databasnamn",
     "dlg.app-settings-daqstore-username": "Användarnamn",
     "dlg.app-settings-daqstore-password": "Lösenord",
-
     "dlg.app-settings-user-group-label": "Auktoriseringstyp",
     "dlg.app-settings-user-group": "Grupper (standard)",
     "dlg.app-settings-user-roles": "Roller",
-
     "store.retention-none": "Avaktiverad",
     "store.retention-day1": "1 dag",
     "store.retention-days2": "2 dagar",
@@ -1639,15 +1525,12 @@
     "store.retention-year1": "1 år",
     "store.retention-year3": "3 år",
     "store.retention-year5": "5 år",
-
     "plugin.group-connection-device": "Anslutningsenhet",
     "plugin.group-connection-database": "Anslutningsdatabas",
     "plugin.group-chart-report": "Diagrambild för Rapport",
-
     "action-settings-title": "Åtgärdsinställningar",
     "action-settings-readonly-tag": "Tagg",
     "action-settings-readonly-values": "Värden",
-
     "msg.alarm-ack-all": "Vill du kvittera alla larm?",
     "msg.alarm-remove": "Vill du ta bort larmet?",
     "msg.text-remove": "Vill du ta bort texten?",
@@ -1662,7 +1545,6 @@
     "msg.report-property-missing-value": "Det finns felaktiga eller saknade värden!",
     "msg.file-upload-failed": "Uppladdning misslyckades!",
     "msg.file-delete-failed": "Borttagning av fil misslyckades!",
-
     "msg.home-welcome": "Vänta... gå till redigeraren, mappa enheterna, designa din visualisering och bind enhetsvariablerna",
     "msg.server-connection-failed": "SERVERANSLUTNING MISSLYCKADES!",
     "msg.project-load-error": "Kunde inte läsa '{{value}}'",
@@ -1711,6 +1593,14 @@
     "msg.maps-location-name-exist": "Kartplatsnamnet finns redan!",
     "msg.text-name-exist": "Textnamnet finns redan!",
     "msg.texts-text-remove": "Vill du ta bort texten '{{value}}'?",
-    "msg.operation-unauthorized": "Operation obehörig!"
+    "msg.operation-unauthorized": "Operation obehörig!",
+    "events.view-title": "Händelsehistorik",
+    "events.view-timestamp": "Tidsstämpel",
+    "events.view-details": "Detaljer",
+    "events.search": "SÖK",
+    "events.filter-placeholder": "Filter",
+    "logs.filter": "Filter",
+    "logs.filter-placeholder": "Ange filtertext...",
+    "events.view-user": "Användare",
+    "events.user-filter-placeholder": "Filtrera efter användare..."
 }
-

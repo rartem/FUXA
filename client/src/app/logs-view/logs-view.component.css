@@ -107,6 +107,25 @@
     background-color: var(--toolboxBackground);
     color: var(--toolboxColor);
     box-shadow: 0px 1px 3px 0px #000;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.log-filter-field input {
+    padding: 3px 6px;
+    border-radius: 2px;
+    border: 1px solid var(--formInputBackground);
+    background-color: var(--formInputBackground);
+    color: var(--formInputColor);
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.log-filter-field input:focus {
+    outline: none;
+    border: 1px solid var(--formInputBorderFocus);
+    background-color: var(--formInputBackgroundFocus);
 }
 
 .scroll-buttons {

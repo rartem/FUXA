@@ -154,6 +154,13 @@ function ScriptsManager(_runtime) {
                     try {
                         scriptModule.runScriptWithoutParameter(script);
                         script.lastRun = time;
+                        if (runtime.eventsMgr) {
+                            runtime.eventsMgr.logEvent('script-run', 'script', 'system', 'script-run', {
+                                scriptId: script.id,
+                                scriptName: script.name,
+                                mode: 'scheduled-interval'
+                            });
+                        }
                     } catch (err) {
                         if (err.message) {
                             logger.error(err.message);
@@ -214,6 +221,13 @@ function ScriptsManager(_runtime) {
                                         logger.info(`Load script-schedule ${script.name} - ${JSON.stringify(scheduleRule)}`);
                                         nodeSchedule.scheduleJob(scheduleRule, function() {
                                             scriptModule.runScriptWithoutParameter(script);
+                                            if (runtime.eventsMgr) {
+                                                runtime.eventsMgr.logEvent('script-run', 'script', 'system', 'script-run', {
+                                                    scriptId: script.id,
+                                                    scriptName: script.name,
+                                                    mode: 'scheduled-cron'
+                                                });
+                                            }
                                         });
                                     });
                                 } catch (er) {

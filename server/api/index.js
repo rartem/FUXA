@@ -17,6 +17,7 @@ var alarmsApi = require('./alarms');
 var pluginsApi = require('./plugins');
 var diagnoseApi = require('./diagnose');
 var scriptsApi = require('./scripts');
+var eventsApi = require('./events');
 var resourcesApi = require('./resources');
 var daqApi = require('./daq');
 var schedulerApi = require('./scheduler');
@@ -68,6 +69,8 @@ function init(_server, _runtime) {
             apiApp.use(schedulerApi.app());
             scriptsApi.init(runtime, authMiddleware, verifyGroups);
             apiApp.use(scriptsApi.app());
+            eventsApi.init(runtime, authMiddleware, verifyGroups);
+            apiApp.use(eventsApi.app());
             resourcesApi.init(runtime, authMiddleware, verifyGroups);
             apiApp.use(resourcesApi.app());
             commandApi.init(runtime, authMiddleware, verifyGroups);

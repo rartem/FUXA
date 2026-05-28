@@ -45,6 +45,23 @@ module.exports = {
             } else {
                 //req.body.params.script.parameters.permission = groups;
                 runtime.scriptsMgr.runScript(script, req.body.params.toLogEvent).then(function (result) {
+                    if (runtime.eventsMgr) {
+                        var userId = '';
+                        try {
+                            if (req.headers.authorization) {
+                                const token = req.headers.authorization.split(' ')[1];
+                                const decoded = jwt.decode(token);
+                                if (decoded && decoded.id) {
+                                    userId = decoded.id;
+                                }
+                            }
+                        } catch (e) {}
+                        runtime.eventsMgr.logEvent('script-run', 'script', userId, 'script-run', {
+                            scriptId: script.id,
+                            scriptName: script.name,
+                            mode: 'api'
+                        });
+                    }
                     res.json(result);
                 }).catch(function (err) {
                     if (err.code) {

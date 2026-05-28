@@ -1,0 +1,56 @@
+<div class="header-panel">
+    <div>{{'events.view-title' | translate}}</div>
+</div>
+<div class="work-panel">
+    <div class="filter-bar">
+        <div class="date-range">
+            <mat-form-field appearance="outline" class="date-field">
+                <mat-date-range-input [formGroup]="dateRange" [rangePicker]="picker">
+                    <input matStartDate formControlName="startDate" placeholder="Start date">
+                    <input matEndDate formControlName="endDate" placeholder="End date">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="onSearch()" class="search-btn">{{'events.search' | translate}}</button>
+        </div>
+        <div class="text-filter">
+            <mat-form-field appearance="outline" class="filter-field">
+                <input matInput [formControl]="filter" placeholder="{{'events.filter-placeholder' | translate}}" (keyup.enter)="onSearch()">
+            </mat-form-field>
+        </div>
+        <div class="user-filter">
+            <mat-form-field appearance="outline" class="filter-field">
+                <input matInput [formControl]="userFilter" placeholder="{{'events.user-filter-placeholder' | translate}}" (keyup.enter)="onSearch()">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="table-container">
+        <mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="timestamp">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> {{'events.view-timestamp' | translate}} </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.timestamp | date: 'dd-MM-yyyy HH:mm:ss'}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> {{'events.view-type' | translate}} </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="user">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> {{'events.view-user' | translate}} </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.user}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="details">
+                <mat-header-cell *matHeaderCellDef> {{'events.view-details' | translate}} </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span class="details-text">{{element.details | json}}</span>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayColumns; sticky: true" class="my-header-row"></mat-header-row>
+            <mat-row *matRowDef="let element; columns: displayColumns;" class="my-mat-row"></mat-row>
+        </mat-table>
+    </div>
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="25" class="table-pagination"></mat-paginator>
+    <div *ngIf="eventsLoading" class="spinner-overlay">
+        <mat-spinner style="margin: auto" diameter="40" class="spinner"></mat-spinner>
+    </div>
+</div>

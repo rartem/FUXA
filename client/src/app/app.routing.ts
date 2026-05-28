@@ -10,6 +10,7 @@ import { UsersComponent } from './users/users.component';
 import { ViewComponent } from './view/view.component';
 import { AlarmViewComponent } from './alarms/alarm-view/alarm-view.component';
 import { LogsViewComponent } from './logs-view/logs-view.component';
+import { EventsHistoryComponent } from './events-history/events-history.component';
 import { AlarmListComponent } from './alarms/alarm-list/alarm-list.component';
 import { NotificationListComponent } from './notifications/notification-list/notification-list.component';
 import { ScriptListComponent } from './scripts/script-list/script-list.component';
@@ -41,7 +42,7 @@ const appRoutes: Routes = [
     { path: 'reports', component: ReportListComponent, canActivate: [AuthGuard] },
     { path: 'language', component: LanguageTextListComponent, canActivate: [AuthGuard] },
     { path: 'logs', component: LogsViewComponent, canActivate: [AuthGuard] },
-    { path: 'events', component: LogsViewComponent, canActivate: [AuthGuard] },
+    { path: 'events', component: EventsHistoryComponent, canActivate: [AuthGuard] },
     { path: 'view', component: ViewComponent },
     { path: 'mapsLocations', component: MapsLocationListComponent, canActivate: [AuthGuard] },
     { path: 'flows', component: NodeRedFlowsComponent, canActivate: [AuthGuard] },
