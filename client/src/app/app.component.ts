@@ -14,6 +14,7 @@ import { AppService } from './_services/app.service';
 import { HeartbeatService } from './_services/heartbeat.service';
 import { AuthService } from './_services/auth.service';
 import { HmiService } from './_services/hmi.service';
+import { FontLoaderService } from './_services/font-loader.service';
 
 @Component({
 	selector: 'app-root',
@@ -46,6 +47,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 		private hmiService: HmiService,
 		private authService: AuthService,
 		private titleService: Title,
+		private fontLoaderService: FontLoaderService,
 		location: Location
 	) {
 		this.location = location;
@@ -53,6 +55,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	ngOnInit() {
 		console.log(`FUXA v${environment.version}`);
+		this.fontLoaderService.loadCustomFonts();
 		this.heartbeatService.startHeartbeatPolling();
 		this.settingsService.loaded$.subscribe(loaded => {
 			if (loaded) {

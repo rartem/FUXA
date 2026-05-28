@@ -86,6 +86,8 @@ import { DaterangeDialogComponent } from './gui-helpers/daterange-dialog/dateran
 import { BitmaskComponent } from './gui-helpers/bitmask/bitmask.component';
 import { RangeNumberComponent } from './gui-helpers/range-number/range-number.component';
 import { LibImagesComponent } from './resources/lib-images/lib-images.component';
+import { LibFontsComponent } from './resources/lib-fonts/lib-fonts.component';
+import { FontLoaderService } from './_services/font-loader.service';
 
 import { DialogDraggableDirective } from './_directives/dialog-draggable.directive';
 import { ModalPositionCache } from './_directives/modal-position.cache';
@@ -398,6 +400,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         DataTableComponent,
         RangeNumberComponent,
         LibImagesComponent,
+        LibFontsComponent,
         LibWidgetsComponent,
         KioskWidgetsComponent,
         ReportItemTextComponent,
@@ -501,6 +504,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         AuthGuard,
         ToastNotifierService,
         MyFileService,
+        FontLoaderService,
         ReportsService,
         ActionPropertyService,
         MapsLocationsService,

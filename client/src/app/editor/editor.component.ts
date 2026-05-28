@@ -16,6 +16,7 @@ import { GaugeBaseComponent } from '../gauges/gauge-base/gauge-base.component';
 import { Utils } from '../_helpers/utils';
 import { Define } from '../_helpers/define';
 import { LibImagesComponent } from '../resources/lib-images/lib-images.component';
+import { LibFontsComponent } from '../resources/lib-fonts/lib-fonts.component';
 
 import { BagPropertyComponent } from '../gauges/controls/html-bag/bag-property/bag-property.component';
 import { SliderPropertyComponent } from '../gauges/controls/slider/slider-property/slider-property.component';
@@ -1596,6 +1597,16 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
                     // }
                 }
             }
+        });
+    }
+
+    onOpenFontsList() {
+        let dialogRef = this.dialog.open(LibFontsComponent, {
+            disableClose: true,
+            position: { top: '60px' }
+        });
+        dialogRef.afterClosed().subscribe(() => {
+            // fonts may have changed
         });
     }
 

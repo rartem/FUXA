@@ -108,6 +108,7 @@ try {
     settings.uploadFileDir = '_upload_files';
     settings.imagesFileDir = path.resolve(rootDir, '_images');
     settings.widgetsFileDir = path.resolve(rootDir, '_widgets');
+    settings.resourcesFileDir = path.resolve(rootDir, '_resources');
     settings.reportsDir = path.resolve(rootDir, '_reports');
     settings.webcamSnapShotsDir = path.resolve(rootDir, settings.webcamSnapShotsDir);
     settings.logDir = path.resolve(rootDir, settings.logDir);
@@ -252,6 +253,10 @@ if (!fs.existsSync(settings.imagesFileDir)) {
 if (!fs.existsSync(settings.widgetsFileDir)) {
     fs.mkdirSync(settings.widgetsFileDir);
 }
+// Check resources folder
+if (!fs.existsSync(settings.resourcesFileDir)) {
+    fs.mkdirSync(settings.resourcesFileDir);
+}
 // Check webcam shots  folder
 if (!fs.existsSync(settings.webcamSnapShotsDir)) {
     fs.mkdirSync(settings.webcamSnapShotsDir);
@@ -373,6 +378,7 @@ app.use('/events', express.static(settings.httpStatic));
 app.use('/' + settings.httpUploadFileStatic, express.static(settings.uploadFileDir));
 app.use('/_images', express.static(settings.imagesFileDir));
 app.use('/_widgets', express.static(settings.widgetsFileDir));
+app.use('/_resources', express.static(settings.resourcesFileDir));
 app.use('/snapshots', express.static(settings.webcamSnapShotsDir));
 app.use('/ar', express.static(settings.httpStatic));
 

@@ -1,0 +1,77 @@
+.container {
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    min-width: 500px;
+}
+
+.container [mat-dialog-content],
+.container .mat-dialog-content,
+.container .mat-mdc-dialog-content {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+.container [mat-dialog-actions],
+.container .mat-dialog-actions,
+.container .mat-mdc-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.container .dialog-close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    float: none !important;
+    margin: 0;
+    cursor: pointer;
+}
+
+.font-upload {
+    margin-bottom: 16px;
+}
+
+.font-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.font-table th,
+.font-table td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.font-table th {
+    font-weight: 600;
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.font-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.font-preview {
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+.action-icon {
+    cursor: pointer;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.font-empty {
+    padding: 20px;
+    text-align: center;
+    opacity: 0.6;
+}

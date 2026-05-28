@@ -304,11 +304,11 @@
                             <div class="_toolset">
                                 <div class="svg-property">
                                     <span>{{'editor.widget-name' | translate}}</span>
-                                    <input id="widget_name" class="rightbar-input" type="text" [value]="selectedElement?.ga?.name || ''" readonly />
+                                    <input id="widget_name" class="rightbar-input-full" type="text" [value]="selectedElement?.ga?.name || ''" readonly />
                                 </div>
                                 <div class="svg-property">
                                     <span>{{'editor.widget-type' | translate}}</span>
-                                    <input id="widget_type" class="rightbar-input" type="text" [value]="getWidgetFileName(selectedElement?.ga) || selectedElement?.ga?.label || selectedElement?.type || ''" readonly />
+                                    <input id="widget_type" class="rightbar-input-full" type="text" [value]="getWidgetFileName(selectedElement?.ga) || selectedElement?.ga?.label || selectedElement?.type || ''" readonly />
                                 </div>
                             </div>
                         </div>
@@ -459,6 +459,12 @@
                                         <select class="font-family" id="font_family" #fontfamily (change)="onFontFamilyChange(fontfamily.value)">
                                             <option *ngFor="let font of fonts" [style.fontFamily]="font" [value]="font">{{font}}</option>
                                         </select>
+                                    </div>
+                                    <div class="svg-property">
+                                        <button class="font-list-btn" (click)="onOpenFontsList()">
+                                            <mat-icon>font_download</mat-icon>
+                                            <span>{{'editor.fonts-list' | translate}}</span>
+                                        </button>
                                     </div>
                                     <div class="svg-property-split2">
                                         <div class="svg-property">

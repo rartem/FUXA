@@ -20,6 +20,17 @@ export class ResourcesService {
         return this.http.get<Resources>(this.endPointConfig + '/api/resources/' + type, { headers: header, params: params });
     }
 
+    getFonts(): Observable<Resources> {
+        let header = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this.http.get<Resources>(this.endPointConfig + '/api/resources/fonts', { headers: header });
+    }
+
+    removeResource(file: string): Observable<any> {
+        let header = new HttpHeaders({ 'Content-Type': 'application/json' });
+        let params = { file: file };
+        return this.http.post<any>(this.endPointConfig + '/api/resources/remove', params, { headers: header });
+    }
+
     removeWidget(widget: ResourceItem): Observable<any> {
         let header = new HttpHeaders({ 'Content-Type': 'application/json' });
         let params = { path: widget.path };
