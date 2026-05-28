@@ -53,6 +53,8 @@ export enum ProjectDataCmdType {
     DelDevice = 'del-device',
     SetView = 'set-view',
     DelView = 'del-view',
+    SetFolder = 'set-folder',
+    DelFolder = 'del-folder',
     HmiLayout = 'layout',
     Charts = 'charts',
     Graphs = 'graphs',

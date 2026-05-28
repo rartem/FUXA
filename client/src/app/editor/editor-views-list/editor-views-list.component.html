@@ -1,39 +1,72 @@
-<div *ngIf="views && views.length <= 0">
-    <br>
-</div>
-<div *ngFor="let item of getViewsSorted()"
-     (click)="onSelectView(item, false)"
-     [ngClass]="{'leftbar-item-active': isViewActive(item)}"
-     class="leftbar-item pointer">
-    <mat-icon *ngIf="!item.type || item.type === svgViewType"
-              matTooltip="{{'editor.view-svg' | translate}}"
-              class="leftbar-item-type item-icon-view">
-        wysiwyg
-    </mat-icon>
-    <mat-icon *ngIf="item.type === cardViewType"
-              matTooltip="{{'editor.view-cards' | translate}}"
-              class="leftbar-item-type item-icon-cards">
-        grid_view
-    </mat-icon>
-    <mat-icon *ngIf="item.type === mapsViewType"
-              matTooltip="{{'editor.view-maps' | translate}}"
-              class="leftbar-item-type item-icon-maps">
-        map
-    </mat-icon>
-    <span class="view-item-text">
-        {{item.name}}
-    </span>
-    <mat-icon aria-label="More"
-              [matMenuTriggerFor]="menuview">
-        more_vert
-    </mat-icon>
-    <mat-menu #menuview="matMenu"
-              class="leftbar-item-menu">
-        <button mat-menu-item (click)="onDeleteView(item)">{{'editor.view-delete' | translate}}</button>
-        <button mat-menu-item (click)="onRenameView(item)">{{'editor.view-rename' | translate}}</button>
-        <button mat-menu-item (click)="onPropertyView(item)">{{'editor.view-property' | translate}}</button>
-        <button mat-menu-item (click)="onCloneView(item)" *ngIf="item.type !== cardViewType && item.type !== mapsViewType">{{'editor.view-clone' | translate}}</button>
-        <button mat-menu-item (click)="onExportView(item)" *ngIf="item.type !== cardViewType && item.type !== mapsViewType">{{'editor.view-export' | translate}}</button>
-        <button mat-menu-item (click)="onCleanView(item)" *ngIf="item.type !== cardViewType && item.type !== mapsViewType">{{'editor.view-clean' | translate}}</button>
-    </mat-menu>
+<ng-template #treeNodeTemplate let-node>
+    <div class="tree-node" [style.padding-left.px]="node.level * 16"
+         [ngClass]="{'leftbar-item-active': node.type === 'view' && isViewActive(node.data)}"
+         (click)="node.type === 'view' ? onSelectView(node.data, false) : null">
+        <ng-container *ngIf="node.type === 'folder'">
+            <mat-icon class="tree-toggle-icon" (click)="toggleFolder(node); $event.stopPropagation()">
+                {{ node.expanded ? 'expand_more' : 'chevron_right' }}
+            </mat-icon>
+            <mat-icon class="tree-folder-icon">folder</mat-icon>
+            <span class="tree-node-text">{{ node.name }}</span>
+            <mat-icon aria-label="More" [matMenuTriggerFor]="menuFolder" (click)="$event.stopPropagation()">more_vert</mat-icon>
+            <mat-menu #menuFolder="matMenu" class="leftbar-item-menu">
+                <button mat-menu-item (click)="onAddFolder(node.data.id)">{{'editor.folder-add' | translate}}</button>
+                <button mat-menu-item (click)="addView.emit(node.data.id)">{{'editor.view-add' | translate}}</button>
+                <button mat-menu-item (click)="onRenameFolder(node)">{{'editor.folder-rename' | translate}}</button>
+                <button mat-menu-item [matMenuTriggerFor]="moveFolderMenu">{{'editor.move-to' | translate}}</button>
+                <button mat-menu-item (click)="onDeleteFolder(node)">{{'editor.folder-delete' | translate}}</button>
+            </mat-menu>
+            <mat-menu #moveFolderMenu="matMenu">
+                <button mat-menu-item (click)="onMoveFolderToFolder(node.data, null)">- {{'editor.root' | translate}} -</button>
+                <button mat-menu-item *ngFor="let f of getFolderTargets(node.data.id)" (click)="onMoveFolderToFolder(node.data, f.id)">{{f.name}}</button>
+            </mat-menu>
+        </ng-container>
+        <ng-container *ngIf="node.type === 'view'">
+            <span class="tree-indent" *ngIf="node.level > 0"></span>
+            <mat-icon *ngIf="!node.data.type || node.data.type === svgViewType"
+                      matTooltip="{{'editor.view-svg' | translate}}"
+                      class="leftbar-item-type item-icon-view">
+                wysiwyg
+            </mat-icon>
+            <mat-icon *ngIf="node.data.type === cardViewType"
+                      matTooltip="{{'editor.view-cards' | translate}}"
+                      class="leftbar-item-type item-icon-cards">
+                grid_view
+            </mat-icon>
+            <mat-icon *ngIf="node.data.type === mapsViewType"
+                      matTooltip="{{'editor.view-maps' | translate}}"
+                      class="leftbar-item-type item-icon-maps">
+                map
+            </mat-icon>
+            <span class="tree-node-text">{{node.name}}</span>
+            <mat-icon aria-label="More" [matMenuTriggerFor]="menuview" (click)="$event.stopPropagation()">more_vert</mat-icon>
+            <mat-menu #menuview="matMenu" class="leftbar-item-menu">
+                <button mat-menu-item (click)="onDeleteView(node.data)">{{'editor.view-delete' | translate}}</button>
+                <button mat-menu-item (click)="onRenameView(node.data)">{{'editor.view-rename' | translate}}</button>
+                <button mat-menu-item (click)="onPropertyView(node.data)">{{'editor.view-property' | translate}}</button>
+                <button mat-menu-item (click)="onCloneView(node.data)" *ngIf="node.data.type !== cardViewType && node.data.type !== mapsViewType">{{'editor.view-clone' | translate}}</button>
+                <button mat-menu-item (click)="onExportView(node.data)" *ngIf="node.data.type !== cardViewType && node.data.type !== mapsViewType">{{'editor.view-export' | translate}}</button>
+                <button mat-menu-item (click)="onCleanView(node.data)" *ngIf="node.data.type !== cardViewType && node.data.type !== mapsViewType">{{'editor.view-clean' | translate}}</button>
+                <button mat-menu-item [matMenuTriggerFor]="moveViewMenu">{{'editor.move-to' | translate}}</button>
+            </mat-menu>
+            <mat-menu #moveViewMenu="matMenu">
+                <button mat-menu-item (click)="onMoveViewToFolder(node.data, null)">- {{'editor.root' | translate}} -</button>
+                <button mat-menu-item *ngFor="let f of getFolderTargets()" (click)="onMoveViewToFolder(node.data, f.id)">{{f.name}}</button>
+            </mat-menu>
+        </ng-container>
+    </div>
+    <div *ngIf="node.type === 'folder' && node.expanded && node.children">
+        <ng-container *ngFor="let child of node.children">
+            <ng-container *ngTemplateOutlet="treeNodeTemplate; context: { $implicit: child }"></ng-container>
+        </ng-container>
+    </div>
+</ng-template>
+
+<div class="tree-root">
+    <ng-container *ngFor="let node of treeNodes">
+        <ng-container *ngTemplateOutlet="treeNodeTemplate; context: { $implicit: node }"></ng-container>
+    </ng-container>
+    <div *ngIf="(!views || views.length === 0) && (!folders || folders.length === 0)" class="tree-empty">
+        <br>
+    </div>
 </div>

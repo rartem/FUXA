@@ -58,6 +58,9 @@
                         <mat-icon aria-label="Add" matTooltip="{{'editor.view-add' | translate}}" *ngIf="panelsState.panelView" class="leftbar-edit-btn"
                             (click)="onAddDoc();$event.stopPropagation()">add
                         </mat-icon>
+                        <mat-icon aria-label="New Folder" matTooltip="{{'editor.folder-add' | translate}}" *ngIf="panelsState.panelView" class="leftbar-edit-btn"
+                            (click)="onAddFolder();$event.stopPropagation()">create_new_folder
+                        </mat-icon>
                         <mat-icon aria-label="Import" matTooltip="{{'editor.view-import' | translate}}" *ngIf="panelsState.panelView" class="leftbar-edit-btn"
                             (click)="onImportView();$event.stopPropagation()">system_update_alt</mat-icon>
                         <input type="file" #viewFileImportInput style="display: none" id="viewFileUpload" (click)="$event.stopPropagation()"
@@ -66,10 +69,12 @@
                     <div appResize class="leftbar-panel view-panel" [(height)]="panelsState.panelViewHeight" [style.height.px]="panelsState.panelViewHeight"
                         (changeEnd)="savePanelState()">
                         <app-editor-views-list [(views)]="hmi.views"
+                                               [folders]="hmi.folders"
                                                [select]="currentView"
                                                (selected)="onSelectView($event, false)"
                                                (viewPropertyChanged)="onViewPropertyChanged($event)"
-                                               (cloneView)="onCloneView($event)">
+                                               (cloneView)="onCloneView($event)"
+                                               (addView)="onAddDoc($event)">
                         </app-editor-views-list>
                     </div>
                 </mat-expansion-panel>

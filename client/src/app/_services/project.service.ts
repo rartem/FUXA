@@ -4,7 +4,7 @@ import { Observable, Subject, firstValueFrom, of } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { ProjectData, ProjectDataCmdType, UploadFile } from '../_models/project';
-import { View, LayoutSettings, DaqQuery, ViewType } from '../_models/hmi';
+import { View, ViewFolder, LayoutSettings, DaqQuery, ViewType } from '../_models/hmi';
 import { Chart } from '../_models/chart';
 import { Graph } from '../_models/graph';
 import { Alarm, AlarmBaseType, AlarmQuery, AlarmsFilter } from '../_models/alarm';
@@ -375,6 +375,66 @@ export class ProjectService {
         if (notify) {
             this.notifySuccessMessage('msg.project-save-success');
         }
+    }
+
+    /**
+     * Get folders list
+     */
+    getFolders(): ViewFolder[] {
+        return (this.projectData?.hmi?.folders) ? this.projectData.hmi.folders : [];
+    }
+
+    /**
+     * Add or update Folder to Project
+     */
+    setFolder(folder: ViewFolder) {
+        if (!this.projectData.hmi.folders) {
+            this.projectData.hmi.folders = [];
+        }
+        const existing = this.projectData.hmi.folders.find(f => f.id === folder.id);
+        if (existing) {
+            Object.assign(existing, folder);
+        } else {
+            this.projectData.hmi.folders.push(folder);
+        }
+        this.storage.setServerProjectData(ProjectDataCmdType.SetFolder, folder, this.projectData).subscribe(result => {
+        }, err => {
+            console.error(err);
+            this.notifySaveError(err);
+        });
+    }
+
+    /**
+     * Remove Folder from Project
+     */
+    removeFolder(folder: ViewFolder) {
+        if (this.projectData.hmi.folders) {
+            for (let i = 0; i < this.projectData.hmi.folders.length; i++) {
+                if (this.projectData.hmi.folders[i].id === folder.id) {
+                    this.projectData.hmi.folders.splice(i, 1);
+                    break;
+                }
+            }
+            // Remove folder references from views
+            this.projectData.hmi.views.forEach(v => {
+                if (v.folderId === folder.id) {
+                    v.folderId = null;
+                    this.setView(v);
+                }
+            });
+            // Remove folder references from child folders
+            this.projectData.hmi.folders.forEach(f => {
+                if (f.parentId === folder.id) {
+                    f.parentId = null;
+                    this.setFolder(f);
+                }
+            });
+        }
+        this.storage.setServerProjectData(ProjectDataCmdType.DelFolder, folder, this.projectData).subscribe(result => {
+        }, err => {
+            console.error(err);
+            this.notifySaveError(err);
+        });
     }
 
     /**
@@ -1207,9 +1267,10 @@ export class ProjectService {
         this.save(true);
     }
 
-    getNewView(name: string, type?: ViewType) {
+    getNewView(name: string, type?: ViewType, folderId?: string) {
         let view = new View(Utils.getShortGUID('v_'), type || ViewType.svg);
         view.name = name;
+        view.folderId = folderId;
         view.profile.bkcolor = '#ffffffff';
         if (type === ViewType.cards) {
             view.profile.bkcolor = 'rgba(67, 67, 67, 1)';

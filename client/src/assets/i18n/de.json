@@ -1,10 +1,8 @@
 {
     "with param": "sample {{value}}",
-
     "app.home": "Startbild",
     "app.lab": "Labor",
     "app.editor": "Editor",
-
     "header.new-project": "Neues Projekt",
     "header.save-project": "Projekt speichern",
     "header.save-project-tooltip": "Alle ausstehenden Projektänderungen speichern",
@@ -25,15 +23,10 @@
     "header.help-info": "Über",
     "header.info-version": "Version",
     "header.theme": "Thema hell/dunkel",
-
     "project.name": "Projektname",
-
     "sidenav.title": "FUXA",
-
     "tutorial.title": "FUXA-Tutorial",
-
     "dlg.info-title": "FUXA",
-
     "dlg.layout-title": "Layout-Einstellungen",
     "dlg.layout-general": "Allgemein",
     "dlg.layout-lbl-auto-resize": "Automatische Größenanpassung",
@@ -63,7 +56,6 @@
     "dlg.layout-lbl-anchor": "Richtung",
     "dlg.layout-lbl-margin-left": "Linker Rand",
     "dlg.layout-lbl-margin-right": "Rechter Rand",
-
     "dlg.menuitem-title": "Menüpunkt",
     "dlg.menuitem-image": "[Mein Bild...]",
     "dlg.menuitem-icon": "Icon",
@@ -72,10 +64,8 @@
     "dlg.menuitem-link": "Link durch Klick",
     "dlg.menuitem-alarms": "Alarme per Mausklick",
     "dlg.menuitem-address": "Link-Adresse",
-
     "dlg.headeritem-title": "Header Item",
     "dlg.headeritem-icon": "Symbol",
-
     "dlg.docproperty-title": "Eigenschaften anzeigen",
     "dlg.docproperty-width": "Breite",
     "dlg.docproperty-height": "Höhe",
@@ -91,7 +81,6 @@
     "dlg.docproperty-size-1600-1200": "1600 x 1200 Pixel",
     "dlg.docproperty-size-1920-1080": "1920 x 1080 Pixel",
     "dlg.docproperty-margin": "Rand",
-
     "dlg.docname-title": "Name der Ansicht",
     "dlg.docname-name": "Name",
     "dlg.docproperty-type": "Ansichtstyp",
@@ -100,35 +89,28 @@
     "dlg.item-req-name": "Name (keine Leerzeichen oder Zahlen erlaubt)",
     "dlg.item-name-error": "Name existiert!",
     "dlg.parameter-title": "Parameter",
-
     "dlg.tagname-title": "Tag-Name",
     "dlg.tagname-name": "Name",
-
     "dlg.linkproperty-title": "Hyperlink erstellen",
     "dlg.linkproperty-url": "Hyperlink-URL",
-
     "dlg.login-title": "Anmelden...",
     "dlg.logout-btn": "Abmelden",
-
     "dlg.ok": "OK",
     "dlg.cancel": "ABBRECHEN",
     "dlg.close": "SCHLIESSEN",
     "dlg.apply": "ANWENDEN",
-
     "dlg.userproperty-title": "Benutzer",
     "dlg.userproperty-groups": "Berechtigungsgruppen",
     "dlg.useraccess-groups": "Berechtigung (nichts = Vollzugriff für alle)",
-
     "dlg.gauge-permission-title": "Autorisierung",
     "dlg.gauge-permission-label": "(nichts = Vollzugriff für alle)",
     "dlg.gauge-permission-show": "Anzeigen",
     "dlg.gauge-permission-enabled": "Aktiviert",
-
     "general.close": "Schließen",
     "general.search": "Suchen...",
     "general.search-notfound": "Keine Optionen gefunden",
     "general.username": "Benutzername",
-	"general.fullname": "Vollständiger Name",
+    "general.fullname": "Vollständiger Name",
     "general.password": "Kennwort",
     "general.clientId": "Kunden-ID",
     "general.authority": "Berechtigung",
@@ -143,43 +125,34 @@
     "general-top": "Oben",
     "general-x": "X",
     "general-y": "Y",
-
     "tester.title": "Variable",
     "tester.send": "Senden",
-
     "item.navsmode-none": "Keine",
     "item.navsmode-push": "Verdrängen",
     "item.navsmode-over": "Überlagern",
     "item.navsmode-fix": "Fixiert",
-
     "item.navtype-icons": "Icons",
     "item.navtype-text": "Text",
     "item.navtype-icons-text-block": "Symbol & Text (Block)",
     "item.navtype-icons-text-inline": "Symbol & Text (inline)",
-
     "item.headertype-button": "Button",
     "item.headertype-label": "Label",
     "item.headertype-image": "Symbol",
     "item.headeranchor-left": "Links",
     "item.headeranchor-right": "Rechts",
     "item.headeranchor-center": "Zentriert",
-
     "item.notifymode-hide": "Ausgeblendet",
     "item.notifymode-fix": "Fixiert",
     "item.notifymode-float": "Verdrängen",
-
     "item.zoommode-disabled": "Deaktiviert",
     "item.zoommode-enabled": "Manuell",
     "item.zoommode-autoresize": "Automatische Größenanpassung",
-
     "item.headerbarmode-hide": "Ausblenden",
     "item.headerbarmode-show": "Anzeigen",
-
     "dlg.layout-input-dialog": "Dialogmodus des Eingabefeldes",
     "item.inputmode-disabled": "Deaktiviert",
     "item.inputmode-enabled": "Dialog",
     "item.inputmode-keyboard": "Virtuelle-Tastatur",
-
     "chart.config-title": "Diagramm-Einstellungen",
     "chart.config-charts": "Diagramme",
     "chart.config-devices": "Geräte",
@@ -200,7 +173,6 @@
     "chart.config-interpo-stepAfter": "Sprung danach",
     "chart.config-interpo-stepBefore": "Sprung zuvor",
     "chart.config-interpo-spline": "Spline",
-
     "chart.property-data": "Daten",
     "chart.property-props": "Eigenschaft",
     "chart.property-layout": "Layout",
@@ -241,21 +213,17 @@
     "chart.property-axis-y4": "Y4 Beschriftung",
     "chart.property-axis-y4-min": "Y4 Min",
     "chart.property-axis-y4-max": "Y4 Max",
-
     "chart.rangetype-last8h": "Letzte 8 Stunden",
     "chart.rangetype-last1d": "Letzter Tag",
     "chart.rangetype-last3d": "Letzte 3 Tage",
     "chart.rangetype-last1w": "Letzte Woche",
-
     "chart.legend-always": "immer",
     "chart.legend-follow": "folgen",
     "chart.legend-bottom": "unten",
     "chart.legend-never": "nie",
-
     "chart.labels-serie": "Serie",
     "chart.labels-time": "Zeit",
     "chart.labels-title": "Titel",
-
     "graph.config-title": "Graph-Einstellungen",
     "graph.config-rename": "Umbenennen",
     "graph.config-source-tag": "Quell-Tag hinzufügen",
@@ -272,7 +240,6 @@
     "graph.property-fnctype": "Funktion",
     "graph.bar-date-fnc-value-integral": "Summe (Integral)",
     "graph.bar-date-fnc-hour-integral": "Stundensumme (Integral)",
-
     "graph.property-data": "Daten",
     "graph.property-general": "Allgemein",
     "graph.property-title": "Titel",
@@ -328,19 +295,15 @@
     "graph.property-datalabels-show": "Anzeigen",
     "graph.property-datalabels-fontsize": "Schriftgröße",
     "graph.property-datalabels-align": "Ausrichten",
-
     "graph.rangetype-last1h": "Letzte Stunde",
     "graph.rangetype-last1d": "Letzter Tag",
     "graph.rangetype-last3d": "Letzte 3 Tage",
     "graph.rangetype-last1w": "Letzte Woche",
-
     "graph.grouptype-hours": "Stunden",
     "graph.grouptype-days": "Tage",
-
     "iframe.property-data": "Daten",
     "iframe.property-address": "Adresse",
     "iframe.property-name": "Name",
-
     "table.property-title": "Einstellungen der Datentabelle",
     "table.property-data": "Daten",
     "table.property-date-last-range": "Datumsbereich",
@@ -399,12 +362,10 @@
     "table.cell-align-left": "Links",
     "table.cell-align-center": "Mitte",
     "table.cell-align-right": "Rechts",
-
     "table.history-filter": "Filter",
     "table.rangetype-last1h": "Letzte Stunde",
     "table.rangetype-last1d": "Letzter Tag",
     "table.rangetype-last3d": "Letzte 3 Tage",
-
     "editor.view-svg": "Canvas/SVG",
     "editor.view-cards": "Container mit mehreren Ansichten",
     "editor.views": "Ansichten",
@@ -452,9 +413,7 @@
     "editor.controls-iframe-settings": "Iframe-Einstellungen",
     "editor.controls-table": "Tabelle",
     "editor.header-item-settings": "Kopfzeilen-Element Einstellungen",
-
     "editor.layout-settings": "Layout-Einstellungen",
-
     "editor.interactivity": "Interaktivität",
     "editor.interactivity-id": "Id:",
     "editor.interactivity-id-title": "Identifizieren Sie das Element",
@@ -462,7 +421,6 @@
     "editor.interactivity-class-title": "Elementklasse",
     "editor.interactivity-name": "Name",
     "editor.edit-bind-of-tags": "Bindung von Tags bearbeiten",
-
     "editor.cmenu-property": "Eigenschaft",
     "editor.cmenu-cut": "Ausschneiden",
     "editor.cmenu-copy": "Kopieren",
@@ -479,7 +437,6 @@
     "editor.cmenu-layer-delete": "Ebene löschen",
     "editor.cmenu-layer-marge-down": "Nach unten zusammenführen",
     "editor.cmenu-layer-marge-all": "Alle zusammenführen",
-
     "editor.transform": "Transformieren",
     "editor.transform-x": "x",
     "editor.transform-x-title": "X-Koordinate ändern",
@@ -533,7 +490,6 @@
     "editor.transform-change-image-title": "HINWEIS: Dieses Bild kann nicht eingebettet werden. Es hängt von diesem Pfad ab, um angezeigt zu werden",
     "editor.transform-angle": "Winkel",
     "editor.transform-angle-title": "Drehwinkel ändern",
-
     "editor.align": "Ausrichten",
     "editor.align-left-title": "Links ausrichten",
     "editor.align-center-title": "Mittig ausrichten",
@@ -541,7 +497,6 @@
     "editor.align-top-title": "Oben ausrichten",
     "editor.align-middle-title": "Mittig ausrichten",
     "editor.align-bottom-title": "Unten ausrichten",
-
     "editor.stroke": "Stroke",
     "editor.stroke-width": "Strichstärke",
     "editor.stroke-width-title": "Ändert die Strichstärke um 1, klicken Sie auf Shift, um sie um 0,1 zu ändern",
@@ -555,7 +510,6 @@
     "editor.stroke-capround-title": "Linecap Rund",
     "editor.stroke-shadow": "shadow",
     "editor.stroke-shadow-title": "Mit Schatten",
-
     "editor.marker": "Markierung",
     "editor.marker-start": "start",
     "editor.marker-start-title": "Start-Marker-Typ auswählen",
@@ -563,10 +517,8 @@
     "editor.marker-middle-title": "Mittlere Markierungsart auswählen",
     "editor.marker-end": "end",
     "editor.marker-end-title": "End-Marker-Typ auswählen",
-
     "editor.hyperlink": "Hyperlink",
     "editor.hyperlink-url": "url",
-
     "editor.tools-launch-title": "Aktuelle Ansicht starten",
     "editor.tools-select": "Werkzeug auswählen",
     "editor.tools-pencil": "Bleistift-Werkzeug",
@@ -577,7 +529,6 @@
     "editor.tools-path": "Pfad-Werkzeug",
     "editor.tools-text": "Text-Werkzeug",
     "editor.tools-image": "Bild-Werkzeug",
-
     "editor.tools-zoom-title": "Zoom-Werkzeug [Strg+Auf/Ab]",
     "editor.tools-grid-title": "Raster einblenden/ausblenden",
     "editor.tools-undo-title": "Rückgängig [Z]",
@@ -599,13 +550,9 @@
     "editor.tools-ungroup-title": "Gruppierung der Elemente aufheben [G]",
     "editor.tools-hyperlink-title": "Hyperlink erstellen",
     "editor.tools-svg-selector": "Elementlisten-Selektor",
-
     "tags.ids-config-title": "Tags-Ids-Referenz",
-
     "svg.selector.property-title": "Elementliste anzeigen",
-
     "tutorial.editor-keyboard-shortcuts": "Editor-Tastaturkürzel",
-
     "shapes.action-hide": "Ausblenden",
     "shapes.action-show": "Anzeigen",
     "shapes.action-blink": "Blinken",
@@ -631,7 +578,6 @@
     "shapes.event-setvalue-set": "Setzen",
     "shapes.event-setvalue-add": "Erhöhen",
     "shapes.event-setvalue-remove": "Verringern",
-
     "pipe.property-props": "Eigenschaft",
     "pipe.property-border-width": "Breite des Randes",
     "pipe.property-border-color": "Farbe des Randes",
@@ -641,7 +587,6 @@
     "pipe.property-content-color": "Inhaltsfarbe",
     "pipe.property-content-space": "Inhaltsstrich",
     "pipe.action-hide-content": "Inhalt ausblenden",
-
     "slider.property-props": "Eigenschaft",
     "slider.property-horizontal": "Horizontal",
     "slider.property-vertical": "Vertikal",
@@ -674,7 +619,6 @@
     "slider.property-slider-color": "Farbe verbinden",
     "slider.property-slider-background": "Grundfarbe",
     "slider.property-slider-handle": "Zeigerfarbe",
-
     "html-switch.property-off-value": "Wert Aus",
     "html-switch.property-on-value": "Wert Ein",
     "html-switch.property-on-background": "Hintergrund Ein",
@@ -688,12 +632,10 @@
     "html-switch.property-on-text-color": "Textfarbe Ein",
     "html-switch.property-font-size": "Schriftgröße",
     "html-switch.property-font": "Schriftart",
-
     "html-input.min": "Min",
     "html-input.max": "Max",
     "html-input.out-of-range": "Wert ist außerhalb des Bereichs",
     "html-input.not-a-number": "Wert ist keine Zahl",
-
     "editor.tools-zoomlevel-title": "Zoomstufe",
     "editor.tools-zoomlevel-fitcanvas": "An Leinwand anpassen",
     "editor.tools-zoomlevel-fitsection": "An die Auswahl anpassen",
@@ -701,7 +643,6 @@
     "editor.tools-fillcolor-title": "Füllfarbe ändern",
     "editor.tools-strokecolor-title": "Strichfarbe ändern",
     "editor.tools-palettecolor-title": "Klicken, um die Füllfarbe zu ändern, Umschalt-Klick, um die Strichfarbe zu ändern",
-
     "device.list-title": "Geräteeinstellungen",
     "device.list-device": "Gerät",
     "device.list-filter": "Filter",
@@ -718,7 +659,6 @@
     "device.list-remove-all": "Alle Tags entfernen",
     "device.list-options": "Tag-Optionen",
     "device.list-clipboard": "Tag-Objekt in die Zwischenablage kopieren",
-
     "devices.export": "Geräte exportieren",
     "devices.export-json": "JSON",
     "devices.export-csv": "CSV",
@@ -778,7 +718,6 @@
     "device.webapi-property-gettags": "URL-GET-Tags",
     "device.webapi-property-posttags": "URL-POST-Tags",
     "device.webapi-property-loadtags": "Lade-Tags",
-
     "device.browsetopics-property-title": "Zu abonnierende und zu veröffentlichende Brokerthemen",
     "device.browsetopics-property-sub": "Abonnieren",
     "device.browsetopics-property-pub": "Veröffentlichen",
@@ -808,7 +747,6 @@
     "device.topic-name-exist": "Der Topic-Name '{{value}}' existiert bereits",
     "device.topic-subs-address-exist": "Das zu abonnierende Topic mit der Adresse '{{value}}' existiert bereits",
     "device.topic-pubs-address-exist": "Das zu veröffentlichende Thema mit der Adresse '{{value}}' existiert bereits",
-
     "device.property-mqtt-address": "Adresse (mqtt://[Server]:[Port])",
     "device.tag-property-title": "Tag-Eigenschaft",
     "device.browsetag-property-title": "Tags im Server durchsuchen",
@@ -830,13 +768,11 @@
     "device.tag-array-id": "Array-ID:",
     "device.tag-array-value": "Wert:",
     "device-tag-dialog-title": "Tag-Auswahl",
-
     "device.tag-options-title": "Tag-Optionen",
     "device.tag-daq-enabled": "Speicherung aktiviert",
     "device.tag-daq-changed": "Wert speichern, wenn geändert",
     "device.tag-daq-interval": "Intervall für Speichern (Sek.)",
     "device.tag-format": "Ziffern formatieren (2 = #.##)",
-
     "device.tag-uns-path": "UNS Path",
     "device.tag-scale": "Skalierungsmodus",
     "device.tag-scale-mode-undefined": "Keine Skalierung",
@@ -847,13 +783,11 @@
     "device.tag-raw-high": "Raw High",
     "device.tag-scaled-low": "Skaliert niedrig",
     "device.tag-scaled-high": "Skaliert hoch",
-
     "device.connect-ok": "Ok",
     "device.connect-error": "Fehler",
     "device.connect-failed": "Fehlgeschlagen",
     "device.connect-off": "Aus",
     "device.connect-busy": "Besetzt",
-
     "devices.mode-map": "Geräte-Diagramm",
     "devices.mode-list": "Geräte-Liste",
     "devices.list-name": "Name",
@@ -862,12 +796,10 @@
     "devices.list-polling": "Abfrage",
     "devices.list-enabled": "Aktiviert",
     "devices.list-status": "Status",
-
     "users.list-title": "Benutzereinstellungen",
     "users.list-name": "Benutzername",
     "users.list-fullname": "Vollständiger Name",
     "users.list-groups": "Gruppen",
-
     "gauges.property-props": "Eigenschaft",
     "gauges.property-events": "Ereignisse",
     "gauges.property-title": "Eigenschaft",
@@ -911,11 +843,11 @@
     "gauges.property-actions": "Aktionen",
     "gauges.property-action-type": "Typ",
     "gauges.property-action-param": "Aktions-Id",
-    "gauges.property-action-minAngle" : "Min-Winkel",
-    "gauges.property-action-maxAngle" : "Maximaler Winkel",
-    "gauges.property-action-toX" : "Zur Position X",
-    "gauges.property-action-toY" : "Zur Position Y",
-    "gauges.property-action-duration" : "Dauer",
+    "gauges.property-action-minAngle": "Min-Winkel",
+    "gauges.property-action-maxAngle": "Maximaler Winkel",
+    "gauges.property-action-toX": "Zur Position X",
+    "gauges.property-action-toY": "Zur Position Y",
+    "gauges.property-action-duration": "Dauer",
     "gauges.property-events-mapping-from": "Kontextvariable",
     "gauges.property-map-variable": "Kontextvariable zur Bindung hinzufügen",
     "gauges.property-head-remove-mapvariable": "Die Bindung entfernen",
@@ -924,7 +856,6 @@
     "gauges.property-tag-label": "Tag",
     "gauges.property-tag-internal-title": "Tag des internen Geräts festlegen",
     "gauges.property-input-range": "Erlaubter Eingabebereich",
-
     "bag.property-ticks": "Ticks",
     "bag.property-divisions": "Teilungen",
     "bag.property-subdivisions": "SubDivisions",
@@ -956,7 +887,6 @@
     "bag.property-format-digits": "Ziffern formatieren",
     "bag.property-zones": "Zonen",
     "bag.property-color": "Farbe",
-
     "alarms.list-title": "Einstellungen für Alarme",
     "alarms.list-name": "Name",
     "alarms.list-device": "Gerät/Variable",
@@ -1013,7 +943,6 @@
     "alarm.property-action-type": "Aktionstyp",
     "alarm.property-action-value": "Zu setzender Wert",
     "alarm.property-action-destination": "Zu zeigende Ansicht",
-
     "notifications.list-title": "Einstellungen für Benachrichtigungen",
     "notifications.list-name": "Name",
     "notifications.list-receiver": "Empfänger",
@@ -1032,7 +961,6 @@
     "notification.property-priority": "Priorität",
     "notification.type-alarm": "Alarme",
     "notification.type-trigger": "Auslöser",
-
     "scripts.list-title": "Skript-Einstellungen",
     "scripts.list-name": "Name",
     "scripts.list-type": "Typ",
@@ -1041,15 +969,12 @@
     "scripts.list-scheduling": "Zeitplanung/Intervall",
     "scripts.list-permission": "Berechtigung",
     "scripts.list-options": "Skript-Optionen",
-
     "script.permission-title": "Berechtigung",
     "script.permission-label": "(nichts = Vollzugriff für alle)",
     "script.permission-enabled": "Aktiviert",
-
     "script.mode": "Ausführungsmodus",
     "script.mode-title": "Ausführungsmodus",
     "script.mode-label": "(Standard: Server)",
-
     "script.property-title": "Skript",
     "script.property-systems": "Systemfunktionen",
     "script.property-test": "Test",
@@ -1074,14 +999,12 @@
     "script.scheduling-interval": "Intervall in Sekunden",
     "script.sys-fnc-setview-text": "$setView (Name der Ansicht)",
     "script.sys-fnc-setview-tooltip": "Systemfunktion zum Setzen der Ansicht auf dem Client: $setView (Ansichtsname als String)",
-
     "reports.list-title": "Einstellungen für Berichte",
     "reports.list-name": "Name",
     "reports.list-type": "Typ",
     "reports.list-receiver": "Empfänger",
     "reports.list-scheduling": "Zeitplanung/Intervall",
     "reports.list-enabled": "Aktiviert",
-
     "report.property-title": "Bericht",
     "report.property-name": "Name",
     "report.property-receiver": "Empfänger-E-Mails",
@@ -1144,15 +1067,12 @@
     "report.chart-name": "Diagramm-Name",
     "report.chart-width": "Breite",
     "report.chart-height": "Höhe",
-
     "logs.view-title": "Systemprotokolle",
     "logs.view-files": "Logs-Dateien",
-
     "events.view-ontime": "Datum/Uhrzeit",
     "events.view-type": "Typ",
     "events.view-source": "Quelle",
     "events.view-text": "Text",
-
     "card.config-title": "Karteneinstellungen",
     "card.config-content-type": "Inhaltstyp",
     "card.config-content-view": "Inhaltsansicht",
@@ -1162,30 +1082,24 @@
     "card.widget-table": "Tabelle",
     "card.widget-iframe": "Link",
     "card.style-zoom": "Zoom",
-
     "resources.lib-images": "Bilder",
-
     "texts.list-title": "Texteinstellungen",
     "texts.list-filter": "Filter",
     "texts.list-filter-group": "Gruppe",
     "texts.list-id": "ID",
     "texts.list-group": "Gruppe",
     "texts.list-value": "Text",
-
     "text.settings-title": "Text",
     "text.settings-id": "ID",
     "text.settings-group": "Group",
     "text.settings-value": "Text",
-
     "gui.range-number-min": "Min",
     "gui.range-number-max": "Max",
     "gui.range-number-boolean": "Maskenwert",
     "gui.range-number-true": "Wahr [1-1]",
     "gui.range-number-false": "Falsch [0-0]",
     "gui.range-number-switcher": "Bereich als Zahl oder boolesch",
-
     "dlg.bitmask-title": "Bitmaske",
-
     "dlg.plugins-title": "Plugins",
     "dlg.plugins-name": "Name",
     "dlg.plugins-version": "Version",
@@ -1195,7 +1109,6 @@
     "dlg.plugins-status-installed": "Wird installiert...OK!",
     "dlg.plugins-status-removed": "Wird entfernt...OK!",
     "dlg.plugins-status-error": "Fehler! Manuell versuchen!",
-
     "dlg.setup-title": "Einrichtung",
     "dlg.setup-gui": "Benutzeroberfläche",
     "dlg.setup-diverse": "Verschiedenes",
@@ -1246,13 +1159,11 @@
     "dlg.app-auth-expiration-1d": "Aktiviert mit Token-Ablauf in 1 Tag.",
     "dlg.app-auth-tooltip": "Aktiviert: Sie haben ein Administratorkonto 'admin/123456' (vergessen Sie nicht, es zu ändern). Ein Server-Neustart ist erforderlich!",
     "dlg.app-settings-client-broadcast": "Alle Werte der Tags an den Client (Frontend) senden",
-
     "dlg.app-settings-daqstore": "DAQ-Speicher",
     "dlg.app-settings-daqstore-type": "Datenbanktyp",
     "dlg.app-settings-daqstore-url": "URL",
     "dlg.app-settings-daqstore-configurl": "Config URL",
     "dlg.app-settings-daqstore-queryconn": "Query connection (PGWire)",
-
     "dlg.app-settings-daqstore-questdb-host": "QuestDB Host",
     "dlg.app-settings-daqstore-ingestconn": "Ingestion connection (ILP)",
     "dlg.app-settings-daqstore-token": "Token",
@@ -1273,7 +1184,6 @@
     "store.retention-year1": "1 Jahr",
     "store.retention-year3": "3 Jahre",
     "store.retention-year5": "5 Jahre",
-
     "msg.alarm-ack-all": "Möchten Sie alle Alarme quittieren?",
     "msg.alarm-remove": "Möchten Sie den Alarm entfernen?",
     "msg.text-remove": "Möchten Sie Text entfernen?",
@@ -1287,7 +1197,6 @@
     "msg.notification-property-missing-value": "Einige Werte fehlen!",
     "msg.report-property-missing-value": "Es sind falsche oder fehlende Werte vorhanden!",
     "msg.file-upload-failed": "Hochladen fehlgeschlagen!",
-
     "msg.home-welcome": "Warten Sie...gehen Sie zum Editor, ordnen Sie die Geräte zu, entwerfen Sie Ihre Visualisierung und weisen Sie die Gerätevariablen zu",
     "msg.server-connection-failed": "SERVER-VERBINDUNG FEHLGESCHLAGEN!",
     "msg.project-load-error": "Kann '{{value}}' nicht lesen",
@@ -1321,8 +1230,12 @@
     "msg.export-alarms-error": "Alarme exportieren fehlgeschlagen!",
     "msg.report-build-forced": "Senden zum Erstellen des Berichts erfolgreich",
     "msg.report-build-error": "Senden zum Erstellen des Berichts fehlgeschlagen!",
-    "msg.device-tags-request-result": "Lade {{value}} von {{current}}"
+    "msg.device-tags-request-result": "Lade {{value}} von {{current}}",
+    "editor.folder-add": "Ordner hinzufügen",
+    "editor.folder-rename": "Umbenennen",
+    "editor.folder-delete": "Löschen",
+    "editor.move-to": "Verschieben nach",
+    "editor.root": "Wurzel",
+    "dlg.foldername-title": "Ordnername",
+    "msg.folder-remove": "Sind Sie sicher, dass Sie den Ordner '{{value}}' entfernen möchten? Alle Elemente werden in die Wurzel verschoben."
 }
-
-
-

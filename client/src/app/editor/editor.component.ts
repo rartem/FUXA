@@ -7,7 +7,7 @@ import { Subject, Subscription, switchMap, takeUntil } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ProjectService, SaveMode } from '../_services/project.service';
-import { Hmi, View, GaugeSettings, SelElement, LayoutSettings, ViewType, ISvgElement, GaugeProperty, DocProfile } from '../_models/hmi';
+import { Hmi, View, ViewFolder, GaugeSettings, SelElement, LayoutSettings, ViewType, ISvgElement, GaugeProperty, DocProfile } from '../_models/hmi';
 import { WindowRef } from '../_helpers/windowref';
 import { GaugePropertyComponent, GaugeDialogType, GaugePropertyData } from '../gauges/gauge-property/gauge-property.component';
 
@@ -34,6 +34,7 @@ import { IElementPreview } from './svg-selector/svg-selector.component';
 import { TagIdRef, TagsIdsConfigComponent, TagsIdsData } from './tags-ids-config/tags-ids-config.component';
 import { UploadFile } from '../_models/project';
 import { ViewPropertyComponent, ViewPropertyType } from './view-property/view-property.component';
+import { EditNameComponent, EditNameData } from '../gui-helpers/edit-name/edit-name.component';
 import { HtmlImageComponent } from '../gauges/controls/html-image/html-image.component';
 import { LibWidgetsService } from '../resources/lib-widgets/lib-widgets.service';
 import { PipePropertyData } from '../gauges/controls/pipe/pipe-property/pipe-property.component';
@@ -332,6 +333,9 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
         this.currentView = null;
         this.hmi = this.projectService.getHmi();
         // check new hmi
+        if (!this.hmi.folders) {
+            this.hmi.folders = [];
+        }
         if (this.hmi.views?.length <= 0) {
             this.hmi.views = [];
             this.addView(ProjectService.MainViewName);
@@ -1032,7 +1036,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     //#endregion
 
     //#region View Events (Add/Rename/Delete/...)
-    onAddDoc() {
+    onAddDoc(folderId?: string) {
         let dialogRef = this.dialog.open(ViewPropertyComponent, {
             position: { top: '60px' },
             data: <ViewPropertyType & { newView: boolean}> {
@@ -1048,6 +1052,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
             if (result) {
                 let view = new View(Utils.getShortGUID('v_'), result.type, result.name);
                 view.profile = result.profile;
+                view.folderId = folderId;
                 this.hmi.views.push(view);
                 this.onSelectView(view);
                 this.saveView(this.currentView);
@@ -1055,10 +1060,29 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
         });
     }
 
+    onAddFolder(parentId?: string) {
+        const dialogRef = this.dialog.open(EditNameComponent, {
+            disableClose: true,
+            position: { top: '60px' },
+            data: <EditNameData>{
+                title: this.translateService.instant('dlg.foldername-title'),
+                name: '',
+                exist: (this.hmi.folders || []).map(f => f.name)
+            }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            if (result?.name) {
+                const folder = new ViewFolder(Utils.getShortGUID('f_'), result.name, parentId);
+                this.hmi.folders.push(folder);
+                this.projectService.setFolder(folder);
+            }
+        });
+    }
+
     /**
      * Add View to Project with a default name View_[x]
      */
-    addView(name?: string, type?: ViewType): string {
+    addView(name?: string, type?: ViewType, folderId?: string): string {
         if (this.hmi.views) {
             let nn = 'View_';
             let idx = 1;
@@ -1076,7 +1100,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
             if (!name) {
                 name = nn + idx;
             }
-            let v = this.projectService.getNewView(name, type);
+            let v = this.projectService.getNewView(name, type, folderId);
             this.hmi.views.push(v);
             this.onSelectView(v);
             this.saveView(this.currentView);
@@ -1116,6 +1140,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
             let v: View = JSON.parse(strv);
             v.id = 'v_' + Utils.getShortGUID();
             v.name = nn + idx;
+            v.folderId = view.folderId;
             this.hmi.views.push(v);
             this.onSelectView(v);
             this.saveView(this.currentView);
