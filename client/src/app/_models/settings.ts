@@ -49,6 +49,8 @@ export class AppSettings {
     alarms = new AlarmsSettings();
     /** Logs settings */
     logs = new LogsSettings();
+    /** Events history settings */
+    events = new EventsSettings();
     /** Log Full enabled to log all setValue */
     logFull = false;
     /** User role enabled (default group) */
@@ -144,6 +146,10 @@ export class AlarmsSettings {
 }
 
 export class LogsSettings {
+    retention = DaqStoreRetentionType.none;
+}
+
+export class EventsSettings {
     retention = DaqStoreRetentionType.none;
 }
 

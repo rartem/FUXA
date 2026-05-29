@@ -262,6 +262,18 @@
                     </div>
                 </div>
             </mat-tab>
+            <mat-tab label="{{'dlg.app-settings-events' | translate}}">
+                <div class="block mt20 tab-events">
+                    <div class="my-form-field block">
+                        <span>{{'dlg.app-settings-daqstore-retention' | translate}}</span>
+                        <mat-select [(value)]="settings.events.retention" style="width: 200px">
+                            <mat-option *ngFor="let retation of eventsRetationType | enumToArray" [value]="retation.key">
+                                {{'store.retention-' + retation.value | translate}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+            </mat-tab>
             <mat-tab label="{{'dlg.app-settings-whitelabel' | translate}}">
                 <div class="block mt20 tab-whitelabel">
                     <div class="my-form-field block system-input">

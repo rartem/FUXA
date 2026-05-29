@@ -55,6 +55,11 @@ module.exports = {
         retention: 'none'
     },
 
+    // Events history retention
+    events: {
+        retention: 'none'
+    },
+
     // Tags value to be broadcast,
     // if false will be send to frontend only the tags bind to current visualized views
     // if true all configured tags will be send to frontend

@@ -6,7 +6,7 @@ import { DiagnoseService } from '../../_services/diagnose.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 
-import { AlarmsRetentionType, AppSettings, DaqStore, DaqStoreRetentionType, DaqStoreType, MailMessage, SmtpSettings, StoreCredentials, LogsSettings, AlarmsSettings, WhiteLabelSettings } from '../../_models/settings';
+import { AlarmsRetentionType, AppSettings, DaqStore, DaqStoreRetentionType, DaqStoreType, MailMessage, SmtpSettings, StoreCredentials, LogsSettings, AlarmsSettings, EventsSettings, WhiteLabelSettings } from '../../_models/settings';
 import { Utils } from '../../_helpers/utils';
 import { ResourceItem, Resources, ResourceType } from '../../_models/resources';
 import { ResourcesService } from '../../_services/resources.service';
@@ -61,6 +61,7 @@ export class AppSettingsComponent implements OnInit {
     retationType = DaqStoreRetentionType;
     alarmsRetationType = AlarmsRetentionType;
     logsRetationType = DaqStoreRetentionType;
+    eventsRetationType = DaqStoreRetentionType;
     influxDB18 = Utils.getEnumKey(DaqStoreType, DaqStoreType.influxDB18);
     resources: ResourceItem[] = [];
 
@@ -106,6 +107,9 @@ export class AppSettingsComponent implements OnInit {
         }
         if (!this.settings.logs) {
             this.settings.logs = new LogsSettings();
+        }
+        if (!this.settings.events) {
+            this.settings.events = new EventsSettings();
         }
         if (Utils.isNullOrUndefined(this.settings.nodeRedEnabled)) {
             this.settings.nodeRedEnabled = false;

@@ -5,10 +5,12 @@
 'use strict';
 
 const eventstorage = require('./eventstorage');
+const utils = require('../utils');
 
 function EventsManager(_runtime) {
     var runtime = _runtime;
     var logger = runtime.logger;
+    var settings = runtime.settings;
 
     /**
      * Init the events manager
@@ -64,6 +66,24 @@ function EventsManager(_runtime) {
      */
     this.clearHistory = function (dtlimit) {
         return eventstorage.clearEventsHistory(dtlimit);
+    }
+
+    /**
+     * Clear events history older than the configured retention period
+     */
+    this.checkRetention = function () {
+        return new Promise(async function (resolve, reject) {
+            if (settings.events && settings.events.retention && settings.events.retention !== 'none') {
+                eventstorage.clearEventsHistory(utils.getRetentionLimit(settings.events.retention)).then((result) => {
+                    logger.info(`events.checkRetention processed`);
+                    resolve(true);
+                }).catch(function (err) {
+                    reject(err);
+                });
+            } else {
+                resolve();
+            }
+        });
     }
 }
 

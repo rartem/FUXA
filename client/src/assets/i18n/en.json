@@ -1799,6 +1799,7 @@
     "dlg.app-settings-alarms": "Alarms",
     "dlg.app-settings-alarms-clear": "Clear all alarms and history",
     "dlg.app-settings-logs": "Logs",
+    "dlg.app-settings-events": "Events",
     "dlg.app-settings-whitelabel": "White Label",
     "dlg.app-settings-whitelabel-title": "Application Title",
     "dlg.app-settings-whitelabel-logo": "Logo",
