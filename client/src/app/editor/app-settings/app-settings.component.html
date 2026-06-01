@@ -262,6 +262,48 @@
                     </div>
                 </div>
             </mat-tab>
+            <mat-tab label="{{'dlg.app-settings-events' | translate}}">
+                <div class="block mt20 tab-events">
+                    <div class="my-form-field block">
+                        <span>{{'dlg.app-settings-daqstore-retention' | translate}}</span>
+                        <mat-select [(value)]="settings.events.retention" style="width: 200px">
+                            <mat-option *ngFor="let retation of eventsRetationType | enumToArray" [value]="retation.key">
+                                {{'store.retention-' + retation.value | translate}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="{{'dlg.app-settings-whitelabel' | translate}}">
+                <div class="block mt20 tab-whitelabel">
+                    <div class="my-form-field block system-input">
+                        <span>{{'dlg.app-settings-whitelabel-title' | translate}}</span>
+                        <input [(ngModel)]="settings.whiteLabel.title" placeholder="FUXA" style="width: 320px" type="text">
+                    </div>
+                    <div class="my-form-field block mt15 system-input">
+                        <span>{{'dlg.app-settings-whitelabel-logo' | translate}}</span>
+                        <mat-select [(value)]="settings.whiteLabel.logo" style="width: 320px">
+                            <mat-option (click)="settings.whiteLabel.logo = '';"></mat-option>
+                            <mat-option *ngFor="let resource of resources" [value]="resource.path">
+                                {{ resource.name }}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                    <div class="my-form-field block mt15 system-input">
+                        <span>{{'dlg.app-settings-whitelabel-favicon' | translate}}</span>
+                        <mat-select [(value)]="settings.whiteLabel.favicon" style="width: 320px">
+                            <mat-option (click)="settings.whiteLabel.favicon = '';"></mat-option>
+                            <mat-option *ngFor="let resource of resources" [value]="resource.path">
+                                {{ resource.name }}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                    <div class="my-form-field block mt15 system-input">
+                        <span>{{'dlg.app-settings-whitelabel-hide-poweredby' | translate}}</span>
+                        <mat-slide-toggle color="primary" [(ngModel)]="settings.whiteLabel.hidePoweredBy"></mat-slide-toggle>
+                    </div>
+                </div>
+            </mat-tab>
         </mat-tab-group>
     </div>
     <div mat-dialog-actions class="dialog-action">

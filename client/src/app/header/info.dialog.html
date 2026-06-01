@@ -1,13 +1,14 @@
 <div style="width:280px">
     <div mat-dialog-title style="margin-top: 10px;">
-        <div class="logo" style="display: inline-block"></div>
-        <div style="font-size: 18px;display: inline-block;vertical-align: super;padding-left: 5px;">{{'dlg.info-title' | translate}}</div>
+        <img *ngIf="data.whiteLabel?.logo; else defaultLogo" [src]="data.whiteLabel.logo" style="width:30px;height:30px;display:inline-block;vertical-align:middle;">
+        <ng-template #defaultLogo><div class="logo" style="display: inline-block"></div></ng-template>
+        <div style="font-size: 18px;display: inline-block;vertical-align: super;padding-left: 5px;">{{ data.whiteLabel?.title || ('dlg.info-title' | translate) }}</div>
     </div>
     <div mat-dialog-content style="margin-bottom: 10px;">
         <div style="display: block">
             {{'header.info-version' | translate}} {{data.version}}
         </div>
-        <div style="display: block; font-size: 13px;margin-top: 10px;">
+        <div *ngIf="!data.whiteLabel?.hidePoweredBy" style="display: block; font-size: 13px;margin-top: 10px;">
             powered by <span><b>frango</b>team</span>
         </div>
     </div>

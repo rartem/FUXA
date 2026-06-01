@@ -8,6 +8,8 @@ export class Hmi {
     layout: LayoutSettings = new LayoutSettings();
     /** Views list of hmi project */
     views: View[] = [];
+    /** Folders for organizing views hierarchically */
+    folders: ViewFolder[] = [];
 }
 
 export class View {
@@ -27,11 +29,27 @@ export class View {
     type: ViewType;
     /** Property with events of view like Open or Close */
     property: ViewProperty;
+    /** Parent folder id for tree organization */
+    folderId?: string;
 
     constructor(id?: string, type?: ViewType, name?: string) {
         this.id = id;
         this.name = name;
         this.type = type;
+    }
+}
+
+export class ViewFolder {
+    id = '';
+    name = '';
+    parentId?: string;
+    expanded = true;
+    icon?: string;
+
+    constructor(id?: string, name?: string, parentId?: string) {
+        this.id = id;
+        this.name = name;
+        this.parentId = parentId;
     }
 }
 
@@ -122,11 +140,16 @@ export class NaviItem {
 }
 
 export class HeaderSettings {
+    static readonly DefaultHeight = 46;
+    static readonly DefaultButtonHeight = 36;
+
     title: string;
     alarms: NotificationModeType;
     infos: NotificationModeType;
     bkcolor = '#ffffff';
     fgcolor = '#000000';
+    height = HeaderSettings.DefaultHeight;
+    buttonHeight = HeaderSettings.DefaultButtonHeight;
     fontFamily: string;
     fontSize = 13;
     items: HeaderItem[];
@@ -145,6 +168,7 @@ export interface HeaderItem {
     fgcolor: string;
     marginLeft: number;
     marginRight: number;
+    height?: number;
     property: GaugeProperty;
     status: GaugeStatus;
     element: HTMLElement;

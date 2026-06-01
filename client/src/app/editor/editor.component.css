@@ -382,6 +382,36 @@
     width: 70px;
 }
 
+.rightbar-input-full {
+    width: calc(100% - 20px);
+    margin: 0px 10px 12px 10px;
+    box-sizing: border-box;
+}
+
+.font-list-btn {
+    width: calc(100% - 20px);
+    margin: 0px 10px 12px 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 2px;
+    color: inherit;
+    font-size: 12px;
+    line-height: 24px;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.font-list-btn mat-icon {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    margin-right: 4px;
+}
+
 .mat-expansion-panel-header-title span {
     padding-top: 3px;
 }

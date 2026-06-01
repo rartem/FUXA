@@ -17,6 +17,7 @@ var alarmsApi = require('./alarms');
 var pluginsApi = require('./plugins');
 var diagnoseApi = require('./diagnose');
 var scriptsApi = require('./scripts');
+var eventsApi = require('./events');
 var resourcesApi = require('./resources');
 var daqApi = require('./daq');
 var schedulerApi = require('./scheduler');
@@ -68,6 +69,8 @@ function init(_server, _runtime) {
             apiApp.use(schedulerApi.app());
             scriptsApi.init(runtime, authMiddleware, verifyGroups);
             apiApp.use(scriptsApi.app());
+            eventsApi.init(runtime, authMiddleware, verifyGroups);
+            apiApp.use(eventsApi.app());
             resourcesApi.init(runtime, authMiddleware, verifyGroups);
             apiApp.use(resourcesApi.app());
             commandApi.init(runtime, authMiddleware, verifyGroups);
@@ -185,7 +188,7 @@ function init(_server, _runtime) {
             /**
              * GET Heartbeat to check token
              */
-            apiApp.post('/api/heartbeat', authMiddleware, function (req, res) {
+            apiApp.post('/api/heartbeat', authMiddleware, async function (req, res) {
 
                 if (!runtime.settings.secureEnabled) {
                     return res.end();
@@ -200,10 +203,17 @@ function init(_server, _runtime) {
                         });
                     }
 
+                    const currentUser = await getCurrentTokenUser(req);
+                    if (!currentUser) {
+                        return res.status(401).json({ error: 'unauthorized_error', message: 'Unauthorized!' });
+                    }
+
+                    req.userGroups = currentUser.groups;
                     const token = authJwt.getNewTokenFromRequest(req);
                     return res.status(200).json({
                         message: 'tokenRefresh',
-                        token
+                        token,
+                        data: currentUser
                     });
                 }
 
@@ -277,6 +287,34 @@ function mergeUserSettings(settings) {
     if (settings.logs) {
         runtime.settings.logs = settings.logs;
     }
+    if (settings.events) {
+        runtime.settings.events = settings.events;
+    }
+    if (settings.whiteLabel) {
+        runtime.settings.whiteLabel = settings.whiteLabel;
+    }
+}
+
+async function getCurrentTokenUser(req) {
+    if (!req.isAuthenticated || authJwt.isGuestUser(req.userId, req.userGroups)) {
+        return null;
+    }
+
+    try {
+        const users = await runtime.users.getUsers({ username: req.userId });
+        if (users && users.length && !utils.isNullOrUndefined(users[0].groups)) {
+            return {
+                username: users[0].username,
+                fullname: users[0].fullname,
+                groups: users[0].groups,
+                info: users[0].info
+            };
+        }
+    } catch (err) {
+        runtime.logger.error(`api heartbeat: user lookup failed ${err}`);
+    }
+
+    return null;
 }
 
 function verifyGroups(req) {
@@ -288,6 +326,9 @@ function verifyGroups(req) {
             return (runtime.settings.userRole) ? null : 0;
         }
         const userInfo = runtime.users.getUserCache(req.userId);
+        if (req.isAuthenticated && !authJwt.isGuestUser(req.userId, req.userGroups) && !userInfo) {
+            return null;
+        }
         return (runtime.settings.userRole && req.userId !== 'admin') ? userInfo : userInfo ? userInfo.groups : req.userGroups;
     } else {
         return authJwt.adminGroups[0];

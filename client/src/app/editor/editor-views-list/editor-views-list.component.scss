@@ -1,7 +1,19 @@
 :host {
-    .leftbar-item {
+    .tree-root {
+        overflow-y: auto;
+        height: 100%;
+    }
+
+    .tree-node {
         padding: 3px 0px 1px 0px;
-        display: flow-root;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .tree-node:hover {
+        background-color: var(--toolboxItemHoverBackground, rgba(0,0,0,0.04));
     }
 
     .leftbar-item-active {
@@ -9,27 +21,54 @@
         color: var(--toolboxItemActiveColor);
     }
 
-    .leftbar-item span {
-        float: left;
-    }
-
-    .leftbar-item .leftbar-item-type {
-        float: left;
-        padding-left: 4px;
-        font-size: 16px;
-        line-height: 20px;
-    }
-
-    .leftbar-item mat-icon {
-        float: right;
+    .tree-toggle-icon {
         font-size: 18px;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        margin-right: 2px;
     }
 
-    .view-item-text {
+    .tree-folder-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        margin-right: 4px;
+        color: #F8C76B;
+    }
+
+    .tree-node-text {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: calc(100% - 54px);
+        flex: 1;
+        min-width: 0;
+    }
+
+    .tree-indent {
+        display: inline-block;
+        width: 20px;
+    }
+
+    .leftbar-item-type {
+        font-size: 16px;
+        line-height: 20px;
+        margin-right: 4px;
+    }
+
+    .tree-node mat-icon[aria-label="More"] {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        margin-left: auto;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+
+    .tree-node:hover mat-icon[aria-label="More"] {
+        opacity: 1;
     }
 
     .item-icon-view {

@@ -27,7 +27,7 @@ FUXA/
 
 - **`main.js`** — главный файл. Парсит CLI-аргументы (`--port`, `--userDir`), загружает настройки из `_appdata/settings.js`, создаёт HTTP/HTTPS-сервер и Socket.IO, настраивает Express-маршруты для статики, инициализирует FUXA через `fuxa.js`, монтирует Swagger UI и Node-RED (опционально).
 - **`fuxa.js`** — фасад. Связывает `runtime` и `api`: вызывает `runtime.init()` и `api.init()`, экспортирует `start()`, `stop()`, `httpApi`.
-- **`settings.default.js`** — настройки по умолчанию (порт, язык, DAQ, CORS, heartbeat, логирование и т.д.).
+- **`settings.default.js`** — настройки по умолчанию (порт, язык, DAQ, CORS, heartbeat, логирование, white-label и т.д.).
 - **`paths.js`** — утилиты для определения путей.
 - **`envParams.js`** — чтение переменных окружения.
 
@@ -69,7 +69,7 @@ FUXA/
 
 #### Проект (`runtime/project/`)
 
-- **`project/index.js`** — управление проектом: загрузка/сохранение, CRUD для устройств, видов (views), тревог, уведомлений, скриптов, графиков, отчётов, карт. Определяет `ProjectDataCmdType` (SetDevice, DelDevice, SetAlarm, SetScript и т.д.).
+- **`project/index.js`** — управление проектом: загрузка/сохранение, CRUD для устройств, видов (views), папок (folders), тревог, уведомлений, скриптов, графиков, отчётов, карт. Определяет `ProjectDataCmdType` (SetDevice, DelDevice, SetView, SetFolder, SetAlarm, SetScript и т.д.).
 - **`project/prjstorage.js`** — хранение проекта на диске (JSON-файлы в `_appdata`).
 
 #### Тревоги (`runtime/alarms/`)
@@ -203,7 +203,7 @@ SPA на **Angular 17** с **Angular Material**, собирается Angular CL
 | Сервис | Назначение |
 |--------|-----------|
 | `hmi.service.ts` | **Центральный сервис.** Управляет Socket.IO-подключением к серверу, принимает значения тегов, статусы устройств, результаты DAQ, тревоги. Эмитит события Angular через `EventEmitter`. |
-| `project.service.ts` | Работа с проектом: загрузка/сохранение видов, устройств, тегов, тревог, уведомлений, скриптов, графиков. HTTP-запросы к REST API. |
+| `project.service.ts` | Работа с проектом: загрузка/сохранение видов, папок, устройств, тегов, тревог, уведомлений, скриптов, графиков. HTTP-запросы к REST API. |
 | `auth.service.ts` | Аутентификация: логин, хранение токена, текущий пользователь. |
 | `settings.service.ts` | Настройки приложения: загрузка/сохранение серверных настроек. |
 | `user.service.ts` | CRUD пользователей через API. |
@@ -255,7 +255,7 @@ SPA на **Angular 17** с **Angular Material**, собирается Angular CL
 
 Главный компонент для инженерного проектирования HMI-экранов.
 
-- **`editor.component.ts`** (~65 000 строк) — ядро редактора: drag-n-drop SVG-элементов, привязка тегов к гейджам, работа с видами (views), панелями, графиками, картами.
+- **`editor.component.ts`** (~65 000 строк) — ядро редактора: drag-n-drop SVG-элементов, привязка тегов к гейджам, работа с видами (views) и папками (folders), панелями, графиками, картами.
 - **`app-settings/`** — диалог настроек приложения.
 - **`chart-config/`** — конфигурация графиков (Chart.js / uPlot).
 - **`graph-config/`** — конфигурация диаграмм (bar, pie).

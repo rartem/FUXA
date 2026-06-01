@@ -24,6 +24,7 @@ import { HeaderComponent, DialogInfo } from './header/header.component';
 import { IframeComponent } from './iframe/iframe.component';
 import { ViewComponent } from './view/view.component';
 import { LogsViewComponent } from './logs-view/logs-view.component';
+import { EventsHistoryComponent } from './events-history/events-history.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { EditorComponent, DialogLinkProperty } from './editor/editor.component';
 import { LayoutPropertyComponent } from './editor/layout-property/layout-property.component';
@@ -34,6 +35,7 @@ import { GraphConfigComponent } from './editor/graph-config/graph-config.compone
 import { CardConfigComponent } from './editor/card-config/card-config.component';
 import { AlarmViewComponent } from './alarms/alarm-view/alarm-view.component';
 import { AlarmListComponent } from './alarms/alarm-list/alarm-list.component';
+import { AlarmImportDialogComponent } from './alarms/alarm-list/alarm-import-dialog/alarm-import-dialog.component';
 import { AlarmPropertyComponent } from './alarms/alarm-property/alarm-property.component';
 import { NotificationListComponent } from './notifications/notification-list/notification-list.component';
 import { NotificationPropertyComponent } from './notifications/notification-property/notification-property.component';
@@ -65,6 +67,7 @@ import { ResDemoService } from './_services/rcgi/resdemo.service';
 import { ResClientService } from './_services/rcgi/resclient.service';
 import { ProjectService } from './_services/project.service';
 import { HmiService } from './_services/hmi.service';
+import { EventsService } from './_services/events.service';
 import { AppService } from './_services/app.service';
 import { TutorialComponent } from './help/tutorial/tutorial.component';
 import { WindowRef } from './_helpers/windowref';
@@ -83,6 +86,8 @@ import { DaterangeDialogComponent } from './gui-helpers/daterange-dialog/dateran
 import { BitmaskComponent } from './gui-helpers/bitmask/bitmask.component';
 import { RangeNumberComponent } from './gui-helpers/range-number/range-number.component';
 import { LibImagesComponent } from './resources/lib-images/lib-images.component';
+import { LibFontsComponent } from './resources/lib-fonts/lib-fonts.component';
+import { FontLoaderService } from './_services/font-loader.service';
 
 import { DialogDraggableDirective } from './_directives/dialog-draggable.directive';
 import { ModalPositionCache } from './_directives/modal-position.cache';
@@ -239,6 +244,9 @@ import { TagPropertyEditMpsComponent } from './device/tag-property/tag-property-
 import { OnboardingWizardComponent } from './editor/onboarding-wizard/onboarding-wizard.component';
 import { PluginsListComponent } from './plugins/plugins-list/plugins-list.component';
 import { SectionMessageDialogComponent } from './editor/section-message-dialog/section-message-dialog.component';
+import { ArMarkerListComponent } from './ar/ar-marker-list/ar-marker-list.component';
+import { ArMarkerPropertyComponent } from './ar/ar-marker-property/ar-marker-property.component';
+import { ArViewComponent } from './ar/ar-view/ar-view.component';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -348,6 +356,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         GraphConfigComponent,
         CardConfigComponent,
         AlarmListComponent,
+        AlarmImportDialogComponent,
         AlarmViewComponent,
         AlarmPropertyComponent,
         NotificationListComponent,
@@ -362,6 +371,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         ScriptEditorParamComponent,
         LanguageTextListComponent,
         LogsViewComponent,
+        EventsHistoryComponent,
         NgxGaugeComponent,
         NgxNouisliderComponent,
         NgxSchedulerComponent,
@@ -390,6 +400,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         DataTableComponent,
         RangeNumberComponent,
         LibImagesComponent,
+        LibFontsComponent,
         LibWidgetsComponent,
         KioskWidgetsComponent,
         ReportItemTextComponent,
@@ -426,7 +437,10 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         TagPropertyEditMpsComponent,
         OnboardingWizardComponent,
         PluginsListComponent,
-        SectionMessageDialogComponent
+        SectionMessageDialogComponent,
+        ArMarkerListComponent,
+        ArMarkerPropertyComponent,
+        ArViewComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         FormsModule,
@@ -468,6 +482,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         HeartbeatService,
         DataConverterService,
         ScriptService,
+        EventsService,
         ResourcesService,
         PluginService,
         SettingsService,
@@ -489,6 +504,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         AuthGuard,
         ToastNotifierService,
         MyFileService,
+        FontLoaderService,
         ReportsService,
         ActionPropertyService,
         MapsLocationsService,

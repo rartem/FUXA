@@ -1,0 +1,42 @@
+<div class="container">
+    <h1 mat-dialog-title class="dialog-title" mat-dialog-draggable>{{'editor.fonts-list' | translate}}</h1>
+    <mat-icon (click)="onNoClick()" class="dialog-close-btn">clear</mat-icon>
+    <div mat-dialog-content class="mat-dialog-content">
+        <div class="font-upload">
+            <input type="file" #fontFileInput style="display: none;" (change)="onUploadFont($event)" accept=".ttf" />
+            <button mat-raised-button color="primary" (click)="fontFileInput.click()">
+                <mat-icon>upload</mat-icon>
+                <span>{{'editor.fonts-upload' | translate}}</span>
+            </button>
+        </div>
+        <table class="font-table">
+            <thead>
+                <tr>
+                    <th>{{'editor.fonts-filename' | translate}}</th>
+                    <th>{{'editor.fonts-filetype' | translate}}</th>
+                    <th style="width: 80px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let group of resFonts">
+                    <tr *ngFor="let item of group.items">
+                        <td>{{item.name}}</td>
+                        <td>TrueType Font</td>
+                        <td class="font-actions">
+                            <span class="font-preview" [style.fontFamily]="item.label || item.name.replace('.ttf','')">
+                                {{item.label || item.name}}
+                            </span>
+                            <mat-icon class="action-icon" (click)="onRemoveFont(item.name)" matTooltip="{{'editor.fonts-remove' | translate}}">clear</mat-icon>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+        <div *ngIf="!resFonts.length || !resFonts[0].items?.length" class="font-empty">
+            {{'editor.fonts-empty' | translate}}
+        </div>
+    </div>
+    <div mat-dialog-actions class="dialog-action">
+        <button mat-raised-button (click)="onNoClick()">{{'dlg.cancel' | translate}}</button>
+    </div>
+</div>

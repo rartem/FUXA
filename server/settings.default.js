@@ -55,6 +55,11 @@ module.exports = {
         retention: 'none'
     },
 
+    // Events history retention
+    events: {
+        retention: 'none'
+    },
+
     // Tags value to be broadcast,
     // if false will be send to frontend only the tags bind to current visualized views
     // if true all configured tags will be send to frontend
@@ -128,4 +133,12 @@ module.exports = {
     // Node-RED: allow unsafe stdlib modules in functionGlobalContext
     // WARNING: Enabling this exposes modules like child_process/net to flows.
     nodeRedUnsafeModules: false,
+
+    // White-label customization
+    whiteLabel: {
+        title: '',
+        logo: '',
+        favicon: '',
+        hidePoweredBy: false
+    },
 }

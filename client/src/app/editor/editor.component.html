@@ -58,6 +58,9 @@
                         <mat-icon aria-label="Add" matTooltip="{{'editor.view-add' | translate}}" *ngIf="panelsState.panelView" class="leftbar-edit-btn"
                             (click)="onAddDoc();$event.stopPropagation()">add
                         </mat-icon>
+                        <mat-icon aria-label="New Folder" matTooltip="{{'editor.folder-add' | translate}}" *ngIf="panelsState.panelView" class="leftbar-edit-btn"
+                            (click)="onAddFolder();$event.stopPropagation()">create_new_folder
+                        </mat-icon>
                         <mat-icon aria-label="Import" matTooltip="{{'editor.view-import' | translate}}" *ngIf="panelsState.panelView" class="leftbar-edit-btn"
                             (click)="onImportView();$event.stopPropagation()">system_update_alt</mat-icon>
                         <input type="file" #viewFileImportInput style="display: none" id="viewFileUpload" (click)="$event.stopPropagation()"
@@ -66,10 +69,12 @@
                     <div appResize class="leftbar-panel view-panel" [(height)]="panelsState.panelViewHeight" [style.height.px]="panelsState.panelViewHeight"
                         (changeEnd)="savePanelState()">
                         <app-editor-views-list [(views)]="hmi.views"
+                                               [folders]="hmi.folders"
                                                [select]="currentView"
                                                (selected)="onSelectView($event, false)"
                                                (viewPropertyChanged)="onViewPropertyChanged($event)"
-                                               (cloneView)="onCloneView($event)">
+                                               (cloneView)="onCloneView($event)"
+                                               (addView)="onAddDoc($event)">
                         </app-editor-views-list>
                     </div>
                 </mat-expansion-panel>
@@ -299,11 +304,11 @@
                             <div class="_toolset">
                                 <div class="svg-property">
                                     <span>{{'editor.widget-name' | translate}}</span>
-                                    <input id="widget_name" class="rightbar-input" type="text" [value]="selectedElement?.ga?.name || ''" readonly />
+                                    <input id="widget_name" class="rightbar-input-full" type="text" [value]="selectedElement?.ga?.name || ''" readonly />
                                 </div>
                                 <div class="svg-property">
                                     <span>{{'editor.widget-type' | translate}}</span>
-                                    <input id="widget_type" class="rightbar-input" type="text" [value]="getWidgetFileName(selectedElement?.ga) || selectedElement?.ga?.label || selectedElement?.type || ''" readonly />
+                                    <input id="widget_type" class="rightbar-input-full" type="text" [value]="getWidgetFileName(selectedElement?.ga) || selectedElement?.ga?.label || selectedElement?.type || ''" readonly />
                                 </div>
                             </div>
                         </div>
@@ -454,6 +459,12 @@
                                         <select class="font-family" id="font_family" #fontfamily (change)="onFontFamilyChange(fontfamily.value)">
                                             <option *ngFor="let font of fonts" [style.fontFamily]="font" [value]="font">{{font}}</option>
                                         </select>
+                                    </div>
+                                    <div class="svg-property">
+                                        <button class="font-list-btn" (click)="onOpenFontsList()">
+                                            <mat-icon>font_download</mat-icon>
+                                            <span>{{'editor.fonts-list' | translate}}</span>
+                                        </button>
                                     </div>
                                     <div class="svg-property-split2">
                                         <div class="svg-property">

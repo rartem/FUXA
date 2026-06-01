@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { EndPointApi } from '../_helpers/endpointapi';
 import { ToastrService } from 'ngx-toastr';
-import { AppSettings, DaqStore, EditorSectionMessagesSettings, SmtpSettings } from '../_models/settings';
+import { AppSettings, DaqStore, EditorSectionMessagesSettings, SmtpSettings, WhiteLabelSettings } from '../_models/settings';
 
 @Injectable({
     providedIn: 'root'
@@ -64,7 +64,8 @@ export class SettingsService {
             dirty = true;
         }
         const nextEditorSectionMessages = new EditorSectionMessagesSettings(settings.editorSectionMessages);
-        if (nextEditorSectionMessages.hideDevicePluginsNotice !== this.appSettings.editorSectionMessages.hideDevicePluginsNotice) {
+        if (nextEditorSectionMessages.hideDevicePluginsNotice !== this.appSettings.editorSectionMessages.hideDevicePluginsNotice ||
+            nextEditorSectionMessages.hideArMarkersNotice !== this.appSettings.editorSectionMessages.hideArMarkersNotice) {
             this.appSettings.editorSectionMessages = nextEditorSectionMessages;
             dirty = true;
         }
@@ -114,6 +115,10 @@ export class SettingsService {
             this.appSettings.logs.retention = settings.logs.retention ?? this.appSettings.logs?.retention;
             dirty = true;
         }
+        if (settings.events && settings.events.retention !== this.appSettings.events?.retention) {
+            this.appSettings.events.retention = settings.events.retention ?? this.appSettings.events?.retention;
+            dirty = true;
+        }
         if (settings.userRole !== this.appSettings.userRole) {
             this.appSettings.userRole = settings.userRole;
             dirty = true;
@@ -129,6 +134,16 @@ export class SettingsService {
         if (settings.swaggerEnabled !== this.appSettings.swaggerEnabled) {
             this.appSettings.swaggerEnabled = settings.swaggerEnabled;
             dirty = true;
+        }
+        if (settings.whiteLabel) {
+            const nextWhiteLabel = new WhiteLabelSettings(settings.whiteLabel);
+            if (nextWhiteLabel.title !== this.appSettings.whiteLabel?.title ||
+                nextWhiteLabel.logo !== this.appSettings.whiteLabel?.logo ||
+                nextWhiteLabel.favicon !== this.appSettings.whiteLabel?.favicon ||
+                nextWhiteLabel.hidePoweredBy !== this.appSettings.whiteLabel?.hidePoweredBy) {
+                this.appSettings.whiteLabel = nextWhiteLabel;
+                dirty = true;
+            }
         }
         if (dirty) {
             this.settings$.next(this.appSettings);

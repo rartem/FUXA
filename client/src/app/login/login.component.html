@@ -1,6 +1,9 @@
 <form>
 	<div style="width: 320px;position: relative;padding-bottom: 40px">
-		<h1 mat-dialog-title style="display:inline-block;margin-bottom: 14px !important;">{{'dlg.login-title' | translate}}</h1>
+		<div *ngIf="whiteLabel?.logo" style="text-align: center; padding-top: 10px;">
+			<img [src]="whiteLabel.logo" style="max-width: 120px; max-height: 60px;">
+		</div>
+		<h1 mat-dialog-title style="display:inline-block;margin-bottom: 14px !important;">{{ whiteLabel?.title || ('dlg.login-title' | translate) }}</h1>
 		<div mat-dialog-content>
 			<div class="my-form-field" style="display: block;margin-bottom: 10px;margin-right: 5px;">
 				<span>{{'general.username' | translate}}</span>

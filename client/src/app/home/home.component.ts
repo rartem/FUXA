@@ -31,6 +31,7 @@ import { UserInfo } from '../users/user-edit/user-edit.component';
 import { Intervals } from '../_helpers/intervals';
 import { Script, ScriptMode } from '../_models/script';
 import { ScriptService } from '../_services/script.service';
+import { SettingsService } from '../_services/settings.service';
 // declare var panzoom: any;
 
 import { ToastrService } from 'ngx-toastr';
@@ -82,6 +83,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     private destroy$ = new Subject<void>();
     loggedUser$: Observable<User>;
     language$: Observable<LanguageConfiguration>;
+    readonly defaultHeaderHeight = HeaderSettings.DefaultHeight;
 
     constructor(private projectService: ProjectService,
         private changeDetector: ChangeDetectorRef,
@@ -93,6 +95,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         private scriptService: ScriptService,
         private languageService: LanguageService,
         private authService: AuthService,
+        private settingsService: SettingsService,
         public gaugesManager: GaugesManager) {
         this.gridOptions.draggable = { enabled: false };
         this.gridOptions.resizable = { enabled: false };
@@ -193,11 +196,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         });
     }
 
-    onGoToPage(viewId: string, force: boolean = false) {
+    onGoToPage(viewId: string, force: boolean = false, options: any = {}) {
         if (viewId === this.viewAsAlarms) {
             this.onAlarmsShowMode('expand');
             this.checkToCloseSideNav();
-        } else if (!this.homeView || viewId !== this.homeView?.id || force || this.fuxaview?.view?.id !== viewId) {
+        } else if (!this.homeView || viewId !== this.homeView?.id || force || this.fuxaview?.view?.id !== viewId || this.hasPageOptions(options)) {
             const view = this.hmi.views.find(x => x.id === viewId);
             this.setIframe();
             this.showHomeLink = false;
@@ -209,6 +212,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
                 if (this.homeView.type !== this.cardViewType && this.homeView.type !== this.mapsViewType) {
                     this.checkZoom();
                     this.fuxaview.hmi.layout = this.hmi.layout;
+                    this.applyPageOptions(options);
                     this.fuxaview.loadHmi(this.homeView);
                 } else if (this.cardsview) {
                     this.cardsview.reload();
@@ -217,6 +221,18 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             this.onAlarmsShowMode('close');
             this.checkToCloseSideNav();
         }
+    }
+
+    private hasPageOptions(options: any): boolean {
+        return !!(options?.variablesMapping || options?.sourceDeviceId);
+    }
+
+    private applyPageOptions(options: any = {}) {
+        if (!this.fuxaview) {
+            return;
+        }
+        this.fuxaview.sourceDeviceId = options?.sourceDeviceId;
+        this.fuxaview.loadVariableMapping(options?.variablesMapping ?? []);
     }
 
     onGoToLink(event: string) {
@@ -271,12 +287,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     onLogin() {
         let cuser = this.authService.getUser();
         if (cuser) {
+            const wl = this.settingsService.getSettings()?.whiteLabel;
             let dialogRef = this.dialog.open(DialogUserInfo, {
                 id: 'myuserinfo',
                 // minWidth: '250px',
                 position: { top: '50px', right: '15px' },
                 backdropClass: 'user-info',
-                data: cuser
+                data: { user: cuser, whiteLabel: wl }
             });
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
@@ -285,8 +302,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
             });
         } else {
+            const wl = this.settingsService.getSettings()?.whiteLabel;
             let dialogConfig = {
-                data: {},
+                data: { whiteLabel: wl },
                 disableClose: true,
                 autoFocus: false,
                 ...(this.hmi.layout.loginoverlaycolor && this.hmi.layout.loginoverlaycolor !== LoginOverlayColorType.none) && {
@@ -496,17 +514,17 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         ev: Event,
         events: GaugeEvent[]
     ) {
-        let fuxaviewRef = this.fuxaview ?? this.cardsview.getFuxaView(0);
+        const homeEvents = events.filter(event => event.action === 'onpage');
+        homeEvents.forEach(event => {
+            this.onGoToPage(event.actparam, this.hasPageOptions(event.actoptions), event.actoptions);
+        });
+        const fuxaViewEvents = events.filter(event => event.action !== 'onpage');
+        let fuxaviewRef = this.fuxaview ?? this.cardsview?.getFuxaView(0);
         if (!fuxaviewRef) {
             return;
         }
-        const homeEvents = events.filter(event => event.action === 'onpage');
-        homeEvents.forEach(event => {
-            this.onGoToPage(event.actparam);
-        });
-        const fuxaViewEvents = events.filter(event => event.action !== 'onpage');
         if (fuxaViewEvents.length > 0) {
-            fuxaviewRef.runEvents(fuxaviewRef, ga, ev, events);
+            fuxaviewRef.runEvents(fuxaviewRef, ga, ev, fuxaViewEvents);
         }
     }
 

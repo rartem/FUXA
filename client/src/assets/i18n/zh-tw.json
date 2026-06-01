@@ -1,10 +1,8 @@
 {
     "with param": "示例 {{value}}",
-
     "app.home": "首頁",
     "app.lab": "實驗室",
     "app.editor": "編輯器",
-
     "header.new-project": "新建專案",
     "header.save-project": "儲存專案",
     "header.save-project-tooltip": "儲存所有未完成的專案修改",
@@ -26,15 +24,10 @@
     "header.change-thema": "切換主題(beta)",
     "header.info-version": "版本",
     "header.theme": "主題 亮/暗",
-
     "project.name": "專案名稱",
-
     "sidenav.title": "FUXA",
-
     "tutorial.title": "FUXA 教學",
-
     "dlg.info-title": "FUXA",
-
     "dlg.layout-title": "版面設定",
     "dlg.layout-general": "一般",
     "dlg.layout-lbl-auto-resize": "自動調整大小",
@@ -61,13 +54,14 @@
     "dlg.layout-lbl-infos": "資訊通知模式",
     "dlg.layout-lbl-font": "字型族",
     "dlg.layout-lbl-font-size": "字型大小",
+    "dlg.layout-lbl-height": "高度",
+    "dlg.layout-lbl-button-height": "按鈕高度",
     "dlg.layout-lbl-anchor": "方向",
     "dlg.layout-lbl-margin-left": "左邊距",
     "dlg.layout-lbl-margin-right": "右邊距",
     "dlg.layout-lbl-login-info": "登入資訊",
     "dlg.layout-lbl-custom-styles": "自訂樣式",
     "dlg.layout-lbl-show-language": "顯示語言",
-
     "dlg.menuitem-title": "選單項目",
     "dlg.menuitem-image": "[我的圖片...]",
     "dlg.menuitem-icon": "圖示",
@@ -77,11 +71,9 @@
     "dlg.menuitem-alarms": "點擊顯示警報",
     "dlg.menuitem-address": "連結位址",
     "dlg.menuitem-icons-filter": "圖示篩選",
-
     "dlg.headeritem-title": "頁首項目",
     "dlg.headeritem-icon": "圖示",
     "dlg.headeritem-icons-filter": "圖示篩選",
-
     "dlg.docproperty-title": "視圖屬性",
     "dlg.docproperty-name": "名稱",
     "dlg.docproperty-width": "寬度",
@@ -111,7 +103,6 @@
     "dlg.docproperty-gridtype-verticalFixed": "垂直固定",
     "dlg.docproperty-gridtype-horizontalFixed": "水平固定",
     "dlg.docproperty-renderDelay": "視圖渲染延遲（毫秒）",
-
     "dlg.docname-title": "視圖名稱",
     "dlg.docname-name": "名稱",
     "dlg.docproperty-type": "視圖類型",
@@ -120,36 +111,28 @@
     "dlg.item-req-name": "名稱（不允許有空白或數字）",
     "dlg.item-name-error": "名稱已存在！",
     "dlg.parameter-title": "參數",
-
     "dlg.tagname-title": "標籤名稱",
     "dlg.tagname-name": "標籤名稱",
-
     "dlg.linkproperty-title": "建立超連結",
     "dlg.linkproperty-url": "超連結 URL",
-
     "dlg.login-title": "登入...",
     "dlg.logout-btn": "登出",
-
     "dlg.ok": "確定",
     "dlg.cancel": "取消",
     "dlg.close": "關閉",
     "dlg.apply": "套用",
-
     "dlg.userproperty-title": "使用者",
     "dlg.userproperty-groups": "授權群組",
     "dlg.userproperty-roles": "授權角色",
     "dlg.useraccess-groups": "授權（空白 = 對所有人授權）",
     "dlg.userproperty-language": "語言",
     "dlg.userproperty-start": "起始視圖",
-
     "dlg.gauge-permission-title": "授權",
     "dlg.gauge-permission-label": "（空白 = 對所有人授權）",
     "dlg.gauge-permission-show": "顯示",
     "dlg.gauge-permission-enabled": "已啟用",
-
     "date.range-start": "開始日期",
     "date.range-end": "結束日期",
-
     "general.search-up": "搜尋",
     "general.close": "關閉",
     "general.search": "搜尋...",
@@ -186,58 +169,46 @@
     "general.sunday-short": "週日",
     "general.save-template": "儲存為範本",
     "general.import-template": "自範本匯入",
-
     "tester.title": "變數",
     "tester.send": "送出",
-
     "item.overlaycolor-none": "無",
     "item.overlaycolor-black": "黑色",
     "item.overlaycolor-white": "白色",
-
     "item.navsmode-none": "無",
     "item.navsmode-push": "推入",
     "item.navsmode-over": "覆蓋",
     "item.navsmode-fix": "固定",
-
     "item.navtype-icons": "圖示",
     "item.navtype-text": "文字",
     "item.navtype-icons-text-block": "圖示與文字（區塊）",
     " item.navtype-icons-text-inline": "圖示與文字（行內）",
-
     "item.headertype-button": "按鈕",
     "item.headertype-label": "標籤",
     "item.headertype-image": "圖片",
     "item.headeranchor-left": "左",
     "item.headeranchor-right": "右",
     "item.headeranchor-center": "中間",
-
     "item.notifymode-hide": "隱藏",
     "item.notifymode-fix": "固定",
     "item.notifymode-float": "浮動",
-
     "item.logininfo-type-nothing": "無",
     "item.logininfo-type-username": "使用者名稱",
     "item.logininfo-type-fullname": "全名",
     "item.logininfo-type-both": "使用者名稱與全名",
-
     "item.language-show-mode-nothing": "隱藏",
     "item.language-show-mode-simple": "顯示",
     "item.language-show-mode-key": "顯示鍵值",
     "item.language-show-mode-fullname": "顯示全名",
-
     "item.zoommode-disabled": "停用",
     "item.zoommode-enabled": "手動",
     "item.zoommode-autoresize": "自動調整大小",
-
     "item.headerbarmode-hide": "隱藏",
     "item.headerbarmode-show": "顯示",
-
     "dlg.layout-input-dialog": "輸入欄位的對話模式",
     "item.inputmode-disabled": "已停用",
     "item.inputmode-enabled": "對話框",
     "item.inputmode-keyboard": "虛擬鍵盤",
     "item.inputmode-keyboard-full-screen": "虛擬鍵盤全螢幕",
-
     "chart.config-title": "圖表設定",
     "chart.config-charts": "圖表",
     "chart.config-devices": "裝置",
@@ -266,7 +237,6 @@
     "chart.config-line-zone-max": "最大",
     "chart.config-line-zone-stroke": "描邊",
     "chart.config-line-zone-fill": "填滿",
-
     "chart.property-data": "資料",
     "chart.property-props": "屬性",
     "chart.property-layout": "版面",
@@ -315,21 +285,17 @@
     "chart.property-axis-y4-min": "Y4 最小",
     "chart.property-axis-y4-max": "Y4 最大",
     "chart.property-script": "腳本資料來源",
-
     "chart.rangetype-last8h": "最近 8 小時",
     "chart.rangetype-last1d": "最近一天",
     "chart.rangetype-last3d": "最近 3 天",
     "chart.rangetype-last1w": "最近一週",
-
     "chart.legend-always": "總是",
     "chart.legend-follow": "跟隨",
     "chart.legend-bottom": "底部",
     "chart.legend-never": "從不",
-
     "chart.labels-serie": "序列",
     "chart.labels-time": "時間",
     "chart.labels-title": "標題",
-
     "graph.config-title": "圖表設定",
     "graph.config-rename": "重新命名",
     "graph.config-source-tag": "新增來源標籤",
@@ -346,7 +312,6 @@
     "graph.property-fnctype": "功能類型",
     "graph.bar-date-fnc-value-integral": "總和（積分）",
     "graph.bar-date-fnc-hour-integral": "每小時總和（積分）",
-
     "graph.property-data": "資料",
     "graph.property-name": "名稱",
     "graph.property-general": "一般",
@@ -403,20 +368,16 @@
     "graph.property-datalabels-show": "顯示",
     "graph.property-datalabels-fontsize": "字型大小",
     "graph.property-datalabels-align": "對齊",
-
     "graph.rangetype-last1h": "最近一小時",
     "graph.rangetype-last1d": "最近一天",
     "graph.rangetype-last3d": "最近 3 天",
     "graph.rangetype-last1w": "最近一週",
     "graph.rangetype-last1m": "上個月",
-
     "graph.grouptype-hours": "小時",
     "graph.grouptype-days": "天數",
-
     "iframe.property-data": "資料",
     "iframe.property-address": "位址",
     "iframe.property-name": "名稱",
-
     "panel.property-data": "資料",
     "panel.property-view-name": "視圖名稱",
     "panel.property-name": "名稱",
@@ -424,7 +385,6 @@
     "panel.property-scalemode-none": "無",
     "panel.property-scalemode-contain": "置入",
     "panel.property-scalemode-stretch": "延展",
-
     "table.property-title": "資料表設定",
     "table.property-data": "資料",
     "table.property-date-last-range": "日期範圍",
@@ -492,19 +452,16 @@
     "table.cell-align-left": "左",
     "table.cell-align-center": "置中",
     "table.cell-align-right": "右",
-
     "table.history-filter": "過濾器",
     "table.rangetype-last1h": "最近一小時",
     "table.rangetype-last1d": "最近一天",
     "table.rangetype-last3d": "過去 3 天",
-
     "table.alarms-title": "警報表",
     "table.alarms-history-title": "警報歷史表",
     "table.alarm-columns": "警報欄位",
     "table.alarm-filter": "警報過濾器",
     "table.alarm-priority": "優先順序",
     "table.alarm-tags": "標籤",
-
     "table.reports-title": "報告表",
     "table.report-columns": "報告欄位",
     "table.report-view-name": "名稱",
@@ -514,7 +471,6 @@
     "table.report-filter": "報告過濾器",
     "table.report-filter-name": "名稱",
     "table.report-filter-count": "最大值",
-
     "editor.view-svg": "畫布/SVG",
     "editor.view-cards": "多視圖容器",
     "editor.view-maps": "地圖",
@@ -567,9 +523,7 @@
     "editor.controls-image": "圖片（連結）",
     "editor.controls-panel": "面板",
     "editor.controls-panel-settings": "面板設定",
-
     "editor.layout-settings": "版面設定",
-
     "editor.interactivity": "互動",
     "editor.interactivity-id": "id:",
     "editor.interactivity-id-title": "識別此元素",
@@ -577,7 +531,6 @@
     "editor.interactivity-class-title": "元素類別",
     "editor.interactivity-name": "名稱",
     "editor.edit-bind-of-tags": "編輯標籤繫結",
-
     "editor.cmenu-property": "屬性",
     "editor.cmenu-cut": "剪下",
     "editor.cmenu-copy": "複製",
@@ -596,7 +549,6 @@
     "editor.cmenu-layer-marge-all": "全部合併",
     "editor.cmenu-unlock": "解除鎖定",
     "editor.cmenu-lock": "鎖定",
-
     "editor.transform": "定位",
     "editor.transform-x": "x",
     "editor.transform-x-title": "變更 X 座標",
@@ -652,15 +604,13 @@
     "editor.transform-angle-title": "變更旋轉角度",
     "editor.transform-hide": "隱藏",
     "editor.transform-lock": "鎖定",
-
     "editor.align": "對齊",
     "editor.align-left-title": "向左對齊",
     "editor.align-center-title": "對齊置中",
-    "editor.align-right-title":"向右對齊",
+    "editor.align-right-title": "向右對齊",
     "editor.align-top-title": "對齊頂部",
     "editor.align-middle-title": "對齊中間",
     "editor.align-bottom-title": "對齊底部",
-
     "editor.stroke": "邊框",
     "editor.stroke-width": "邊框寬度",
     "editor.stroke-width-title": "變更邊框寬度為 1，按 Shift 變更為 0.1",
@@ -674,7 +624,6 @@
     "editor.stroke-capround-title": "線端 圓形",
     "editor.stroke-shadow": "陰影",
     "editor.stroke-shadow-title": "啟用陰影",
-
     "editor.marker": "標記",
     "editor.marker-start": "開始",
     "editor.marker-start-title": "選擇起始標記類型",
@@ -682,10 +631,8 @@
     "editor.marker-middle-title": "選擇中間標記類型",
     "editor.marker-end": "尾端",
     "editor.marker-end-title": "選擇末端標記類型",
-
     "editor.hyperlink": "超連結",
     "editor.hyperlink-url": "url",
-
     "editor.tools-launch-title": "啟動目前視圖",
     "editor.tools-select": "選取工具",
     "editor.tools-pencil": "鉛筆工具",
@@ -696,7 +643,6 @@
     "editor.tools-path": "路徑工具",
     "editor.tools-text": "文字工具",
     "editor.tools-image": "影像工具",
-
     "editor.tools-zoom-title": "縮放工具[Ctrl+上/下]",
     "editor.tools-grid-title": "顯示/隱藏網格",
     "editor.tools-undo-title": "復原 [Z]",
@@ -718,17 +664,12 @@
     "editor.tools-ungroup-title": "取消群組元素 [G]",
     "editor.tools-hyperlink-title": "建立超連結",
     "editor.tools-svg-selector": "項目清單選擇器",
-
     "editor.settings-general": "一般",
     "editor.settings-events": "事件",
     "editor.settings-actions": "動作",
-
     "tags.ids-config-title": "標籤-IDs 參考",
-
     "svg.selector.property-title": "檢視項目清單",
-
     "tutorial.editor-keyboard-shortcuts": "編輯器快速鍵",
-
     "shapes.action-hide": "隱藏",
     "shapes.action-show": "顯示",
     "shapes.action-blink": "閃爍",
@@ -738,7 +679,6 @@
     "shapes.action-downup": "向上與向下",
     "shapes.action-rotate": "旋轉",
     "shapes.action-refreshImage": "更新影像",
-
     "shapes.action-move": "移動",
     "shapes.event-click": "點擊",
     "shapes.event-dblclick": "雙擊",
@@ -770,7 +710,6 @@
     "shapes.event-onLoad": "載入",
     "shapes.event-relativefrom-window": "視窗",
     "shapes.event-relativefrom-mouse": "滑鼠",
-
     "pipe.property-title": "管道設定",
     "pipe.property-data": "資料",
     "pipe.property-style": "樣式",
@@ -787,7 +726,6 @@
     "pipe.property-style-animation-image": "選擇圖片（SVG）",
     "pipe.property-style-animation-count": "圖片數量",
     "pipe.property-style-animation-delay": "動畫延遲（毫秒）",
-
     "slider.property-props": "屬性",
     "slider.property-horizontal": "水平",
     "slider.property-vertical": "垂直",
@@ -820,7 +758,6 @@
     "slider.property-slider-color": "連接顏色",
     "slider.property-slider-background": "底色",
     "slider.property-slider-handle": "指標顏色",
-
     "html-switch.property-off-value": "關閉值",
     "html-switch.property-on-value": "開啟值",
     "html-switch.property-on-background": "開啟背景",
@@ -828,18 +765,16 @@
     "html-switch.property-off-text": "關閉文字",
     "html-switch.property-on-text": "開啟文字",
     "html-switch.property-on-slider-color": "開啟滑塊顏色",
-    "html-switch.property-off-slider-color":"關閉滑塊顏色",
+    "html-switch.property-off-slider-color": "關閉滑塊顏色",
     "html-switch.property-radius": "圓角",
     "html-switch.property-off-text-color": "關閉文字顏色",
     "html-switch.property-on-text-color": "開啟文字顏色",
-    "html-switch.property-font-size":"字型大小",
-    "html-switch.property-font":"字型",
-
+    "html-switch.property-font-size": "字型大小",
+    "html-switch.property-font": "字型",
     "html-input.min": "最小值",
     "html-input.max": "最大值",
     "html-input.out-of-range": "超出範圍的值",
     "html-input.not-a-number": "值不是數字",
-
     "editor.tools-zoomlevel-title": "縮放等級",
     "editor.tools-zoomlevel-fitcanvas": "適合畫布",
     "editor.tools-zoomlevel-fitsection": "適合選取",
@@ -847,7 +782,6 @@
     "editor.tools-fillcolor-title": "變更填滿顏色",
     "editor.tools-strokecolor-title": "變更描邊顏色",
     "editor.tools-palettecolor-title": "點擊變更填滿顏色，按住 Shift 變更描邊顏色",
-
     "device.list-title": "裝置設定",
     "device.list-device": "裝置",
     "device.list-filter": "過濾器",
@@ -864,9 +798,8 @@
     "device.list-remove": "刪除標籤",
     "device.list-remove-all": "刪除所有標籤",
     "device.list-options": "標籤選項",
-    "device.list-clipboard": "複製標籤物件到剪貼簿",
-    "device.list-direction":"方向",
-
+    "device.list-clipboard": "複製到剪貼簿",
+    "device.list-direction": "方向",
     "devices.export": "匯出裝置",
     "devices.export-json": "JSON",
     "devices.export-csv": "CSV",
@@ -945,7 +878,6 @@
     "device.template-device": "範本名稱",
     "device.template-tags": "範本名稱",
     "device.property-socket-reuse": "Socket 重用",
-
     "device.browsetopics-property-title": "要訂閱與發佈的 Broker 主題",
     "device.browsetopics-property-sub": "訂閱",
     "device.browsetopics-property-pub": "發佈",
@@ -975,7 +907,6 @@
     "device.topic-name-exist": "主題名稱 '{{value}}' 已經存在",
     "device.topic-subs-address-exist": "要訂閱位址為 '{{value}}' 的主題已經存在",
     "device.topic-pubs-address-exist": "位址為 '{{value}}' 要發佈的主題已經存在",
-
     "device.property-mqtt-address": "位址（mqtt://[server]:[port]）",
     "device.tag-property-title": "標籤屬性",
     "device.browsetag-property-title": "瀏覽伺服器中的標籤",
@@ -998,20 +929,16 @@
     "device.tag-property-direction": "方向",
     "device.tag-property-edge": "邊緣",
     "device.tag-property-gpio": "GPIO 編號",
-
     "device.tag-array-id": "陣列 ID:",
     "device.tag-array-value": "值：",
     "device-tag-dialog-title": "標籤選擇",
-
     "device.tag-options-title": "標籤選項",
     "device.tag-daq-enabled": "註冊啟用",
     "device.tag-daq-changed": "變更時儲存",
     "device.tag-daq-interval": "儲存值間隔（秒）",
     "device.tag-daq-restored": "還原",
-
     "device.tag-format": "數字格式化（2 = #.##）",
     "device.tag-deadband": "死區",
-
     "device.tag-uns-path": "UNS Path",
     "device.tag-scale": "縮放模式",
     "device.tag-scale-mode-undefined": "無縮放",
@@ -1036,15 +963,12 @@
     "device.tag-scale-write-script-tooltip": "寫入至用戶端前的值腳本",
     "device.tag-scale-write-script-params": "輸入寫入腳本參數值",
     "device.tag-scale-script-params-tooltip": "傳遞給腳本的參數值 JSON 格式化陣列",
-
     "device.edit-placeholder-titel": "編輯佔位符",
-
     "device.connect-ok": "OK",
     "device.connect-error": "錯誤",
     "device.connect-failed": "失敗",
     "device.connect-off": "關閉",
     "device.connect-busy": "忙碌",
-
     "devices.mode-map": "裝置圖示",
     "devices.mode-list": "裝置清單",
     "devices.list-name": "名稱",
@@ -1053,28 +977,22 @@
     "devices.list-polling": "輪詢",
     "devices.list-enabled": "已啟用",
     "devices.list-status": "狀態",
-    "device.list-clipboard": "複製到剪貼簿",
-
     "users.list-title": "使用者設定",
     "users.list-name": "使用者名稱",
     "users.list-fullname": "全名",
     "users.list-groups": "群組",
     "users.list-roles": "角色",
     "users.list-start": "起始視圖",
-
     "roles.list-title": "角色設定",
     "roles.list-index": "索引",
     "roles.list-name": "名稱",
     "roles.list-description": "描述",
-
     "user-role-edit-title": "角色設定",
     "user-role-edit-name": "名稱",
     "user-role-edit-index": "索引",
     "user-role-edit-description": "描述",
-
     "events-history.list-title": "事件歷史",
     "events-history.filter-daterange": "日期範圍過濾",
-
     "gauges.property-props": "屬性",
     "gauges.property-events": "事件",
     "gauges.property-title": "屬性",
@@ -1135,7 +1053,6 @@
     "gauges.property-input-convertion": "轉換",
     "gauges.property-input-convertion-milliseconds": "毫秒",
     "gauges.property-input-convertion-string": "字串",
-
     "gauges.property-update-enabled": "啟用更新",
     "gauges.property-update-esc": "ESC 更新",
     "gauges.property-input-esc-action": "離開時執行",
@@ -1147,11 +1064,11 @@
     "gauges.property-actions": "動作",
     "gauges.property-action-type": "類型",
     "gauges.property-action-param": "動作識別",
-    "gauges.property-action-minAngle" : "最小角度",
-    "gauges.property-action-maxAngle" : "最大角度",
-    "gauges.property-action-toX" : "至位置 X",
-    "gauges.property-action-toY" : "至位置 Y",
-    "gauges.property-action-duration" : "持續時間",
+    "gauges.property-action-minAngle": "最小角度",
+    "gauges.property-action-maxAngle": "最大角度",
+    "gauges.property-action-toX": "至位置 X",
+    "gauges.property-action-toY": "至位置 Y",
+    "gauges.property-action-duration": "持續時間",
     "gauges.property-events-mapping-from": "情境變數",
     "gauges.property-map-variable": "新增情境變數以進行繫結",
     "gauges.property-head-remove-mapvariable": "刪除繫結",
@@ -1161,7 +1078,6 @@
     "gauges.property-tag-internal-title": "設定內部裝置的標籤",
     "gauges.property-input-range": "允許的輸入範圍",
     "gauges.property-language-text": "文字或 @文字 ID",
-
     "bag.property-ticks": "刻度",
     "bag.property-divisions": "分區",
     "bag.property-subdivisions": "子分區",
@@ -1194,7 +1110,6 @@
     "bag.property-zones": "區域",
     "bag.property-color": "顏色",
     "bag.property-fill": "填滿",
-
     "alarms.list-title": "警報器設定",
     "alarms.list-name": "名稱",
     "alarms.list-device": "裝置/變數",
@@ -1203,6 +1118,12 @@
     "alarms.list-low": "低",
     "alarms.list-info": "資訊",
     "alarms.list-actions": "動作",
+    "alarms.import": "Import Alarms",
+    "alarms.export": "Export Alarms (JSON)",
+    "alarms.import-title": "Import Alarms",
+    "alarms.import-conflicts-message": "{{total}} alarms found. {{conflicts}} already exist. Choose how to import them.",
+    "alarms.import-copy": "Add as copies",
+    "alarms.import-replace": "Replace",
     "alarm.property-title": "警報",
     "alarm.property-name": "名稱",
     "alarm.property-permission": "授權",
@@ -1252,7 +1173,6 @@
     "alarm.property-action-destination": "要顯示的視圖",
     "alarm.property-action-toastMessage": "要顯示的訊息",
     "alarm.property-action-toastType": "類型",
-
     "notifications.list-title": "通知設定",
     "notifications.list-name": "名稱",
     "notifications.list-receiver": "收件者",
@@ -1271,7 +1191,6 @@
     "notification.property-priority": "優先順序",
     "notification.type-alarm": "警報",
     "notification.type-trigger": "觸發",
-
     "scripts.list-title": "腳本設定",
     "scripts.list-name": "名稱",
     "scripts.list-type": "類型",
@@ -1280,19 +1199,15 @@
     "scripts.list-scheduling": "排程 / 間隔",
     "scripts.list-permission": "授權",
     "scripts.list-options": "腳本選項",
-
     "script.permission-title": "授權",
     "script.permission-label": "(空白 = 對全體)",
     "script.permission-enabled": "已啟用",
-
     "script.create-title": "建立腳本",
-
     "script.mode": "執行模式",
     "script.mode-title": "執行模式",
     "script.mode-label": "（預設：伺服器）",
     "script.mode-CLIENT": "用戶端（於瀏覽器中執行）",
     "script.mode-SERVER": "伺服器（於伺服器中執行）",
-
     "script.property-title": "腳本",
     "script.property-systems": "系統函式",
     "script.property-templates": "範本",
@@ -1370,8 +1285,8 @@
     "script.sys-fnc-setDeviceProperty-tooltip": "System function to set Device property: $setDeviceProperty(Device name as string, Property as object {address, port, ...} )",
     "script.sys-fnc-setDeviceProperty-params": "'Device name', 'Property'",
     "script.sys-fnc-getHistoricalTag-text": "$getHistoricalTags(TagIds array, from msec., to msec.)",
-    "script.sys-fnc-getHistoricalTag-tooltip":"get historical tags by milliseconds range: $getHistoricalTags([TagIds] as array, from as number, to as number)",
-    "script.sys-fnc-getHistoricalTag-params":"'Tag Ids array', 'From msec.', 'To msec.'",
+    "script.sys-fnc-getHistoricalTag-tooltip": "get historical tags by milliseconds range: $getHistoricalTags([TagIds] as array, from as number, to as number)",
+    "script.sys-fnc-getHistoricalTag-params": "'Tag Ids array', 'From msec.', 'To msec.'",
     "script.sys-fnc-sendMessage-text": "$sendMessage(address, subject, message)",
     "script.sys-fnc-sendMessage-tooltip": "System function to send Message (Mail): $sendMessage(address as string, subject as string, message as string)",
     "script.sys-fnc-sendMessage-params": "'address', 'subject', 'message'",
@@ -1384,24 +1299,20 @@
     "script.sys-fnc-ackAlarms-text": "$ackAlarm(Alarm name, types)",
     "script.sys-fnc-ackAlarms-tooltip": "System function to ACK alarm (): $ackAlarm(Alarm name as string, [types] 'highhigh|high|low')",
     "script.sys-fnc-ackAlarms-params": "'Alarm name', 'types'",
-
     "script.template-chart-data-text": "自訂圖表資料",
     "script.template-chart-data-tooltip": "回傳自訂圖表資料的程式碼範本",
     "script.template-invoke-chart-update-options-text": "更新圖表選項",
     "script.template-invoke-chart-update-options-tooltip": "更新圖表選項（Y 軸刻度範圍）。僅限用戶端模式！",
     "script.template-getHistoricalTagsoptions-text": "取得歷史標籤值",
     "script.template-getHistoricalTagsoptions-tooltip": "取得歷史標籤值的程式碼範本。",
-
     "client.script-access-title": "用戶端腳本存取",
     "client.script-access-info": "透過 window.fuxaScriptAPI 設定對前端（例如小工具）的系統函式存取。",
-
     "reports.list-title": "報告設定",
     "reports.list-name": "名稱",
     "reports.list-type": "類型",
     "reports.list-receiver": "收件者",
     "reports.list-scheduling": "排程/間隔",
     "reports.list-enabled": "已啟用",
-
     "report.property-title": "報告",
     "report.property-name": "名稱",
     "report.property-receiver": "收件者電子郵件",
@@ -1464,7 +1375,6 @@
     "report.chart-name": "圖表名稱",
     "report.chart-width": "寬度",
     "report.chart-height": "高度",
-
     "maps.locations-list-title": "位置設定",
     "maps.locations-list-name": "名稱",
     "maps.locations-list-view": "視圖",
@@ -1486,15 +1396,9 @@
     "maps.close-popups": "關閉所有彈窗",
     "maps.location-to-import": "要匯入的位置",
     "maps.location-to-import-input-title": "選擇要匯入的位置",
-
     "logs.view-title": "系統日誌",
     "logs.view-files": "日誌檔",
-
-    "events.view-ontime": "日期/時間",
-    "events.view-type": "類型",
-    "events.view-source": "來源",
-    "events.view-text": "文字",
-
+    "events.view-type": "名稱",
     "card.config-title": "卡片設定",
     "card.config-content-type": "內容類型",
     "card.config-content-view": "內容視圖",
@@ -1504,7 +1408,6 @@
     "card.widget-table": "表格",
     "card.widget-iframe": "連結",
     "card.style-zoom": "縮放",
-
     "resources.lib-icons": "圖示",
     "resources.lib-images": "圖片",
     "resource.list-title": "資源清單",
@@ -1512,10 +1415,8 @@
     "resource.list-type": "檔案類型",
     "resource.list-title-fonts": "字型清單",
     "resources.lib-widgets": "小工具",
-
     "widgets.kiosk-title": "小工具",
     "widget.remove": "刪除小工具",
-
     "texts.list-title": "文字設定",
     "texts.list-filter": "過濾器",
     "texts.list-filter-group": "群組",
@@ -1536,16 +1437,13 @@
     "text.settings-id": "ID",
     "text.settings-group": "群組",
     "text.settings-value": "文字",
-
     "gui.range-number-min": "最小值",
     "gui.range-number-max": "最大值",
     "gui.range-number-boolean": "遮罩值",
     "gui.range-number-true": "真 [1-1]",
     "gui.range-number-false": "假 [0-0]",
     "gui.range-number-switcher": "範圍為數字或布林值",
-
     "dlg.bitmask-title": "位元遮罩",
-
     "dlg.plugins-title": "伺服器外掛",
     "dlg.plugins-info": "未安裝的外掛可在伺服器上手動安裝：'npm install [package name]@[version]'",
     "dlg.plugins-type": "類型",
@@ -1558,7 +1456,6 @@
     "dlg.plugins-status-installed": "正在安裝...OK!",
     "dlg.plugins-status-removed": "正在移除...OK!",
     "dlg.plugins-status-error": "錯誤！請手動再試！",
-
     "dlg.setup-title": "設定",
     "dlg.setup-gui": "使用者介面",
     "dlg.setup-diverse": "雜項",
@@ -1619,27 +1516,23 @@
     "dlg.app-auth-expiration-1d": "已啟用，權杖將於 1 天內到期,",
     "dlg.app-auth-tooltip": "已啟用：你有一個管理員帳號 'admin/123456'（請不要忘記修改）。需要重新啟動伺服器！",
     "dlg.app-settings-client-broadcast": "廣播至用戶端（前端）所有標籤值",
-
     "dlg.app-settings-daqstore": "DAQ 儲存",
     "dlg.app-settings-daqstore-type": "資料庫類型",
     "dlg.app-settings-daqstore-url": "URL",
     "dlg.app-settings-daqstore-configurl": "Config URL",
     "dlg.app-settings-daqstore-queryconn": "Query connection (PGWire)",
-
     "dlg.app-settings-daqstore-questdb-host": "QuestDB Host",
     "dlg.app-settings-daqstore-ingestconn": "Ingestion connection (ILP)",
-    "dlg.app-settings-daqstore-token":"權杖",
+    "dlg.app-settings-daqstore-token": "權杖",
     "dlg.app-settings-daqstore-bucket": "Bucket",
     "dlg.app-settings-daqstore-organization": "組織",
     "dlg.app-settings-daqstore-retention": "保留",
     "dlg.app-settings-daqstore-database": "資料庫名稱",
     "dlg.app-settings-daqstore-username": "使用者名稱",
     "dlg.app-settings-daqstore-password": "密碼",
-
     "dlg.app-settings-user-group-label": "授權類型",
     "dlg.app-settings-user-group": "群組（預設）",
     "dlg.app-settings-user-roles": "角色",
-
     "store.retention-none": "停用",
     "store.retention-day1": "1 天",
     "store.retention-days2": "2 天",
@@ -1651,15 +1544,12 @@
     "store.retention-year1": "1 年",
     "store.retention-year3": "3 年",
     "store.retention-year5": "5 年",
-
     "plugin.group-connection-device": "連線裝置",
     "plugin.group-connection-database": "連線資料庫",
     "plugin.group-chart-report": "報告圖表",
-
     "action-settings-title": "動作設定",
     "action-settings-readonly-tag": "標籤",
     "action-settings-readonly-values": "值",
-
     "msg.alarm-ack-all": "您是否要確認所有警報？",
     "msg.alarm-remove": "您是否要刪除警報",
     "msg.text-remove": "您是否要刪除文字",
@@ -1675,7 +1565,6 @@
     "msg.report-property-missing-value": "有不正確或缺失的值！",
     "msg.file-upload-failed": "上傳失敗！",
     "msg.file-delete-failed": "刪除檔案失敗！",
-
     "msg.home-welcome": "請稍候......前往編輯器，繫結裝置，設計你的可視化並繫結裝置的變數",
     "msg.server-connection-failed": "伺服器連線失敗！",
     "msg.project-load-error": "無法讀取 '{{value}}'",
@@ -1707,6 +1596,8 @@
     "msg.editor-mode-locked": "編輯器已開啟！",
     "msg.alarms-clear-success": "所有警報已被清除！",
     "msg.import-devices-error": "匯入裝置失敗！",
+    "msg.import-alarms-error": "Import alarms failed!",
+    "msg.export-alarms-error": "Export alarms failed!",
     "msg.report-build-forced": "已成功觸發建置報告傳送",
     "msg.report-build-error": "觸發建置報告傳送失敗！",
     "msg.device-tags-request-result": "載入 {{current}} / {{value}}",
@@ -1723,7 +1614,14 @@
     "msg.maps-location-name-exist": "位置名稱已存在！",
     "msg.text-name-exist": "文字名稱已存在！",
     "msg.texts-text-remove": "您是否要刪除文字 '{{value}}'？",
-    "msg.operation-unauthorized": "操作未授權！"
+    "msg.operation-unauthorized": "操作未授權！",
+    "events.view-title": "事件歷史",
+    "events.view-timestamp": "時間戳",
+    "events.view-details": "詳情",
+    "events.search": "搜尋",
+    "events.filter-placeholder": "篩選",
+    "logs.filter": "篩選",
+    "logs.filter-placeholder": "輸入篩選文字...",
+    "events.view-user": "使用者",
+    "events.user-filter-placeholder": "按使用者篩選..."
 }
-
-

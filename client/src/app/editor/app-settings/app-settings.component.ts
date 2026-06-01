@@ -6,8 +6,10 @@ import { DiagnoseService } from '../../_services/diagnose.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 
-import { AlarmsRetentionType, AppSettings, DaqStore, DaqStoreRetentionType, DaqStoreType, MailMessage, SmtpSettings, StoreCredentials, LogsSettings, AlarmsSettings } from '../../_models/settings';
+import { AlarmsRetentionType, AppSettings, DaqStore, DaqStoreRetentionType, DaqStoreType, MailMessage, SmtpSettings, StoreCredentials, LogsSettings, AlarmsSettings, EventsSettings, WhiteLabelSettings } from '../../_models/settings';
 import { Utils } from '../../_helpers/utils';
+import { ResourceItem, Resources, ResourceType } from '../../_models/resources';
+import { ResourcesService } from '../../_services/resources.service';
 
 @Component({
     selector: 'app-app-settings',
@@ -59,12 +61,15 @@ export class AppSettingsComponent implements OnInit {
     retationType = DaqStoreRetentionType;
     alarmsRetationType = AlarmsRetentionType;
     logsRetationType = DaqStoreRetentionType;
+    eventsRetationType = DaqStoreRetentionType;
     influxDB18 = Utils.getEnumKey(DaqStoreType, DaqStoreType.influxDB18);
+    resources: ResourceItem[] = [];
 
     constructor(private settingsService: SettingsService,
         private diagnoseService: DiagnoseService,
         private translateService: TranslateService,
         private toastr: ToastrService,
+        private resourcesService: ResourcesService,
         public dialogRef: MatDialogRef<AppSettingsComponent>) { }
 
     ngOnInit() {
@@ -103,6 +108,9 @@ export class AppSettingsComponent implements OnInit {
         if (!this.settings.logs) {
             this.settings.logs = new LogsSettings();
         }
+        if (!this.settings.events) {
+            this.settings.events = new EventsSettings();
+        }
         if (Utils.isNullOrUndefined(this.settings.nodeRedEnabled)) {
             this.settings.nodeRedEnabled = false;
         }
@@ -115,6 +123,16 @@ export class AppSettingsComponent implements OnInit {
             this.settings.swaggerEnabled = false;
         }
         this.originalSwaggerEnabled = this.settings.swaggerEnabled;
+        if (!this.settings.whiteLabel) {
+            this.settings.whiteLabel = new WhiteLabelSettings();
+        }
+        this.resourcesService.getResources(ResourceType.images).subscribe((result: Resources) => {
+            if (result) {
+                result.groups.forEach((group: any) => {
+                    this.resources.push(...group.items);
+                });
+            }
+        });
     }
 
     onNoClick() {

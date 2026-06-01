@@ -2,6 +2,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/ro
 import { Injectable } from '@angular/core';
 import { AuthService } from './_services/auth.service';
 import { ProjectService } from './_services/project.service';
+import { SettingsService } from './_services/settings.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
@@ -15,6 +16,7 @@ export class AuthGuard  {
         private translateService: TranslateService,
         private toastr: ToastrService,
         private projectService: ProjectService,
+        private settingsService: SettingsService,
         private dialog: MatDialog,
         private router: Router) {
         }
@@ -40,7 +42,8 @@ export class AuthGuard  {
                 if (!secureEnabled) {
                     return of(true);
                 } else {
-                    const dialogRef = this.dialog.open(LoginComponent);
+                    const wl = this.settingsService.getSettings()?.whiteLabel;
+                    const dialogRef = this.dialog.open(LoginComponent, { data: { whiteLabel: wl } });
                     return dialogRef.afterClosed().pipe(
                         mergeMap(result => {
                             if (result) {

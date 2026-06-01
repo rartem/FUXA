@@ -83,7 +83,7 @@ module.exports = {
                     const filePath = path.join(wwwSubDir, files[x]).split(path.sep).join(path.posix.sep);
                     var fileLabel;
                     if (resourcesFilter.fonts.some(suffix => fileName.endsWith(suffix))) {
-                        const font = fontkit.openSync(filePath);
+                        const font = fontkit.openSync(path.join(runtime.settings.resourcesFileDir, fileName));
                         fileLabel = font.fullName;
                     }
 
@@ -102,6 +102,45 @@ module.exports = {
                     res.status(400).json({ error: "unexpected_error", message: err.toString() });
                 }
                 runtime.logger.error("api get resources/resources: " + err.message);
+            }
+        });
+
+        /**
+         * GET Server fonts folder content
+         */
+        resourcesApp.get('/api/resources/fonts', secureFnc, function (req, res) {
+            try {
+                const wwwSubDir = '_resources';
+                const result = { ...req.query, ...{ groups: [] } };
+                const group = { name: wwwSubDir, items: [] };
+                var files = getFiles(runtime.settings.resourcesFileDir, ['.ttf']);
+                for (var x = 0; x < files.length; x++) {
+                    const fileName = files[x];
+                    const filePath = path.join(wwwSubDir, files[x]).split(path.sep).join(path.posix.sep);
+                    let fileLabel;
+                    try {
+                        const font = fontkit.openSync(path.join(runtime.settings.resourcesFileDir, fileName));
+                        fileLabel = font.fullName;
+                    } catch (fontErr) {
+                        runtime.logger.warn('Failed to read font metadata: ' + fileName);
+                        fileLabel = fileName.replace(/\.[^/.]+$/, '');
+                    }
+
+                    group.items.push({
+                        path: filePath,
+                        name: fileName,
+                        label: fileLabel
+                    });
+                }
+                result.groups.push(group);
+                res.json(result);
+            } catch (err) {
+                if (err.code) {
+                    res.status(400).json({ error: err.code, message: err.message });
+                } else {
+                    res.status(400).json({ error: "unexpected_error", message: err.toString() });
+                }
+                runtime.logger.error("api get resources/fonts: " + err.message);
             }
         });
 

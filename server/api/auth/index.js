@@ -52,7 +52,7 @@ function buildAccessToken(user) {
 }
 
 function buildRefreshToken(user) {
-    return jwt.sign({ id: user.username, groups: user.groups, type: 'refresh' }, secretCode, { expiresIn: refreshTokenExpiresIn });
+    return jwt.sign({ id: user.username, type: 'refresh' }, secretCode, { expiresIn: refreshTokenExpiresIn });
 }
 
 function setRefreshCookie(res, token) {
@@ -118,6 +118,12 @@ module.exports = {
                             }
                         });
                         runtime.logger.info('api-signin: ' + userInfo[0].username + ' ' + userInfo[0].fullname + ' ' + userInfo[0].groups);
+                        if (runtime.eventsMgr) {
+                            runtime.eventsMgr.logEvent('login', 'user', userInfo[0].username, 'login', {
+                                username: userInfo[0].username,
+                                fullname: userInfo[0].fullname || ''
+                            });
+                        }
                     } else {
                         res.status(401).json({ status: 'error', message: 'Invalid email/password!!!', data: null });
                         runtime.logger.error('api post signin: Invalid email/password!!!');
@@ -155,20 +161,18 @@ module.exports = {
                     return res.status(401).json({ status: 'error', message: 'Invalid refresh token' });
                 }
 
-                let userData = null;
-                try {
-                    const users = await runtime.users.getUsers({ username: decoded.id });
-                    if (users && users.length) {
-                        userData = users[0];
-                    }
-                } catch (err) {
-                    runtime.logger.error(`api refresh: user lookup failed ${err}`);
+                const users = await runtime.users.getUsers({ username: decoded.id });
+                if (!users || !users.length) {
+                    clearRefreshCookie(res);
+                    return res.status(401).json({ status: 'error', message: 'Invalid refresh token' });
                 }
+
+                const userData = users[0];
 
                 const user = {
                     username: decoded.id,
                     fullname: userData?.fullname,
-                    groups: userData?.groups || decoded.groups,
+                    groups: userData?.groups,
                     info: userData?.info
                 };
 
@@ -198,6 +202,21 @@ module.exports = {
          * Clear refresh cookie
          */
         authApp.post('/api/signout', function (req, res, next) {
+            var username = '';
+            try {
+                if (req.headers.authorization) {
+                    const token = req.headers.authorization.split(' ')[1];
+                    const decoded = jwt.decode(token);
+                    if (decoded && decoded.id) {
+                        username = decoded.id;
+                    }
+                }
+            } catch (e) {}
+            if (runtime.eventsMgr && username) {
+                runtime.eventsMgr.logEvent('logout', 'user', username, 'logout', {
+                    username: username
+                });
+            }
             if (enableRefreshCookieAuth) {
                 clearRefreshCookie(res);
             }

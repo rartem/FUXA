@@ -1,3 +1,23 @@
+export class WhiteLabelSettings {
+    /** Custom application title */
+    title?: string = '';
+    /** Custom logo image path */
+    logo?: string = '';
+    /** Custom favicon path */
+    favicon?: string = '';
+    /** Hide powered by footer */
+    hidePoweredBy?: boolean = false;
+
+    constructor(settings: Partial<WhiteLabelSettings> = null) {
+        if (settings) {
+            this.title = settings.title || '';
+            this.logo = settings.logo || '';
+            this.favicon = settings.favicon || '';
+            this.hidePoweredBy = !!settings.hidePoweredBy;
+        }
+    }
+}
+
 export class AppSettings {
     /** Editor language */
     language = 'en';
@@ -29,6 +49,8 @@ export class AppSettings {
     alarms = new AlarmsSettings();
     /** Logs settings */
     logs = new LogsSettings();
+    /** Events history settings */
+    events = new EventsSettings();
     /** Log Full enabled to log all setValue */
     logFull = false;
     /** User role enabled (default group) */
@@ -39,15 +61,20 @@ export class AppSettings {
     nodeRedAuthMode = 'secure';
     /** Enable Swagger */
     swaggerEnabled = false;
+    /** White-label customization */
+    whiteLabel = new WhiteLabelSettings();
 }
 
 export class EditorSectionMessagesSettings {
     /** Hide the drivers/plugins notice shown in device connections */
     hideDevicePluginsNotice = false;
+    /** Hide the AR markers notice shown in AR marker configuration */
+    hideArMarkersNotice = false;
 
     constructor(settings: Partial<EditorSectionMessagesSettings> = null) {
         if (settings) {
             this.hideDevicePluginsNotice = !!settings.hideDevicePluginsNotice;
+            this.hideArMarkersNotice = !!settings.hideArMarkersNotice;
         }
     }
 }
@@ -119,6 +146,10 @@ export class AlarmsSettings {
 }
 
 export class LogsSettings {
+    retention = DaqStoreRetentionType.none;
+}
+
+export class EventsSettings {
     retention = DaqStoreRetentionType.none;
 }
 

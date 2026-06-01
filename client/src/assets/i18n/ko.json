@@ -1,10 +1,8 @@
 {
     "with param": "견본 {{value}}",
-
     "app.home": "홈",
     "app.lab": "랩",
     "app.editor": "편집자",
-
     "header.new-project": "새 프로젝트",
     "header.save-project": "프로젝트 저장",
     "header.saveas-project": "다른 이름으로 프로젝트 저장...",
@@ -23,13 +21,9 @@
     "header.help-info": "정보",
     "header.info-version": "버전 ",
     "header.theme": "밝은 테마/어두운 테마",
-
     "sidenav.title": "FUXA",
-
     "tutorial.title": "FUXA 튜토리얼",
-
     "dlg.info-title": "FUXA",
-
     "dlg.layout-title": "레이아웃 설정",
     "dlg.layout-general": "일반 설정",
     "dlg.layout-lbl-sview": "시작 뷰",
@@ -47,13 +41,11 @@
     "dlg.layout-lbl-title": "제목",
     "dlg.layout-lbl-alarms": "알림 설정 모드",
     "dlg.layout-lbl-infos": "정보 설정 모드",
-
     "dlg.menuitem-title": "메뉴 아이템",
     "dlg.menuitem-icon": "아이콘",
     "dlg.menuitem-text": "텍스트",
     "dlg.menuitem-view": "Click해서 보기",
     "dlg.menuitem-link": "Click해서 링크",
-
     "dlg.docproperty-title": "뷰 속성",
     "dlg.docproperty-width": "넓이",
     "dlg.docproperty-height": "높이",
@@ -69,71 +61,55 @@
     "dlg.docproperty-size-1600-1200": "1600 x 1200 pixels",
     "dlg.docproperty-size-1920-1080": "1920 x 1080 pixels",
     "dlg.docproperty-margin": "여유 크기",
-
     "dlg.docname-title": "뷰 이름",
     "dlg.docname-name": "이름",
     "dlg.docproperty-type": "뷰 타입",
-
     "dlg.tagname-title": "태그 이름",
     "dlg.tagname-name": "이름",
-
     "dlg.linkproperty-title": "하이퍼링크 설정하기",
     "dlg.linkproperty-url": "하이퍼링크 URL",
-
     "dlg.login-title": "로그인...",
     "dlg.logout-btn": "로그아웃",
-
     "dlg.ok": "예",
     "dlg.cancel": "취소",
     "dlg.close": "닫기",
-
     "dlg.userproperty-title": "유저",
     "dlg.userproperty-groups": "그룹 권한",
     "dlg.useraccess-groups": "권한 (void = full for everyone)",
-
     "dlg.gauge-permission-title": "권환",
     "dlg.gauge-permission-label": "(void = full for everyone)",
     "dlg.gauge-permission-show": "보이기",
     "dlg.gauge-permission-enabled": "활성화",
-
     "general.close": "닫기",
     "general.search": "검색 중...",
     "general.search-notfound": "찾는 옵션 탐색 실패",
     "general.username": "유저 이름",
-	"general.fullname": "전체 이름",
+    "general.fullname": "전체 이름",
     "general.password": "비밀번호",
     "general.clientId": "클라이언트 ID",
     "general.authority": "권한",
     "general.grant-type": "인증 유형",
     "general.usergroups": "Viewer,Operator,Engineer,Supervisor,Manager,F,G,Administrator",
-
     "tester.title": "변수",
     "tester.send": "보내기",
-
     "item.navsmode-none": "없음",
     "item.navsmode-push": "밀려나오기",
     "item.navsmode-over": "위에서나오기",
     "item.navsmode-fix": "고정",
-
     "item.navtype-icons": "아이콘",
     "item.navtype-text": "텍스트",
     "item.navtype-icons-text-block": "아이콘&텍스트 (블록)",
     "item.navtype-icons-text-inline": "아이콘&텍스트 (한 줄)",
-
     "item.notifymode-hide": "숨기기",
     "item.notifymode-fix": "고정",
     "item.notifymode-float": "밀기",
-
     "item.zoommode-disabled": "비활성화",
     "item.zoommode-enabled": "활성화",
-
     "item.headerbarmode-hide": "숨기기",
     "item.headerbarmode-show": "보이기",
-
     "dlg.layout-input-dialog": "입력 필드의 상태창",
     "item.inputmode-disabled": "비활성화",
     "item.inputmode-enabled": "활성화",
-
     "chart.config-title": "차트 설정",
     "chart.config-charts": "차트",
     "chart.config-devices": "장치",
@@ -153,7 +129,6 @@
     "chart.config-interpo-stepAfter": "step after",
     "chart.config-interpo-stepBefore": "step before",
     "chart.config-interpo-spline": "spline",
-
     "chart.property-props": "속성",
     "chart.property-layout": "레이아웃",
     "chart.property-chart": "차트 선택",
@@ -172,21 +147,17 @@
     "chart.property-legend.mode": "범례 보기 모드",
     "chart.property-date.format": "날짜 형식",
     "chart.property-time.format": "시간 형식",
-
     "chart.rangetype-last8h": "지난 8시간",
     "chart.rangetype-last1d": "지난날",
     "chart.rangetype-last3d": "3일 전",
     "chart.rangetype-last1w": "지난주",
-
     "chart.legend-always": "항상 보이기",
     "chart.legend-follow": "따라가기",
     "chart.legend-bottom": "아래",
     "chart.legend-never": "항상 숨기기",
-
     "chart.labels-serie": "Serie",
     "chart.labels-time": "시간",
     "chart.labels-title": "제목",
-
     "editor.view-svg": "Canvas/SVG",
     "editor.view-cards": "Multi views container",
     "editor.views": "뷰",
@@ -223,17 +194,14 @@
     "editor.controls-slider-settings": "슬라이드바 설정",
     "editor.controls-shape-settings": "도형 설정",
     "editor.controls-html-switch-settings": "스위치 설정",
-	"editor.controls-switch": "스위치",
-
+    "editor.controls-switch": "스위치",
     "editor.layout-settings": "레이아웃 설정",
-
     "editor.interactivity": "상호작용",
     "editor.interactivity-id": "id:",
     "editor.interactivity-id-title": "개체 식별",
     "editor.interactivity-class": "class:",
     "editor.interactivity-class-title": "개체 클래스",
     "editor.interactivity-name": "이름",
-
     "editor.cmenu-cut": "잘라내기",
     "editor.cmenu-copy": "복사",
     "editor.cmenu-paste": "붙여넣기",
@@ -249,7 +217,6 @@
     "editor.cmenu-layer-delete": "레이어 삭제",
     "editor.cmenu-layer-marge-down": "병합하기",
     "editor.cmenu-layer-marge-all": "모두 병합하기",
-
     "editor.transform": "변형",
     "editor.transform-x": "x",
     "editor.transform-x-title": "X좌표 변경",
@@ -303,7 +270,6 @@
     "editor.transform-change-image-title": "안내: 이 이미지는 포함할 수 없습니다. 이것은 표시된 경로에 의존합니다.",
     "editor.transform-angle": "각도",
     "editor.transform-angle-title": "회전 각도 변경",
-
     "editor.align": "정렬",
     "editor.align-left-title": "왼쪽 정렬",
     "editor.align-center-title": "중앙 정렬",
@@ -311,7 +277,6 @@
     "editor.align-top-title": "위쪽 정렬",
     "editor.align-middle-title": "가운데 정렬",
     "editor.align-bottom-title": "아래쪽 정렬",
-
     "editor.stroke": "선",
     "editor.stroke-width": "선 굵기",
     "editor.stroke-width-title": "선 굵기를 1씩 변경, shift-click으로 0.1씩 변경",
@@ -325,7 +290,6 @@
     "editor.stroke-capround-title": "Linecap Round",
     "editor.stroke-shadow": "그림자",
     "editor.stroke-shadow-title": "그림자",
-
     "editor.marker": "마커",
     "editor.marker-start": "시작점",
     "editor.marker-start-title": "시작점 마커 타입 선택",
@@ -333,10 +297,8 @@
     "editor.marker-middle-title": "중간점 마커 타입 선택",
     "editor.marker-end": "끝점",
     "editor.marker-end-title": "끝점 마커 타입 선택",
-
     "editor.hyperlink": "하이퍼링크",
     "editor.hyperlink-url": "url",
-
     "editor.tools-launch-title": "현재 뷰 실행",
     "editor.tools-zoom-title": "확대 도구 [Ctrl+Up/Down]",
     "editor.tools-grid-title": "격자 보이기/숨기기",
@@ -358,7 +320,6 @@
     "editor.tools-alignbottom-title": "아래쪽 정렬",
     "editor.tools-ungroup-title": "개체 그룹화 해제 [G]",
     "editor.tools-hyperlink-title": "하이퍼링크 생성",
-
     "shapes.action-hide": "숨기기",
     "shapes.action-show": "보이기",
     "shapes.action-blink": "깜빡이기",
@@ -376,7 +337,6 @@
     "shapes.event-ontogglevalue": "특정값으로 설정",
     "shapes.event-onsetinput": "Set from Input",
     "shapes.event-onclose": "닫기",
-
     "pipe.property-props": "속성",
     "pipe.property-border-width": "가장자리 넓이",
     "pipe.property-border-color": "가장자리 색",
@@ -385,7 +345,6 @@
     "pipe.property-content-width": "컨텐츠 넓이",
     "pipe.property-content-color": "컨텐츠 색",
     "pipe.property-content-space": "컨텐츠 간격",
-
     "slider.property-props": "속성",
     "slider.property-horizontal": "수평",
     "slider.property-vertical": "수직",
@@ -418,7 +377,6 @@
     "slider.property-slider-color": "커넥트 색",
     "slider.property-slider-background": "베이스 색",
     "slider.property-slider-handle": "포인터 색",
-
     "html-switch.property-off-value": "Off 값",
     "html-switch.property-on-value": "On 값",
     "html-switch.property-on-background": "On 배경색",
@@ -432,7 +390,6 @@
     "html-switch.property-on-text-color": "On 텍스트 색",
     "html-switch.property-font-size": "글꼴 크기",
     "html-switch.property-font": "글꼴",
-
     "editor.tools-zoomlevel-title": "확대 크기",
     "editor.tools-zoomlevel-fitcanvas": "캔버스에 맞게",
     "editor.tools-zoomlevel-fitsection": "선택한 범위에 맞게",
@@ -440,7 +397,6 @@
     "editor.tools-fillcolor-title": "채우기색 변경",
     "editor.tools-strokecolor-title": "선 색깔 변경",
     "editor.tools-palettecolor-title": "채우기색 변경을 위해 click, 선 색깔 변경을 위해 shift-click",
-
     "device.list-title": "장치 설정",
     "device.list-device": "장치",
     "device.list-filter": "필터",
@@ -455,7 +411,6 @@
     "device.list-remove": "태그 삭제",
     "device.list-remove-all": "모든 태그 삭제",
     "device.list-options": "태그 옵션",
-
     "devices.export": "장치 내보내기",
     "devices.import": "장치 가져오기",
     "device.property-client": "장치 속성",
@@ -492,7 +447,6 @@
     "device.security-none": "없음",
     "device.security-sign": "Sign",
     "device.security-signandencrypt": "Sign & Encrypt",
-
     "device.browsetopics-property-title": "구독과 계시할 브로커 항목",
     "device.browsetopics-property-sub": "구독",
     "device.browsetopics-property-pub": "계시",
@@ -522,7 +476,6 @@
     "device.topic-name-exist": "The Topic name '{{value}}' already exist",
     "device.topic-subs-address-exist": "The Topic to subscribe with address '{{value}}' already exist",
     "device.topic-pubs-address-exist": "The Topic to publish with address '{{value}}' already exist",
-
     "device.property-mqtt-address": "주소 (mqtt://[server]:[port])",
     "device.tag-property-title": "태그 속성",
     "device.browsetag-property-title": "서버 내 브라우저 태그",
@@ -542,20 +495,15 @@
     "device.tag-array-id": "Array ID:",
     "device.tag-array-value": "값:",
     "device-tag-dialog-title": "태그 선택",
-
     "device.tag-options-title": "태그 옵션",
-
-
     "device.tag-uns-path": "UNS Path",
     "device.tag-daq-enabled": "등록 활성화",
     "device.tag-daq-changed": "값 변경 가능시 저장",
     "device.tag-daq-interval": "값 차이 저장 (sec.)",
-
     "users.list-title": "유저 설정",
     "users.list-name": "유저 이름",
-	"users.list-fullname": "전체 이름",
+    "users.list-fullname": "전체 이름",
     "users.list-groups": "그룹",
-
     "gauges.property-props": "속성",
     "gauges.property-events": "이벤트",
     "gauges.property-title": "속성",
@@ -598,7 +546,6 @@
     "gauges.property-interval-msec": "차이 (msec.)",
     "gauges.property-tag-label": "태그",
     "gauges.property-tag-internal-title": "내부장치의 태그 설정",
-
     "bag.property-ticks": "Ticks",
     "bag.property-divisions": "큰 눈금",
     "bag.property-subdivisions": "작은 눈금",
@@ -630,7 +577,6 @@
     "bag.property-format-digits": "숫자 서식 지정",
     "bag.property-zones": "구약",
     "bag.property-color": "색",
-
     "alarms.list-title": "알람 설정",
     "alarms.list-name": "이름",
     "alarms.list-device": "장치 / 변수",
@@ -639,6 +585,12 @@
     "alarms.list-low": "낮음",
     "alarms.list-info": "메세지",
     "alarms.list-actions": "행동",
+    "alarms.import": "Import Alarms",
+    "alarms.export": "Export Alarms (JSON)",
+    "alarms.import-title": "Import Alarms",
+    "alarms.import-conflicts-message": "{{total}} alarms found. {{conflicts}} already exist. Choose how to import them.",
+    "alarms.import-copy": "Add as copies",
+    "alarms.import-replace": "Replace",
     "alarm.property-title": "알림",
     "alarm.property-name": "이름",
     "alarm.property-permission": "권한",
@@ -680,7 +632,6 @@
     "alarm.property-action-type": "능동 타입",
     "alarm.property-action-value": "설정 값",
     "alarm.property-action-destination": "설정 뷰",
-
     "card.config-title": "Card 설정",
     "card.config-content-type": "컨텐츠 타입",
     "card.config-content-view": "컨텐츠 뷰",
@@ -688,19 +639,16 @@
     "card.widget-alarms": "알림",
     "card.widget-table": "테이블",
     "card.style-zoom": "확대",
-
     "texts.list-title": "텍스트 설정",
     "texts.list-filter": "필터",
     "texts.list-filter-group": "그룹",
     "texts.list-id": "ID",
     "texts.list-group": "그룹",
     "texts.list-value": "텍스트",
-
     "text.settings-title": "텍스트",
     "text.settings-id": "ID",
     "text.settings-group": "그룹",
     "text.settings-value": "텍스트",
-
     "dlg.plugins-title": "플러그인",
     "dlg.plugins-name": "이름",
     "dlg.plugins-version": "버전",
@@ -710,7 +658,6 @@
     "dlg.plugins-status-installed": "설치 중...완료!",
     "dlg.plugins-status-removed": "제거 중...완료!",
     "dlg.plugins-status-error": "오류! 수동으로 시도하시오!",
-
     "dlg.setup-title": "설치",
     "dlg.setup-gui": "유저 인터페이스",
     "dlg.setup-diverse": "기타",
@@ -740,7 +687,6 @@
     "dlg.app-settings-daqstore-url": "URL",
     "dlg.app-settings-daqstore-configurl": "Config URL",
     "dlg.app-settings-daqstore-queryconn": "Query connection (PGWire)",
-
     "dlg.app-settings-daqstore-questdb-host": "QuestDB Host",
     "dlg.app-settings-daqstore-ingestconn": "Ingestion connection (ILP)",
     "dlg.app-auth-disabled": "비활성화",
@@ -749,7 +695,6 @@
     "dlg.app-auth-expiration-3h": "3시간 후 토큰 만료로 활성화.",
     "dlg.app-auth-expiration-1d": "1일 후 토큰 만료로 활성화.",
     "dlg.app-auth-tooltip": "활성화하면 관리자 계정 'admin/123456'을 갖게 됩니다. 변경하는 것을 잊지 마십시오.",
-
     "msg.alarm-remove": "알림을 지우겠습니까? ",
     "msg.text-remove": "텍스트를 지우겠습니까? ",
     "msg.alarmproperty-error-exist": "알림 이름이 이미 존재함!",
@@ -759,7 +704,6 @@
     "msg.device-remove": "장치를 제거하시겠습니까? ",
     "msg.device-tag-remove": "테그를 제거하시겠습니까? ",
     "msg.device-tag-exist": "태그 이름이 이미 존재함!",
-
     "msg.home-welcome": "잠깐...편집기로 이동하여 장치를 매핑하고 시각화하고 장치 변수를 묶으세요.",
     "msg.project-load-error": "읽기 불가 '{{value}}'",
     "msg.project": "변경된 프로젝트를 저장하시겠습니까?",
@@ -771,6 +715,8 @@
     "msg.user-remove": "유저를 제거하시겠습니까? ",
     "msg.project-save-success": "프로젝트가 성공적으로 저장되었습니다!",
     "msg.project-save-error": "프로젝트 저장 실패!",
+    "msg.import-alarms-error": "Import alarms failed!",
+    "msg.export-alarms-error": "Export alarms failed!",
     "msg.project-format-error": "형식에 맞지 않은 프로젝트입니다!",
     "msg.project-save-unauthorized": "프로젝트 저장 실패! 승인되지 않았습니다!",
     "msg.project-save-ask": "프로젝트를 떠나시겠습니까?",
@@ -779,8 +725,15 @@
     "msg.signin-failed": "권한 없음",
     "msg.get-project-void": "프로젝트가 발견되지 않았습니다.!",
     "msg.editor-mode-locked": "편집자가 이미 열려있습니다!",
-    "msg.alarms-clear-success": "모든 알림이 취소되었습니다!"
+    "msg.alarms-clear-success": "모든 알림이 취소되었습니다!",
+    "events.view-title": "이벤트 기록",
+    "events.view-timestamp": "타임스탬프",
+    "events.view-type": "이름",
+    "events.view-details": "세부정보",
+    "events.search": "검색",
+    "events.filter-placeholder": "필터",
+    "logs.filter": "필터",
+    "logs.filter-placeholder": "필터 텍스트 입력...",
+    "events.view-user": "사용자",
+    "events.user-filter-placeholder": "사용자 필터..."
 }
-
-
-

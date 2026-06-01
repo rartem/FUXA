@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ChangeDetectorRef, Inject } from '@angular/core';
 import { DOCUMENT, Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject, Subscription, combineLatest, fromEvent, interval, map, merge, of, startWith, switchMap, takeUntil, tap, timer } from 'rxjs';
 
@@ -13,6 +14,7 @@ import { AppService } from './_services/app.service';
 import { HeartbeatService } from './_services/heartbeat.service';
 import { AuthService } from './_services/auth.service';
 import { HmiService } from './_services/hmi.service';
+import { FontLoaderService } from './_services/font-loader.service';
 
 @Component({
 	selector: 'app-root',
@@ -44,6 +46,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 		private cdr: ChangeDetectorRef,
 		private hmiService: HmiService,
 		private authService: AuthService,
+		private titleService: Title,
+		private fontLoaderService: FontLoaderService,
 		location: Location
 	) {
 		this.location = location;
@@ -51,7 +55,16 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	ngOnInit() {
 		console.log(`FUXA v${environment.version}`);
+		this.fontLoaderService.loadCustomFonts();
 		this.heartbeatService.startHeartbeatPolling();
+		this.settingsService.loaded$.subscribe(loaded => {
+			if (loaded) {
+				this.applyWhiteLabel(this.settingsService.getSettings());
+			}
+		});
+		this.settingsService.settings$.subscribe(settings => {
+			this.applyWhiteLabel(settings);
+		});
 
 		// capture events for the token refresh
 		const inactivityDuration = 1 * 60 * 1000;
@@ -142,6 +155,35 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 		}
 	}
 
+	applyWhiteLabel(settings: any) {
+		const wl = settings?.whiteLabel;
+		if (!wl) return;
+		// Title
+		const title = wl.title || 'FUXA';
+		this.titleService.setTitle(title);
+		// Splash screen
+		const splashTitle = this.document.getElementById('splash-title');
+		if (splashTitle) {
+			splashTitle.textContent = title + ' Loading...';
+		}
+		const splashLogo = this.document.getElementById('splash-logo') as HTMLElement;
+		if (splashLogo && wl.logo) {
+			splashLogo.style.background = `url('${wl.logo}') no-repeat center center`;
+			splashLogo.style.backgroundSize = '60px 60px';
+		}
+		const splashFooter = this.document.getElementById('splash-footer');
+		if (splashFooter) {
+			splashFooter.style.display = wl.hidePoweredBy ? 'none' : 'block';
+		}
+		// Favicon
+		if (wl.favicon) {
+			const favicon = this.document.getElementById('appFavicon') as HTMLLinkElement;
+			if (favicon) {
+				favicon.href = wl.favicon;
+			}
+		}
+	}
+
 	checkSettings() {
 		let hmi = this.projectService.getHmi();
 		if (hmi && hmi.layout && hmi.layout.showdev === false) {
@@ -154,7 +196,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	isHidden() {
 		const urlEnd = this.location.path();
-		if (!urlEnd || urlEnd.startsWith('/home') || urlEnd === '/lab') {
+		if (!urlEnd || urlEnd.startsWith('/home') || urlEnd === '/lab' || this.isArViewRoute(urlEnd)) {
 			return true;
 		}
 		return false;
@@ -165,15 +207,22 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 		if (route.startsWith('/view')) {
             return 'work-void';
         }
+		if (this.isArViewRoute(route)) {
+            return 'work-void';
+        }
 		return (this.isHidden()) ? 'work-home' : 'work-editor';
 	}
 
     showDevNavigation() {
         const route = this.location.path();
-        if (route.startsWith('/view')) {
+        if (route.startsWith('/view') || this.isArViewRoute(route)) {
             return false;
         }
         return this.showdev;
+    }
+
+    private isArViewRoute(route: string): boolean {
+        return route === '/ar' || route.startsWith('/ar?');
     }
 
 	onGoTo(goto) {

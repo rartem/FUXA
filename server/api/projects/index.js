@@ -236,12 +236,17 @@ module.exports = {
                         res.status(400).json({error:"invalid_destination", message: "Invalid destination path."});
                         return;
                     }
-                    const resolvedDestination = resolveWithin(baseDir, `_${normalizedDestination}`);
-                    if (!resolvedDestination) {
-                        res.status(400).json({error:"invalid_destination", message: "Invalid destination path."});
-                        return;
+                    let destinationDir;
+                    if (normalizedDestination === 'resources' && runtime.settings.resourcesFileDir) {
+                        destinationDir = runtime.settings.resourcesFileDir;
+                    } else {
+                        const resolvedDestination = resolveWithin(baseDir, `_${normalizedDestination}`);
+                        if (!resolvedDestination) {
+                            res.status(400).json({error:"invalid_destination", message: "Invalid destination path."});
+                            return;
+                        }
+                        destinationDir = resolvedDestination.resolvedTarget;
                     }
-                    const destinationDir = resolvedDestination.resolvedTarget;
                     const resolvedFile = resolveWithin(destinationDir, relativePath);
                     if (!resolvedFile) {
                         res.status(400).json({error:"invalid_path", message: "Invalid upload path."});

@@ -80,13 +80,13 @@ Set-Content -Path "$HEADLESS_DIR\package.json" -Value $pkgJson -Encoding UTF8
 
 # Step 6: Build standalone binary
 Write-Host ""
-Write-Host "[6/6] Building standalone binary (node20-win-x64)..."
+Write-Host "[6/6] Building standalone binary (node22-win-x64)..."
 
 $ARTIFACTS_DIR = "$ROOT\artifacts"
 if (Test-Path $ARTIFACTS_DIR) { Remove-Item $ARTIFACTS_DIR -Recurse -Force }
 New-Item -ItemType Directory -Path $ARTIFACTS_DIR -Force | Out-Null
 
-npx --yes @yao-pkg/pkg "$HEADLESS_DIR\package.json" --targets node20-win-x64 --out-path $ARTIFACTS_DIR
+npx --yes @yao-pkg/pkg "$HEADLESS_DIR\package.json" --targets node22-win-x64 --out-path $ARTIFACTS_DIR
 if ($LASTEXITCODE -ne 0) { throw "pkg build failed" }
 
 # Rename artifact

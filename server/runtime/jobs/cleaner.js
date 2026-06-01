@@ -23,6 +23,7 @@ function Cleaner(_runtime) {
                 } else {
                     const clearFncs = [await runtime.daqStorage.checkRetention(),
                                        await runtime.alarmsMgr.checkRetention(),
+                                       await runtime.eventsMgr.checkRetention(),
                                        await cleanupLogs(runtime.settings, runtime.logger)];
 
                     Promise.all(clearFncs).then(values => {
