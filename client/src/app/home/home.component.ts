@@ -196,12 +196,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         });
     }
 
-    onGoToPage(viewId: string, force: boolean = false, options: any = {}) {
+    async onGoToPage(viewId: string, force: boolean = false, options: any = {}) {
         if (viewId === this.viewAsAlarms) {
             this.onAlarmsShowMode('expand');
             this.checkToCloseSideNav();
         } else if (!this.homeView || viewId !== this.homeView?.id || force || this.fuxaview?.view?.id !== viewId || this.hasPageOptions(options)) {
-            const view = this.hmi.views.find(x => x.id === viewId);
+            const view = await this.projectService.ensureViewLoaded(viewId);
             this.setIframe();
             this.showHomeLink = false;
             this.changeDetector.detectChanges();
@@ -378,7 +378,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.router.navigate([destination]);//, this.ID]);
     }
 
-    private loadHmi() {
+    private async loadHmi() {
         let hmi = this.projectService.getHmi();
         if (hmi) {
             this.hmi = hmi;
@@ -395,6 +395,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             if (startView) {
                 viewToShow = startView;
             }
+            viewToShow = await this.projectService.ensureViewLoaded(viewToShow.id);
             this.homeView = viewToShow;
             this.setBackground();
             // check sidenav

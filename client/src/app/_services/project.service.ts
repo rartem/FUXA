@@ -42,6 +42,8 @@ export class ProjectService {
 
     private projectOld = '';
     private ready = false;
+    private loadingViews = new Map<string, Promise<View>>();
+    private projectLoadRequestId = 0;
     public static MainViewName = 'MainView';
 
     constructor(private resewbApiService: ResWebApiService,
@@ -83,9 +85,14 @@ export class ProjectService {
         this.reload();
     }
 
-    onRefreshProject(): boolean {
-        this.storage.getStorageProject().subscribe(prj => {
+    onRefreshProject(loadFull = false): boolean {
+        const requestId = ++this.projectLoadRequestId;
+        this.storage.getStorageProject(loadFull).subscribe(prj => {
+            if (requestId !== this.projectLoadRequestId) {
+                return;
+            }
             if (prj) {
+                this.loadingViews.clear();
                 this.projectData = prj;
                 // copy to check before save
                 this.projectOld = JSON.parse(JSON.stringify(this.projectData));
@@ -98,7 +105,9 @@ export class ProjectService {
                 // this.notifySaveError(msg);
             }
         }, err => {
-            console.error('FUXA onRefreshProject error', err);
+            if (requestId === this.projectLoadRequestId) {
+                console.error('FUXA onRefreshProject error', err);
+            }
         });
         return true;
     }
@@ -108,8 +117,12 @@ export class ProjectService {
      * Load Project from Server if enable.
      * From Local Storage, from 'assets' if demo or create a local project
      */
-    private load() {
-        this.storage.getStorageProject().subscribe(prj => {
+    private load(loadFull = false) {
+        const requestId = ++this.projectLoadRequestId;
+        this.storage.getStorageProject(loadFull).subscribe(prj => {
+            if (requestId !== this.projectLoadRequestId) {
+                return;
+            }
             if (!prj && this.appService.isDemoApp) {
                 console.log('create demo');
                 this.setNewProject();
@@ -117,11 +130,13 @@ export class ProjectService {
                 if (!prj && (this.storage as ResClientService).isReady) {
                     this.setNewProject();
                 } else {
+                    this.loadingViews.clear();
                     this.projectData = prj;
                 }
                 this.ready = true;
                 this.notifyToLoadHmi();
             } else {
+                this.loadingViews.clear();
                 this.projectData = prj;
                 // copy to check before save
                 this.projectOld = JSON.parse(JSON.stringify(this.projectData));
@@ -129,7 +144,9 @@ export class ProjectService {
                 this.notifyToLoadHmi();
             }
         }, err => {
-            console.error('FUXA load error', err);
+            if (requestId === this.projectLoadRequestId) {
+                console.error('FUXA load error', err);
+            }
         });
     }
 
@@ -242,8 +259,8 @@ export class ProjectService {
         });
     }
 
-    reload() {
-        this.load();
+    reload(loadFull = false) {
+        this.load(loadFull);
     }
 
     /**
@@ -464,6 +481,71 @@ export class ProjectService {
             }
         }
         return null;
+    }
+
+    isViewLazy(view: View): boolean {
+        return !!this.asLazyView(view)?.lazy;
+    }
+
+    hasLazyViews(): boolean {
+        return this.getViews().some(view => this.isViewLazy(view));
+    }
+
+    async ensureViewLoaded(id: string): Promise<View> {
+        const view = this.getViewFromId(id);
+        if (!view) {
+            return null;
+        }
+        if (!this.isViewLazy(view)) {
+            return view;
+        }
+        if (this.loadingViews.has(id)) {
+            return this.loadingViews.get(id);
+        }
+
+        const loadingView = firstValueFrom(this.storage.getStorageView(id)).then(loadedView => {
+            this.mergeLoadedView(loadedView);
+            return this.getViewFromId(loadedView?.id || id);
+        }).catch(err => {
+            console.warn(`Unable to load view '${id}'.`, err);
+            return null;
+        }).finally(() => {
+            this.loadingViews.delete(id);
+        });
+
+        this.loadingViews.set(id, loadingView);
+        return loadingView;
+    }
+
+    async ensureViewLoadedByName(name: string): Promise<View> {
+        const id = this.getViewId(name);
+        return id ? this.ensureViewLoaded(id) : null;
+    }
+
+    private mergeLoadedView(view: View) {
+        if (!view) {
+            return;
+        }
+        try {
+            this.markViewLoaded(view);
+            const existingView = this.projectData.hmi.views.find(item => item.id === view.id);
+            if (existingView) {
+                Object.assign(existingView, view);
+                this.markViewLoaded(existingView);
+            } else {
+                this.projectData.hmi.views.push(view);
+            }
+        } catch (err) {
+            console.warn(`Unable to merge view '${view?.id}'.`, err);
+        }
+    }
+
+    private markViewLoaded(view: View) {
+        delete this.asLazyView(view).lazy;
+    }
+
+    private asLazyView(view: View): View & { lazy?: boolean } {
+        return view as View & { lazy?: boolean };
     }
 
     /**

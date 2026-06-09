@@ -790,5 +790,6 @@ export interface VideoOptions {
     address: string;
     initImage?: string;
     showControls?: boolean;
+    loop?: boolean;
 }
 
