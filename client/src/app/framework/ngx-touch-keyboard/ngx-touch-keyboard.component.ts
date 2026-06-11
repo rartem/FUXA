@@ -30,6 +30,19 @@ export class NgxTouchKeyboardComponent {
   fullScreen = false;
   defaultNumeric = false;
 
+  /** Keyboard scale factor (1 = 100%) */
+  private _scale = 1;
+  set scale(value: number) {
+    this._scale = Math.max(0.5, Math.min(3, (value || 100) / 100));
+    this._elementRef.nativeElement.style.setProperty(
+      '--tk-scale',
+      `${this._scale}`
+    );
+  }
+  get scale(): number {
+    return this._scale * 100;
+  }
+
   /** Locales available with the {language} switch key */
   private _languages: Locale[] = [Locales.enUS, Locales.ruRU];
   /** Text layout mode to restore when leaving the numeric keypad */

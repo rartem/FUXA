@@ -136,6 +136,7 @@
     "item.inputmode-keyboard": "Экранная клавиатура",
     "item.inputmode-keyboard-full-screen": "Экранная клавиатура во весь экран",
     "item.inputmode-keyboard-numeric": "Экранная клавиатура (цифровая по умолчанию)",
+    "dlg.layout-keyboard-scale": "Масштаб клавиатуры",
     "chart.config-title": "Настройки графиков",
     "chart.config-charts": "Графики",
     "chart.config-devices": "Устройства",

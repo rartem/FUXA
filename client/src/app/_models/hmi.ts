@@ -74,6 +74,8 @@ export class LayoutSettings {
     zoom: ZoomModeType;
     /** Show input dialog for input field */
     inputdialog = 'false';
+    /** Virtual keyboard scale in percent */
+    keyboardscale? = 100;
     /** Hide navigation Header and sidebarmenu */
     hidenavigation = false;
     /** GUI Theme */

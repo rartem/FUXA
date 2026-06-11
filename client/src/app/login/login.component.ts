@@ -77,6 +77,7 @@ export class LoginComponent {
 			if (hmi.layout.inputdialog === 'keyboardFullScreen') {
 				this.touchKeyboard.ngxTouchKeyboardFullScreen = true;
 			}
+			this.touchKeyboard.ngxTouchKeyboardScale = hmi.layout?.keyboardscale ?? 100;
 			this.touchKeyboard.ngxTouchKeyboard = this.translateService.currentLang;
 			this.touchKeyboard.closePanel();
 			const targetElement = event.target as HTMLInputElement;

@@ -45,6 +45,10 @@
                                 </mat-option>
                             </mat-select>
                         </div>
+                        <div class="my-form-field block mt10" *ngIf="data.layout.inputdialog?.includes('keyboard')">
+                            <span>{{'dlg.layout-keyboard-scale' | translate}}</span>
+                            <input type="number" [(ngModel)]="data.layout.keyboardscale" min="50" max="200" step="10" style="width: 100px" /> %
+                        </div>
                         <div class="my-form-field block mt10">
                             <span>{{'dlg.layout-navigation-mode' | translate}}</span>
                             <mat-select [(value)]="data.layout.hidenavigation" style="width: 400px">

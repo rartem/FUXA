@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import {
   Overlay,
   OverlayRef,
@@ -63,6 +63,16 @@ export class NgxTouchKeyboardDirective implements OnDestroy {
   }
   set ngxTouchKeyboardDefaultNumeric(value: any) {
     this._defaultNumericMode = coerceBooleanProperty(value);
+  }
+
+  private _keyboardScale = 100;
+  /** keyboard scale in percent (100 = default size) */
+  @Input()
+  get ngxTouchKeyboardScale() {
+    return this._keyboardScale;
+  }
+  set ngxTouchKeyboardScale(value: any) {
+    this._keyboardScale = coerceNumberProperty(value, 100) || 100;
   }
 
   private _overlayRef!: OverlayRef;
@@ -138,6 +148,7 @@ export class NgxTouchKeyboardDirective implements OnDestroy {
     this._panelRef.instance.debug = this.ngxTouchKeyboardDebug;
     this._panelRef.instance.fullScreen = this.ngxTouchKeyboardFullScreen;
     this._panelRef.instance.defaultNumeric = this.ngxTouchKeyboardDefaultNumeric;
+    this._panelRef.instance.scale = this.ngxTouchKeyboardScale;
     this._panelRef.instance.setLocale(this._locale);
     this._panelRef.instance.setActiveInput(this._elementRef.nativeElement);
     this.isOpen = true;
@@ -242,10 +253,13 @@ export class NgxTouchKeyboardDirective implements OnDestroy {
       };
     }
 
+    const minWidth = Math.round(
+      260 * Math.max(0.5, Math.min(3, this.ngxTouchKeyboardScale / 100))
+    );
     return {
       width: this._inputOrigin().getBoundingClientRect().width,
       maxWidth: this._inputOrigin().getBoundingClientRect().width,
-      minWidth: '260px',
+      minWidth: `${minWidth}px`,
     };
   }
 
