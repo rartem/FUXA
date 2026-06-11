@@ -55,6 +55,16 @@ export class NgxTouchKeyboardDirective implements OnDestroy {
     this._fullScreenMode = coerceBooleanProperty(value);
   }
 
+  private _defaultNumericMode!: boolean;
+  /** show the numeric keypad by default */
+  @Input()
+  get ngxTouchKeyboardDefaultNumeric() {
+    return this._defaultNumericMode;
+  }
+  set ngxTouchKeyboardDefaultNumeric(value: any) {
+    this._defaultNumericMode = coerceBooleanProperty(value);
+  }
+
   private _overlayRef!: OverlayRef;
   private _panelRef!: ComponentRef<NgxTouchKeyboardComponent>;
 
@@ -127,6 +137,7 @@ export class NgxTouchKeyboardDirective implements OnDestroy {
     );
     this._panelRef.instance.debug = this.ngxTouchKeyboardDebug;
     this._panelRef.instance.fullScreen = this.ngxTouchKeyboardFullScreen;
+    this._panelRef.instance.defaultNumeric = this.ngxTouchKeyboardDefaultNumeric;
     this._panelRef.instance.setLocale(this._locale);
     this._panelRef.instance.setActiveInput(this._elementRef.nativeElement);
     this.isOpen = true;

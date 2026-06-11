@@ -101,6 +101,8 @@ ngx-touch-keyboard {
     &.numeric-key,
     &.symbolic-key,
     &.language-key,
+    &.numpad-key,
+    &.abc-key,
     &.done-key {
       max-width: 4rem;
     }
@@ -128,6 +130,9 @@ ngx-touch-keyboard {
       &.alphabetic-key,
       &.numeric-key,
       &.symbolic-key,
+      &.language-key,
+      &.numpad-key,
+      &.abc-key,
       &.done-key {
         max-width: 6rem;
       }

@@ -662,6 +662,8 @@ export class FuxaViewComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.hmi.layout?.inputdialog === 'keyboardFullScreen') {
             this.touchKeyboard.ngxTouchKeyboardFullScreen = true;
         }
+        this.touchKeyboard.ngxTouchKeyboardDefaultNumeric = this.hmi.layout?.inputdialog === 'keyboardNumeric';
+        this.touchKeyboard.ngxTouchKeyboard = this.translateService.currentLang;
         if (htmlevent.type === 'key-enter') {
             htmlevent.dom.onkeydown = function(ev) {
                 if (ev.key === 'Enter') {

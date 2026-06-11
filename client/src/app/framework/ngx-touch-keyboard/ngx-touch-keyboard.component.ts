@@ -28,6 +28,12 @@ export class NgxTouchKeyboardComponent {
   layoutName = 'alphabetic';
   debug = false;
   fullScreen = false;
+  defaultNumeric = false;
+
+  /** Locales available with the {language} switch key */
+  private _languages: Locale[] = [Locales.enUS, Locales.ruRU];
+  /** Text layout mode to restore when leaving the numeric keypad */
+  private _textLayoutMode = 'text';
 
   @Output() closePanel = new EventEmitter<void>();
 
@@ -105,10 +111,15 @@ export class NgxTouchKeyboardComponent {
    */
   setLocale(value: string = this._defaultLocale): void {
     // normalize value
-    value = value.replace('-', '').trim();
-    // Set Locale if supported
-    if ((Object.keys(Locales) as readonly string[]).includes(value)) {
-      this.locale = Locales[value as 'enUS'];
+    value = (value || '').replace('-', '').trim().toLowerCase();
+    const keys = Object.keys(Locales) as readonly string[];
+    // Set Locale if supported (exact match or language prefix match, e.g. 'ru' -> 'ruRU')
+    const match = value
+      ? keys.find((k) => k.toLowerCase() === value) ||
+        keys.find((k) => k.toLowerCase().startsWith(value))
+      : null;
+    if (match) {
+      this.locale = Locales[match as 'enUS'];
     }
     // Set default Locale if not supported
     else {
@@ -153,8 +164,19 @@ export class NgxTouchKeyboardComponent {
       if (currentType === 'number') {
         this._activeInputElement?.setAttribute('type', 'text');
       }
+      this._textLayoutMode = 'text';
+      this.layoutName = 'default';
+    } else if (this.defaultNumeric) {
+      // Force the numeric keypad as default layout
+      const currentType = this._activeInputElement?.getAttribute('type');
+      if (currentType === 'number') {
+        this._activeInputElement?.setAttribute('type', 'text');
+      }
+      this._textLayoutMode = this.layoutMode;
+      this.layoutMode = 'decimal';
       this.layoutName = 'default';
     } else {
+      this._textLayoutMode = this.layoutMode;
       this.layoutName = 'alphabetic';
     }
 
@@ -246,6 +268,20 @@ export class NgxTouchKeyboardComponent {
     } else if (button === fnButton.DONE) {
       this.closePanel.emit();
       this.detachActiveInput();
+      return;
+    } else if (button === fnButton.LANGUAGE) {
+      this._toggleLanguage();
+      return;
+    } else if (button === fnButton.NUMPAD) {
+      if (!['numeric', 'decimal', 'tel'].includes(this.layoutMode)) {
+        this._textLayoutMode = this.layoutMode;
+      }
+      this.layoutMode = 'decimal';
+      this.layoutName = 'default';
+      return;
+    } else if (button === fnButton.ABC) {
+      this.layoutMode = this._textLayoutMode || 'text';
+      this.layoutName = 'alphabetic';
       return;
     }
 
@@ -344,6 +380,19 @@ export class NgxTouchKeyboardComponent {
      * Remove active class
      */
     this._removeActiveButton();
+  }
+
+  /**
+   * Switch keyboard to the next language
+   */
+  private _toggleLanguage(): void {
+    const index = this._languages.findIndex(
+      (l) => l.code === this.locale.code
+    );
+    this.locale = this._languages[(index + 1) % this._languages.length];
+    if (!this.locale.layouts[this.layoutMode + '_' + this.layoutName]) {
+      this.layoutName = 'alphabetic';
+    }
   }
 
   get current() {

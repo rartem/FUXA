@@ -265,6 +265,7 @@
     "item.inputmode-enabled": "Dialog",
     "item.inputmode-keyboard": "Virtual-Keyboard",
     "item.inputmode-keyboard-full-screen": "Virtual-Keyboard full screen",
+    "item.inputmode-keyboard-numeric": "Virtual-Keyboard numeric by default",
     "chart.config-title": "Charts settings",
     "chart.config-charts": "Charts",
     "chart.config-devices": "Devices",

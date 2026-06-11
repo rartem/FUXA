@@ -199,6 +199,7 @@ export enum InputModeType {
     true = 'item.inputmode-enabled',
     keyboard = 'item.inputmode-keyboard',
     keyboardFullScreen = 'item.inputmode-keyboard-full-screen',
+    keyboardNumeric = 'item.inputmode-keyboard-numeric',
 }
 
 export enum HeaderBarModeType {
