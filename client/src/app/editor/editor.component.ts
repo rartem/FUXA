@@ -130,6 +130,9 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     private destroy$ = new Subject<void>();
     private onboardingWizardHandled = false;
     private onboardingWizardOpened = false;
+    private editorWidgetEventBlockId: string = null;
+    private editorWidgetPointerDownHandler = (ev: Event) => this.onEditorWidgetPointerDown(ev);
+    private editorWidgetClickHandler = (ev: Event) => this.onEditorWidgetClick(ev);
 
     constructor(private projectService: ProjectService,
         private winRef: WindowRef,
@@ -186,6 +189,9 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         this.myInit();
         this.setMode('select');
+        document.addEventListener('pointerdown', this.editorWidgetPointerDownHandler, true);
+        document.addEventListener('mousedown', this.editorWidgetPointerDownHandler, true);
+        document.addEventListener('click', this.editorWidgetClickHandler, true);
         this.settingsService.loaded$.pipe(takeUntil(this.destroy$)).subscribe(loaded => {
             if (loaded) {
                 this.openOnboardingWizardIfNeeded();
@@ -218,6 +224,9 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
         } catch (e) {
             console.error(e);
         }
+        document.removeEventListener('pointerdown', this.editorWidgetPointerDownHandler, true);
+        document.removeEventListener('mousedown', this.editorWidgetPointerDownHandler, true);
+        document.removeEventListener('click', this.editorWidgetClickHandler, true);
         this.onSaveProject();
         this.destroy$.next(null);
         this.destroy$.complete();
@@ -559,6 +568,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
                     }
                     this.winRef.nativeWindow.svgEditor.refreshCanvas();
                     this.checkSvgElementsMap(true);
+                    this.updateEditorWidgetPointerEvents();
                     this.winRef.nativeWindow.svgEditor.resetUndoStack();
                 }, 500);
             } else if (this.isCardsEditMode(this.editorMode) && this.cardsview) {
@@ -696,6 +706,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.checkGaugeInView(this.selectedElement);
             }
         }
+        this.updateEditorWidgetPointerEvents();
         this.checkSvgElementsMap(false);
         if (this.sidePanel.opened) {
             this.sidePanel.toggle();
@@ -707,6 +718,46 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
      * @param args
      */
     private onExtensionLoaded(args) {
+    }
+
+    private updateEditorWidgetPointerEvents() {
+        const selectedId = this.selectedElement?.id;
+        const widgets = Array.from(document.querySelectorAll(`[type^="${HtmlImageComponent.TypeTag}"]`));
+        widgets.forEach((widget: any) => {
+            const widgetContent = Utils.searchTreeStartWith(widget, HtmlImageComponent.prefixD);
+            if (widgetContent) {
+                widgetContent.style.pointerEvents = widget.id === selectedId ? '' : 'none';
+            }
+        });
+    }
+
+    private onEditorWidgetPointerDown(ev: Event) {
+        const widget = this.getEventWidget(ev);
+        if (!widget || widget.id === this.selectedElement?.id) {
+            return;
+        }
+        this.editorWidgetEventBlockId = widget.id;
+        ev.preventDefault();
+        ev.stopImmediatePropagation();
+        this.winRef.nativeWindow.svgEditor.selectOnly([widget], true);
+    }
+
+    private onEditorWidgetClick(ev: Event) {
+        const widget = this.getEventWidget(ev);
+        if (!widget || widget.id !== this.editorWidgetEventBlockId) {
+            return;
+        }
+        this.editorWidgetEventBlockId = null;
+        ev.preventDefault();
+        ev.stopImmediatePropagation();
+    }
+
+    private getEventWidget(ev: Event): any {
+        const target = ev.target as Element;
+        if (!target?.closest) {
+            return null;
+        }
+        return target.closest(`[type^="${HtmlImageComponent.TypeTag}"]`);
     }
 
     /**
@@ -1505,6 +1556,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.saveView(this.currentView);
                 this.gaugesManager.initInEditor(result.settings, this.resolver, this.viewContainerRef, elementWithLanguageText);
                 this.checkSvgElementsMap(true);
+                this.updateEditorWidgetPointerEvents();
             }
         });
     }
@@ -1560,6 +1612,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
             this.setGaugeSettings(settings);
             this.saveView(this.currentView);
             let result_gauge = this.gaugesManager.initInEditor(settings, this.resolver, this.viewContainerRef);
+            this.updateEditorWidgetPointerEvents();
             if (result_gauge?.element && result_gauge.element.id !== settings.id) {
                 // by init a path we need to change the id
                 delete this.currentView.items[settings.id];
@@ -1665,7 +1718,9 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private clearSelection() {
+        this.selectedElement = null;
         this.winRef.nativeWindow.svgEditor.clearSelection();
+        this.updateEditorWidgetPointerEvents();
     }
 
     /**
