@@ -752,7 +752,18 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
         this.editorWidgetEventBlockId = widget.id;
         ev.preventDefault();
         ev.stopImmediatePropagation();
-        this.winRef.nativeWindow.svgEditor.selectOnly([widget], true);
+        this.selectEditorWidget(widget, ev as MouseEvent);
+    }
+
+    private selectEditorWidget(widget: any, ev: MouseEvent) {
+        if (!ev.shiftKey && !ev.ctrlKey && !ev.metaKey) {
+            this.winRef.nativeWindow.svgEditor.selectOnly([widget], true);
+            return;
+        }
+        const selected = this.winRef.nativeWindow.svgEditor.getSelectedElements()
+            .filter(element => element && element !== widget);
+        selected.push(widget);
+        this.winRef.nativeWindow.svgEditor.selectOnly(selected, true);
     }
 
     private onEditorWidgetPointerMove(ev: Event) {
