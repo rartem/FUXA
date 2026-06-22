@@ -131,7 +131,9 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     private onboardingWizardHandled = false;
     private onboardingWizardOpened = false;
     private editorWidgetEventBlockId: string = null;
+    private editorWidgetDragStart: { id: string; x: number; y: number } = null;
     private editorWidgetPointerDownHandler = (ev: Event) => this.onEditorWidgetPointerDown(ev);
+    private editorWidgetPointerMoveHandler = (ev: Event) => this.onEditorWidgetPointerMove(ev);
     private editorWidgetClickHandler = (ev: Event) => this.onEditorWidgetClick(ev);
 
     constructor(private projectService: ProjectService,
@@ -191,6 +193,8 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
         this.setMode('select');
         document.addEventListener('pointerdown', this.editorWidgetPointerDownHandler, true);
         document.addEventListener('mousedown', this.editorWidgetPointerDownHandler, true);
+        document.addEventListener('pointermove', this.editorWidgetPointerMoveHandler, true);
+        document.addEventListener('mousemove', this.editorWidgetPointerMoveHandler, true);
         document.addEventListener('click', this.editorWidgetClickHandler, true);
         this.settingsService.loaded$.pipe(takeUntil(this.destroy$)).subscribe(loaded => {
             if (loaded) {
@@ -226,6 +230,8 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         document.removeEventListener('pointerdown', this.editorWidgetPointerDownHandler, true);
         document.removeEventListener('mousedown', this.editorWidgetPointerDownHandler, true);
+        document.removeEventListener('pointermove', this.editorWidgetPointerMoveHandler, true);
+        document.removeEventListener('mousemove', this.editorWidgetPointerMoveHandler, true);
         document.removeEventListener('click', this.editorWidgetClickHandler, true);
         this.onSaveProject();
         this.destroy$.next(null);
@@ -733,17 +739,37 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
     private onEditorWidgetPointerDown(ev: Event) {
         const widget = this.getEventWidget(ev);
-        if (!widget || widget.id === this.selectedElement?.id) {
+        if (!widget) {
+            this.editorWidgetDragStart = null;
             return;
         }
+        if (widget.id === this.selectedElement?.id) {
+            const pointerEvent = ev as MouseEvent;
+            this.editorWidgetDragStart = { id: widget.id, x: pointerEvent.clientX, y: pointerEvent.clientY };
+            return;
+        }
+        this.editorWidgetDragStart = null;
         this.editorWidgetEventBlockId = widget.id;
         ev.preventDefault();
         ev.stopImmediatePropagation();
         this.winRef.nativeWindow.svgEditor.selectOnly([widget], true);
     }
 
+    private onEditorWidgetPointerMove(ev: Event) {
+        if (!this.editorWidgetDragStart) {
+            return;
+        }
+        const pointerEvent = ev as MouseEvent;
+        const dx = Math.abs(pointerEvent.clientX - this.editorWidgetDragStart.x);
+        const dy = Math.abs(pointerEvent.clientY - this.editorWidgetDragStart.y);
+        if (dx > 3 || dy > 3) {
+            this.editorWidgetEventBlockId = this.editorWidgetDragStart.id;
+        }
+    }
+
     private onEditorWidgetClick(ev: Event) {
         const widget = this.getEventWidget(ev);
+        this.editorWidgetDragStart = null;
         if (!widget || widget.id !== this.editorWidgetEventBlockId) {
             return;
         }
