@@ -11,6 +11,14 @@ const fontkit = require('fontkit');
 const os = require('os');
 const { resolveWithin } = require('../path-helper');
 
+function getSvgDescription(filePath) {
+    const content = fs.readFileSync(filePath, 'utf8');
+    const descMatch = content.match(/<desc[^>]*>([\s\S]*?)<\/desc>/i);
+    const titleMatch = content.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+    const value = descMatch ? descMatch[1] : titleMatch ? titleMatch[1] : null;
+    return value ? value.replace(/<[^>]+>/g, '').trim() : null;
+}
+
 var runtime;
 var secureFnc;
 var checkGroupsFnc;
@@ -317,9 +325,11 @@ module.exports = {
                         var files = getFilesRecursive(dirPath, ['.svg']);
                         for (var x = 0; x < files.length; x++) {
                             var filename = files[x];
+                            var description = getSvgDescription(path.join(dirPath, files[x]));
                             group.items.push({
                                 path: path.join(wwwSubDir, files[x]).split(path.sep).join(path.posix.sep),
-                                name: filename
+                                name: filename,
+                                description: description
                             });
                         }
                         result.groups.push(group);

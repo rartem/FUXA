@@ -18,8 +18,9 @@
                  (click)="onSelect(widget.path)"
                  class="lib-widget-item"
                  [class.selected]="selectedWidgetPath === widget.path"
-                 matTooltip="{{widget.name}}">
+                 matTooltip="{{getWidgetLabel(widget)}}">
                 <img src="{{rootPath}}/{{widget.path}}" id="{{widget.path}}">
+                <div class="lib-widget-label">{{getWidgetLabel(widget)}}</div>
                 <mat-icon aria-label="More"
                           [matMenuTriggerFor]="menuview">
                     more_vert

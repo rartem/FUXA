@@ -18,6 +18,7 @@ export class ResourceGroup {
 export class ResourceItem {
     name?: string;
     label?: string;
+    description?: string;
     path: string;
 }
 

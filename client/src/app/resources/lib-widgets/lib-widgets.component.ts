@@ -49,6 +49,10 @@ export class LibWidgetsComponent implements OnInit, OnDestroy {
         this.libWidgetService.widgetSelected(`${this.rootPath}/${widgetPath}`);
     }
 
+    getWidgetLabel(widget: ResourceItem): string {
+        return widget.description || widget.name;
+    }
+
     clearSelection() {
         this.selectedWidgetPath = null;
     }

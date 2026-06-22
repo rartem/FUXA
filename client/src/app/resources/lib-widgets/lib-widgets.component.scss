@@ -26,16 +26,31 @@
     }
 
     .lib-widget-item {
+        box-sizing: border-box;
         display: inline-block;
-        padding: 3px 3px 3px 3px;
+        padding: 3px 1px 18px 1px;
         margin: 2px 2px 2px 2px;
         position: relative;
+        width: 87px;
+        vertical-align: top;
 
         img {
             width: 85px;
             height: 85px;
             min-width: 50px;
             cursor: pointer;
+        }
+
+        .lib-widget-label {
+            color: var(--toolboxColor);
+            cursor: pointer;
+            font-size: 10px;
+            line-height: 12px;
+            max-width: 85px;
+            overflow: hidden;
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         mat-icon {
